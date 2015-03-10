@@ -7,11 +7,17 @@
 </head>
 <body>
 
-<nav>
-<div id="disciplines">
-<div class="button"><img src="icons/add.svg" />New discipline</div>
-</div>
+<nav id="mainnav">
+<span id="current-tournament"></span> <span class="button" title="Open tournament"><img src="icons/tournament.svg" /></span>
 </nav>
+
+<nav id="disciplines">
+<span class="button"><img src="icons/add.svg" />New discipline</span>
+</nav>
+
+<div id="content">
+<div id="no-tournament-error" class="bgerror clickable">No tournament selected. Click to select one.</div>
+</div>
 
 <script src="bmtmgr.js"></script>
 </body>
