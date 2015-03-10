@@ -1,0 +1,10 @@
+sqlite
+add disciplines
+add players
+export to XLSX
+export to HTML
+Freimeldungen
+export costs
+sync to db (php)
+sync exports to local fs (php)
+sync exports to remote fs via upload (php)
