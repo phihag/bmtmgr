@@ -8,11 +8,13 @@
 <body>
 
 <nav id="mainnav">
-<span id="current-tournament-name"></span> <span class="button" id="btn-select-tournament" title="Select tournament"><img title="Select tournament" src="icons/tournament.svg" /></span>
+<span id="current-tournament-name"></span> <button id="btn-select-tournament" title="Select tournament"><img title="Select tournament" src="icons/tournament.svg" /></button>
 </nav>
 
 <nav id="disciplines">
-<span class="button"><img src="icons/add.svg" />New discipline</span>
+    <div id="disciplines_list"></div>
+<button id="btn-new-discipline"><img src="icons/add.svg" />New discipline</button>
+<div id="disciplines_disabled"></div>
 </nav>
 
 <div id="content">
