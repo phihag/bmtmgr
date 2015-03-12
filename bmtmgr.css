@@ -62,3 +62,18 @@ nav {
     width: 1em;
     padding-right: 3px;
 }
+
+
+dialog {
+    border: 1px solid rgba(0, 0, 0, 1);
+    border-radius: 5px;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+}
+dialog::backdrop {
+    background: rgba(96, 96, 96, 0.9);
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+}
+
