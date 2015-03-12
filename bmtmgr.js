@@ -33,8 +33,8 @@ function switch_tournament(new_name) {
     write_state();
     var name_field = document.getElementById("current-tournament-name");
     _set_text(name_field, new_name);
+    ui_render_discipline_bar();
     if (tournament.disciplines) {
-        ui_render_discipline_bar();
         var dkeys = Object.keys(tournament.disciplines).sort();
         if (dkeys.length > 0) {
             switch_discipline(dkeys[0]);
@@ -150,6 +150,9 @@ function ui_render_discipline_bar() {
         disciplines.removeChild(disciplines.firstChild);
     }
 
+    if (! tournament.disciplines) {
+        return;
+    }
     var dnames = Object.keys(tournament.disciplines);
     dnames.sort();
     dnames.forEach(function (dname) {
@@ -171,7 +174,8 @@ function ui_create_tournament(onsuccess) {
         return;
     }
     tournaments[name] = {
-        name: name
+        name: name,
+        disciplines: {}
     };
     switch_tournament(name);
     return true;
