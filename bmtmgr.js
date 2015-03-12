@@ -34,23 +34,17 @@ function switch_tournament(new_name) {
     var name_field = document.getElementById("current-tournament-name");
     _set_text(name_field, new_name);
     ui_render_discipline_bar();
-    if (tournament.disciplines) {
-        var dkeys = Object.keys(tournament.disciplines).sort();
-        if (dkeys.length > 0) {
-            switch_discipline(dkeys[0]);
-        }
-    }
+    switch_discipline("all-players");
 }
 
 function switch_discipline(dname) {
-    var active_btn = document.getElementById("disciplines_list_active_button");
-    if (active_btn) {
-        active_btn.setAttribute("id", "");
-    }
+    _querySelectorAll(document, ".disciplines_list_active_button").forEach(function(btn) {
+        btn.setAttribute("class", "");
+    });
     
-    _querySelectorAll(document, "#disciplines_list>*").forEach(function (dbutton) {
-            if (dbutton.getAttribute("data-discipline-name") == dname) {
-            dbutton.setAttribute("id", "disciplines_list_active_button");
+    _querySelectorAll(document, "#all-players,#disciplines_list>*").forEach(function (dbutton) {
+        if (dbutton.getAttribute("data-discipline-name") == dname) {
+            dbutton.setAttribute("class", "disciplines_list_active_button");
         }
     });
     discipline = dname;
@@ -142,6 +136,11 @@ function ui_button(label, handler, icon) {
     return btn;
 }
 
+function ui_select_discipline_event(e) {
+    var dname = e.target.getAttribute("data-discipline-name");
+    switch_discipline(dname);
+}
+
 function ui_render_discipline_bar() {
     var disciplines = document.getElementById("disciplines_list");
 
@@ -156,9 +155,7 @@ function ui_render_discipline_bar() {
     var dnames = Object.keys(tournament.disciplines);
     dnames.sort();
     dnames.forEach(function (dname) {
-        var btn = ui_button(dname, function() {
-            switch_discipline(dname);
-        });
+        var btn = ui_button(dname, ui_select_discipline_event);
         btn.setAttribute("data-discipline-name", dname);
         disciplines.appendChild(btn);
     });
@@ -223,7 +220,6 @@ function ui_new_discipline() {
             dtype: values.dtype,
             teams: []
         };
-        console.log(tournaments);
         write_state();
         ui_render_discipline_bar();
         switch_discipline(values.name);
@@ -285,7 +281,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("no-tournament-error").addEventListener('click', ui_select_tournament);
     document.getElementById("btn-select-tournament").addEventListener('click', ui_select_tournament);
     document.getElementById("btn-new-discipline").addEventListener('click', ui_new_discipline);
-
+    document.getElementById("all-players").addEventListener('click', ui_select_discipline_event);
     init();
 
     if (! tournament) {

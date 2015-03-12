@@ -22,12 +22,12 @@ nav {
     top: 51px;
     background: #fcfcfc;
 }
-#disciplines_list>* {
+#disciplines_list>*, #all-players {
     margin-right: 8px;
     padding-left: 8px;
     padding-right: 8px;
 }
-#disciplines_list_active_button {
+.disciplines_list_active_button {
     font-style: italic;
 }
 #disciplines_list>*:last-child {
