@@ -68,6 +68,14 @@ function init() {
     }
 }
 
+function _set_radio(form, name, new_value) {
+    _querySelectorAll(form, 'input[type=radio]').forEach(function(inp) {
+        if (inp.getAttribute("name") == name) {
+            inp.checked = new_value == inp.getAttribute("value");
+        }
+    });
+}
+
 function _querySelectorAll(node, q) {
     var lst = node.querySelectorAll(q);
     var res = []
@@ -223,6 +231,29 @@ function ui_new_discipline() {
     name_input.setAttribute("placeholder", "MX U19");
     name_input.setAttribute("required", "required");
     name_input.setAttribute("name", "name");
+    function guess_type() {
+        const NAME_TABLE = {
+            "MX": "doubles",
+            "GD": "doubles",
+            "HD": "doubles",
+            "JD": "doubles",
+            "DD": "doubles",
+            "WD": "doubles",
+            "HE": "singles",
+            "JE": "singles",
+            "MS": "singles",
+            "DE": "singles",
+            "ME": "singles",
+            "WS": "singles"
+        };
+        Object.keys(NAME_TABLE).forEach(function(k) {
+            if (name_input.value.indexOf(k) > -1) {
+                _set_radio(form, "dtype", NAME_TABLE[k]);
+            }
+        });
+    }
+    name_input.addEventListener("change", guess_type);
+    name_input.addEventListener("keyup", guess_type);
     name_label.appendChild(name_input);
     form.appendChild(name_label);
     name_input.focus();
