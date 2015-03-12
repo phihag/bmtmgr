@@ -1,16 +1,49 @@
 "use strict";
 (function() {
-var db;
 var body;
+var tournaments = {};
 
 // current state
-var tournament_id;
-var tournament_name;
+var tournament = undefined;
 
 
 
 function error(msg) {
     alert(msg);
+}
+
+function write_state() {
+    window.localStorage.setItem("tournaments", JSON.stringify(tournaments));
+    if (tournament) {
+        window.localStorage.setItem("current_tournament", tournament.name);
+    }
+}
+
+function _set_text(node, text) {
+    while (node.firstChild) {
+        node.removeChild(node.firstChild);
+    }
+    node.appendChild(document.createTextNode(text));
+}
+
+function switch_tournament(new_name) {
+    tournament = tournaments[new_name];
+    document.getElementById("no-tournament-error").style.display = "none";
+    write_state();
+    var name_field = document.getElementById("current-tournament-name");
+    _set_text(name_field, new_name);
+}
+
+
+function init() {
+    var tournaments_json = window.localStorage.getItem("tournaments");
+    if (tournaments_json) {
+        tournaments = JSON.parse(tournaments_json);
+        var cur = window.localStorage.getItem("current_tournament");
+        if (cur) {
+            switch_tournament(cur);
+        }
+    }
 }
 
 
@@ -38,70 +71,61 @@ function ui_button(label, handler, icon) {
 }
 
 
-function db_error() {
-    error("Database operation failed");
-}
-
-
-function create_tournament(onsuccess) {
+function ui_create_tournament(onsuccess) {
     var name = window.prompt("Tournament name");
     if (! name) {
         return;
     }
-    var transaction = db.transaction(["tournaments"], "readwrite");
-    var tournaments = transaction.objectStore("tournaments");
-    transaction.onerror = db_error;
-    transaction.oncomplete(event) {
-        tournaments.add({"name": name});
-        callback();
+    if (name in tournaments) {
+        error("tournament \"" + name + "\" already exists!");
+        return;
     }
+    tournaments[name] = {
+        name: name
+    };
+    switch_tournament(name);
+    return true;
 }
 
-function select_tournament() {
-    var d = ui_dialog("select_tournament");
+function ui_select_tournament() {
+    var d = ui_dialog("dlg_select_tournament");
     var list = document.createElement("ul");
-    // TODO list existing tournaments
+    if (tournaments) {
+        for (var tname in tournaments) {
+            var li = document.createElement("li");
+            li.appendChild(document.createTextNode(tname));
+            li.setAttribute("data-tournament-name", tname);
+            var css_classes = "clickable";
+            if (tournament && (tname == tournament.name)) {
+                css_classes += " dlg_select_tournament_current";
+            }
+            li.setAttribute("class", css_classes);
+            li.addEventListener('click', function(e) {
+                var name = e.target.getAttribute("data-tournament-name");
+                switch_tournament(name);
+                d.close();
+            });
+            list.appendChild(li);
+        }
+    }
     d.appendChild(list);
 
     d.appendChild(
-        ui_button("Create a new tournament", create_tournament, "add")
+        ui_button("Create a new tournament", function() {
+            if (ui_create_tournament()) {
+                d.close();
+            }
+        }, "add")
     );
 }
 
 
-function init_db(db) {
-    var objectStores = [
-        {name: "tournaments", autoIncrement: true},
-        {name: "players", keyPath: ["tournament_id", "id"]},
-        {name: "disciplines", keyPath: ["tournament_id", "name"]}
-    ];
-    objectStores.forEach(function(os) {
-        var req = db.createObjectStore(os.name, os);
-        req.onerror = function() {
-            error("Failed to initialize database");
-        };
-    });
-}
-
-
-function main() {
-    var request = indexedDB.open("tournaments", 2);
-    request.onerror = function(event) {
-        error("Cannot open database; browser without IndexedDB support?");
-    };
-    request.onupgradeneeded = function(event) {
-        init_db(event.target.result);
-    };
-    request.onsuccess = function(event) {
-        db = event.target.result;
-    };
-}
-
 document.addEventListener("DOMContentLoaded", function() {
     body = document.getElementsByTagName("body")[0];
-    document.getElementById("no-tournament-error").addEventListener('click', select_tournament);
-    document.getElementById("btn-select-tournament").addEventListener('click', select_tournament);
-    main();
+    document.getElementById("no-tournament-error").addEventListener('click', ui_select_tournament);
+    document.getElementById("btn-select-tournament").addEventListener('click', ui_select_tournament);
+
+    init();
 });
 
 })();

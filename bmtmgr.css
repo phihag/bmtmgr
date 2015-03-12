@@ -26,6 +26,10 @@ nav {
     margin-top: 102px;
     padding: 10px 10px 10px 10px;
 }
+#current-tournament-name {
+    font-family: serif;
+    margin-right: 15px;
+}
 
 .bgerror {
     position: absolute;
@@ -70,6 +74,7 @@ dialog {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
+    text-align: center;
 }
 dialog::backdrop {
     background: rgba(96, 96, 96, 0.9);
@@ -77,3 +82,16 @@ dialog::backdrop {
     top: 0; left: 0; right: 0; bottom: 0;
 }
 
+.dlg_select_tournament ul {
+    padding: 0;
+    list-style: none;
+}
+.dlg_select_tournament ul li {
+    padding: 10px 20px 10px 20px;
+}
+.dlg_select_tournament ul li:hover {
+    background: #ddd;
+}
+.dlg_select_tournament_current {
+    font-style: italic;
+}
