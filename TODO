@@ -1,4 +1,3 @@
-All players
 add player
 edit players
 
@@ -9,3 +8,5 @@ export costs
 sync to db (php)
 sync exports to local fs (php)
 sync exports to remote fs via upload (php)
+
+rewrite discipline UI - make one screen to add new disciplines, when clicking on tournament name
