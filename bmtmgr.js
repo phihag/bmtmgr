@@ -1,6 +1,5 @@
 "use strict";
 (function() {
-var body;
 var tournaments = {};
 
 // current state
@@ -19,37 +18,31 @@ function write_state() {
     }
 }
 
-function _set_text(node, text) {
-    while (node.firstChild) {
-        node.removeChild(node.firstChild);
-    }
-    node.appendChild(document.createTextNode(text));
-}
-
 function switch_tournament(new_name) {
     tournament = tournaments[new_name];
     document.getElementById("no-tournament-error").style.display = "none";
     document.getElementById("disciplines_disabled").style.display = "none";
     write_state();
     var name_field = document.getElementById("current-tournament-name");
-    _set_text(name_field, new_name);
+    _ui_set_text(name_field, new_name);
     ui_render_discipline_bar();
     switch_discipline("all-players");
 }
 
 function switch_discipline(dname) {
-    _querySelectorAll(document, ".disciplines_list_active_button").forEach(function(btn) {
+    _ui_querySelectorAll(document, ".disciplines_list_active_button").forEach(function(btn) {
         btn.setAttribute("class", "");
     });
     
-    _querySelectorAll(document, "#all-players,#disciplines_list>*").forEach(function (dbutton) {
+    _ui_querySelectorAll(document, "#all-players,#disciplines_list>*").forEach(function (dbutton) {
         if (dbutton.getAttribute("data-discipline-name") == dname) {
             dbutton.setAttribute("class", "disciplines_list_active_button");
         }
     });
     discipline = dname;
-    alert("TODO: switch discipline to " + dname);
+    // TODO actually switch more of the UI here
 }
+
 
 function init() {
     var tournaments_json = window.localStorage.getItem("tournaments");
@@ -60,80 +53,6 @@ function init() {
             switch_tournament(cur);
         }
     }
-}
-
-function _set_radio(form, name, new_value) {
-    _querySelectorAll(form, 'input[type=radio]').forEach(function(inp) {
-        if (inp.getAttribute("name") == name) {
-            inp.checked = new_value == inp.getAttribute("value");
-        }
-    });
-}
-
-function _querySelectorAll(node, q) {
-    var lst = node.querySelectorAll(q);
-    var res = []
-    for (var i = 0;i < lst.length;i++) {
-        res.push(lst[i]);
-    }
-    return res;
-}
-
-function ui_dialog(css_class) {
-    var dlg = document.createElement("dialog");
-    dlg.setAttribute("class", css_class);
-    // TODO close button
-    body.appendChild(dlg);
-    dlg.showModal();
-    dlg.addEventListener('close', function() {
-        dlg.parentNode.removeChild(dlg);
-    });
-    return dlg;
-}
-
-function ui_dialog_form(submit_label, submit_func, css_class) {
-    var dlg = ui_dialog(css_class);
-    var form = document.createElement("form");
-    var userspace = document.createElement("div")
-    userspace.setAttribute("class", "dlg_form_userspace");
-    form.appendChild(userspace);
-    var submit_btn = document.createElement("input");
-    submit_btn.setAttribute("type", "submit");
-    submit_btn.setAttribute("value", submit_label);
-    form.appendChild(submit_btn);
-    form.addEventListener("submit", function(e) {
-        e.preventDefault();
-        try {
-            var values = {};
-            _querySelectorAll(form, 'input,textarea').forEach(function(inp) {
-                if (inp.name) {
-                    values[inp.name] = inp.value;
-                }
-            });
-            submit_func(values);
-            dlg.close();
-        } catch (e) {
-            console.error("error on form submission", e);
-        }
-        return false;
-    });
-    dlg.appendChild(form);
-
-    return userspace;
-}
-
-function ui_button(label, handler, icon) {
-    var btn = document.createElement("button");
-    btn.setAttribute("tabindex", "0");
-    if (icon) {
-        var img = document.createElement("img");
-        img.setAttribute("src", "icons/" + icon + ".svg");
-        img.setAttribute("title", label);
-        btn.appendChild(img);
-    }
-    btn.addEventListener("click", handler);
-    btn.appendChild(document.createTextNode(label));
-    return btn;
 }
 
 function ui_select_discipline_event(e) {
@@ -155,7 +74,7 @@ function ui_render_discipline_bar() {
     var dnames = Object.keys(tournament.disciplines);
     dnames.sort();
     dnames.forEach(function (dname) {
-        var btn = ui_button(dname, ui_select_discipline_event);
+        var btn = _ui_button(dname, ui_select_discipline_event);
         btn.setAttribute("data-discipline-name", dname);
         disciplines.appendChild(btn);
     });
@@ -179,7 +98,7 @@ function ui_create_tournament(onsuccess) {
 }
 
 function ui_select_tournament() {
-    var d = ui_dialog("dlg_select_tournament");
+    var d = _ui_dialog("dlg_select_tournament");
     var list = document.createElement("ul");
     if (tournaments) {
         for (var tname in tournaments) {
@@ -191,7 +110,7 @@ function ui_select_tournament() {
                 css_classes += " dlg_select_tournament_current";
             }
             li.setAttribute("class", css_classes);
-            li.addEventListener('click', function(e) {
+            li.addEventListener("click", function(e) {
                 var name = e.target.getAttribute("data-tournament-name");
                 switch_tournament(name);
                 d.close();
@@ -202,7 +121,7 @@ function ui_select_tournament() {
     d.appendChild(list);
 
     d.appendChild(
-        ui_button("Create a new tournament", function() {
+        _ui_button("Create a new tournament", function() {
             if (ui_create_tournament()) {
                 d.close();
             }
@@ -211,7 +130,7 @@ function ui_select_tournament() {
 }
 
 function ui_new_discipline() {
-    var form = ui_dialog_form("Create discipline", function (values) {
+    var form = _ui_dialog_form("Create discipline", function (values) {
         if (! tournament.disciplines) {
             tournament.disciplines = {};
         }
@@ -233,22 +152,22 @@ function ui_new_discipline() {
     name_input.setAttribute("name", "name");
     function guess_type() {
         const NAME_TABLE = {
-            "MX": "doubles",
-            "GD": "doubles",
-            "HD": "doubles",
-            "JD": "doubles",
-            "DD": "doubles",
-            "WD": "doubles",
-            "HE": "singles",
-            "JE": "singles",
-            "MS": "singles",
-            "DE": "singles",
-            "ME": "singles",
-            "WS": "singles"
+            "MX": "MX",
+            "GD": "MX",
+            "HD": "MD",
+            "JD": "MD",
+            "DD": "DD",
+            "WD": "WD",
+            "HE": "MS",
+            "JE": "MS",
+            "MS": "MS",
+            "DE": "WS",
+            "ME": "WS",
+            "WS": "WS"
         };
         Object.keys(NAME_TABLE).forEach(function(k) {
             if (name_input.value.indexOf(k) > -1) {
-                _set_radio(form, "dtype", NAME_TABLE[k]);
+                _ui_set_radio(form, "dtype", NAME_TABLE[k]);
             }
         });
     }
@@ -258,30 +177,49 @@ function ui_new_discipline() {
     form.appendChild(name_label);
     name_input.focus();
 
-    var dtype_div = document.createElement("div");
-    dtype_div.setAttribute("class", "dlg_radio_group");
-    ["singles", "doubles"].forEach(function (dtype) {
-        var dtype_label = document.createElement("label");
-        var dtype_input = document.createElement("input");
-        dtype_input.setAttribute("class", "discipline_type");
-        dtype_input.setAttribute("name", "dtype");
-        dtype_input.setAttribute("type", "radio");
-        dtype_input.setAttribute("required", "required");
-        dtype_input.setAttribute("value", dtype);
-        dtype_label.appendChild(dtype_input);
-        dtype_label.appendChild(document.createTextNode(dtype));
-        dtype_div.appendChild(dtype_label);
+    form.appendChild(_ui_radio_group(
+        "dtype", ["MS", "WS", "MD", "WD", "MX"], {"required": "required"}));
+}
+
+function ui_add_player() {
+    var f = _ui_dialog_form("Add player", function(values) {
+        alert("Would add player now (" + JSON.stringify(values));
     });
-    form.appendChild(dtype_div);
+    
+    var name = document.createElement("div");
+    var firstname = document.createElement("input");
+    firstname.setAttribute("name", "firstname");
+    firstname.setAttribute("placeholder", "First name");
+    firstname.setAttribute("required", "required");
+    name.appendChild(firstname);
+    name.appendChild(document.createTextNode(" "));
+    var surname = document.createElement("input");
+    surname.setAttribute("name", "surname");
+    surname.setAttribute("placeholder", "surname");
+    surname.setAttribute("required", "required");
+    name.appendChild(surname);
+    f.appendChild(name);
+
+    var email_label = document.createElement("label");
+    email_label.appendChild(document.createTextNode("E-Mail: "));
+    var email = document.createElement("input");
+    email.setAttribute("type", "email");
+    email.setAttribute("name", "email");
+    email.setAttribute("placeholder", "email address (optional)");
+    email.setAttribute("size", "38");
+    email_label.appendChild(email);
+    f.appendChild(email_label);
 }
 
 
+
 document.addEventListener("DOMContentLoaded", function() {
-    body = document.getElementsByTagName("body")[0];
-    document.getElementById("no-tournament-error").addEventListener('click', ui_select_tournament);
-    document.getElementById("btn-select-tournament").addEventListener('click', ui_select_tournament);
-    document.getElementById("btn-new-discipline").addEventListener('click', ui_new_discipline);
-    document.getElementById("all-players").addEventListener('click', ui_select_discipline_event);
+    document.getElementById("no-tournament-error").addEventListener("click", ui_select_tournament);
+    document.getElementById("btn-select-tournament").addEventListener("click", ui_select_tournament);
+    document.getElementById("btn-new-discipline").addEventListener("click", ui_new_discipline);
+    document.getElementById("all-players").addEventListener("click", ui_select_discipline_event);
+    document.getElementById("btn-add-player").addEventListener("click", ui_add_player);
+    Mousetrap.bind("ins", ui_add_player);
     init();
 
     if (! tournament) {

@@ -8,7 +8,9 @@
 <body>
 
 <nav id="mainnav">
-<span id="current-tournament-name"></span> <button id="btn-select-tournament" title="Select tournament"><img title="Select tournament" src="icons/tournament.svg" /></button>
+<span id="current-tournament-name"></span>
+<button id="btn-select-tournament" title="Select tournament"><img title="Select tournament" src="icons/tournament.svg" /></button>
+<button id="btn-add-player" title="Add player"><img title="Add player" src="icons/add-player.svg" /></button>
 </nav>
 
 <nav id="disciplines">
@@ -22,6 +24,9 @@
 <div id="no-tournament-error" class="bgerror clickable">No tournament selected. Click to select one.</div>
 </div>
 
+<script src="lib/mousetrap.min.js"></script>
+<script src="uihelpers.js"></script>
 <script src="bmtmgr.js"></script>
+
 </body>
 </html>

@@ -1,4 +1,8 @@
 add player
+	suggest player ID (by turnier.de)
+	improve discipline selector (left - right)
+
+show all players
 edit players
 
 export to XLSX
@@ -10,3 +14,6 @@ sync exports to local fs (php)
 sync exports to remote fs via upload (php)
 
 rewrite discipline UI - make one screen to add new disciplines, when clicking on tournament name
+input by player ID
+online-Meldungen
+extend disciplines by gender
