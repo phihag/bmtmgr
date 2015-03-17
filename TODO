@@ -1,6 +1,7 @@
 * Login via email address
    short-term token for email (provide resend opportunity if twice)
    long-term token for club, stored in cookie
+
 * Add table for players per club
 * Helper script to sync players for club from turnier.de
 * Add tournaments, include disciplines (and discipline conflicts)
