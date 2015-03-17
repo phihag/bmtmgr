@@ -1,6 +1,6 @@
 * Login via email address
-   short-term token for email (provide resend opportunity if twice)
-   long-term token for club, stored in cookie
+   short-term token for email (expires after two days)
+   long-term token for user, stored in cookie
 
 * Add table for players per club
 * Helper script to sync players for club from turnier.de
@@ -28,3 +28,4 @@ rewrite discipline UI - make one screen to add new disciplines, when clicking on
 input by player ID
 online-Meldungen
 extend disciplines by gender
+show login and tournaments on frontpage

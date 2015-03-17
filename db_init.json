@@ -1,18 +1,28 @@
 [
 	"DROP TABLE IF exists db_version",
 	"CREATE TABLE db_version (version INT);",
-	"INSERT INTO db_version (version) VALUES (1);",
+	"INSERT INTO db_version (version) VALUES (2);",
 
 	"CREATE TABLE user (
 		id TEXT(50) PRIMARY KEY,
 		email TEXT UNIQUE,
-		name TEXT
+		name TEXT,
+		permissions_json TEXT
 	);",
-	"CREATE INDEX email_index ON user.email;",
-	"INSERT INTO user "
-
+	"CREATE INDEX IF NOT EXISTS email_index ON user(email);",
+	"INSERT INTO user (id, email, name) VALUES ('admin', 'turniere@aufschlagwechsel.de', '[\"admin\"]');",
 
 	"CREATE TABLE login_email_token (
-
-	)",
+		token TEXT PRIMARY_KEY,
+		user_id TEXT,
+		expiry BIGINT,
+		FOREIGN KEY(user_id) REFERENCES user(id)
+	);",
+	"CREATE TABLE user_token (
+		token TEXT PRIMARY_KEY,
+		user_id TEXT,
+		expiry BIGINT,
+		metadata_json TEXT,
+		FOREIGN KEY(user_id) REFERENCES user(id)
+	);"
 ]
