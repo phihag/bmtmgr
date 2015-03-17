@@ -1,2 +1,4 @@
 *.js
-
+mustache.php
+jquery-ui
+jquery-ui-*
