@@ -1,6 +1,17 @@
-add player
-	suggest player ID (by turnier.de)
-	improve discipline selector (left - right)
+* Login via email address
+   short-term token for email (provide resend opportunity if twice)
+   long-term token for club, stored in cookie
+* Add table for players per club
+* Helper script to sync players for club from turnier.de
+* Add tournaments, include disciplines (and discipline conflicts)
+* Allow registration
+	suggest all players via JS
+	search by player ID or name
+* List of tournament organizer accounts per tournament
+* Show all registrations to tournament organizer accounts
+* Export to xlsx
+
+* Make a test account for Miles
 
 show all players
 edit players
@@ -9,7 +20,6 @@ export to XLSX
 export to HTML
 Freimeldungen
 export costs
-sync to db (php)
 sync exports to local fs (php)
 sync exports to remote fs via upload (php)
 

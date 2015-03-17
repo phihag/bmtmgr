@@ -1,0 +1,9 @@
+<Files "config.json">
+Order Allow,Deny
+Deny from all
+</Files>
+
+<Files "*.sqlite">
+Order Allow,Deny
+Deny from all
+</Files>

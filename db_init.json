@@ -1,0 +1,18 @@
+[
+	"DROP TABLE IF exists db_version",
+	"CREATE TABLE db_version (version INT);",
+	"INSERT INTO db_version (version) VALUES (1);",
+
+	"CREATE TABLE user (
+		id TEXT(50) PRIMARY KEY,
+		email TEXT UNIQUE,
+		name TEXT
+	);",
+	"CREATE INDEX email_index ON user.email;",
+	"INSERT INTO user "
+
+
+	"CREATE TABLE login_email_token (
+
+	)",
+]
