@@ -7,3 +7,10 @@ Deny from all
 Order Allow,Deny
 Deny from all
 </Files>
+
+RewriteEngine On
+RewriteRule ^allclubs\.json$ controllers/allclubs.php [L]
+RewriteRule ^$ controllers/root.php [L]
+RewriteRule ^request_token$ controllers/request_token.php [L]
+
+

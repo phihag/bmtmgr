@@ -1,12 +1,12 @@
 <?php
 
-define('DB_NEWEST_VERSION', 2);
+define('DB_NEWEST_VERSION', 4);
 
 function db_init($config, $db) {
 	if (! $config['allow_init']) {
 		throw new Exception('Initialization code triggered, but disabled.');
 	}
-	$inits = json_decode(file_get_contents('db_init.json'), true);
+	$inits = explode(';', file_get_contents(dirname(__DIR__) . '/db_init.sql'));
 	if (!$inits) {
 		throw new Exception("Invalid init JSON");
 	}
@@ -24,8 +24,11 @@ function db_init($config, $db) {
 }
 
 function db_connect($config) {
-	$db = new PDO($config['db_dsn']);
+	$dsn = str_replace('$ROOTDIR', dirname(__DIR__), $config['db_dsn']);
+	$db = new PDO($dsn);
+
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
 	// Do we need to initialize?
 	try {

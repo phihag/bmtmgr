@@ -2,16 +2,17 @@
 <html>
 <head>
 <meta encoding="utf-8" />
-<title>{{title}}- Badminton-Turnier-Manager</title>
-<link rel="stylesheet" type="text/css" href="static/bmtmgr.css">
+<title>{{title}} - Badminton-Turnier-Manager</title>
+<link rel="stylesheet" type="text/css" href="{{root_path}}static/bmtmgr.css">
 </head>
-<body>
+<body data-root-path="{{root_path}}">
 
 {{{content}}}
 
-<script src="libs/mousetrap.min.js"></script>
-<script src="libs/jquery.min.js"></script>
-<script src="static/bmtmgr.min.js"></script>
+<script src="{{root_path}}libs/mousetrap.min.js"></script>
+<script src="{{root_path}}libs/jquery.min.js"></script>
+<script src="{{root_path}}libs/jquery-ui/jquery-ui.min.js"></script>
+<script src="{{root_path}}static/bmtmgr.js"></script>
 
 </body>
 </html>

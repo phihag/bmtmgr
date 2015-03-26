@@ -2,7 +2,7 @@
 	"allow_init": true,
 	"debug_mail": true,
 
-	"db_dsn": "sqlite:bmcreg.sqlite",
+	"db_dsn": "sqlite:$ROOTDIR/bmcreg.sqlite",
 	"mail_from": "bmcreg@aufschlagwechsel.de",
 	"tournament_url": "http://turnier.de/"
 }
