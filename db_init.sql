@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS db_version;
 CREATE TABLE db_version (version INT);
-INSERT INTO db_version (version) VALUES (5);
+INSERT INTO db_version (version) VALUES (7);
 
 DROP TABLE IF EXISTS USER;
 CREATE TABLE user (
@@ -16,7 +16,9 @@ DROP TABLE IF EXISTS login_email_token;
 CREATE TABLE login_email_token (
 		token TEXT PRIMARY_KEY,
 		user_id TEXT,
-		expiry BIGINT,
+		request_time BIGINT,
+		expiry_time BIGINT,
+		metadata_json TEXT,
 		FOREIGN KEY(user_id) REFERENCES user(id)
 	);
 DROP TABLE IF EXISTS login_user_token;

@@ -1,6 +1,6 @@
 <?php
 
-$config = json_decode(file_get_contents('server_config.json'), true);
+TODO: actually use our config
 
 $search_url = $config['tournament_server'] . '/find.aspx?a=2&id=2';
 $data = array(

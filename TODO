@@ -2,7 +2,6 @@
 * Login via email address
     short-term token for email (expires after two days)
     long-term token for user, stored in cookie
-* import / check autocompletion
 
 * Add table for players per club
 * Helper script to sync players for club from turnier.de
@@ -20,16 +19,19 @@ show all players
 edit players
 
 import clubs (http://www.blv-nrw.de/blvdb/fb/blv_club_kontakte.php?id=2)
+
+CAPTCHA if last email request within 1 day
 export to XLSX
 export to HTML
 Freimeldungen
 export costs
 sync exports to local fs (php)
 sync exports to remote fs via upload (php)
-
+better autocompletion style
 
 rewrite discipline UI - make one screen to add new disciplines, when clicking on tournament name
 input by player ID
 online-Meldungen
 extend disciplines by gender
 show login and tournaments on frontpage
+handle token clicking when already logged in

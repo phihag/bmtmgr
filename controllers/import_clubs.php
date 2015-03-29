@@ -6,5 +6,5 @@ if (! $config['allow_init']) {
 }
 
 require_once dirname(__DIR__) . '/src/user.php';
-$user = check_current_user($config, $db);
+$user = check_current_user($config);
 $user->check('admin');
