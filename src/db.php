@@ -3,7 +3,7 @@ namespace bmtmgr\db;
 
 require_once __DIR__ . '/config.php';
 
-define('DB_NEWEST_VERSION', 7);
+define('DB_NEWEST_VERSION', 9);
 
 function _init($db) {
 	if (! \bmtmgr\config\get('allow_init', false)) {

@@ -1,9 +1,10 @@
 {
 	"allow_init": true,
-	"debug_mail": true,
+	"mail_debug": true,
 
 	"db_dsn": "sqlite:$ROOTDIR/bmcreg.sqlite",
-	"mail_from": "bmcreg@aufschlagwechsel.de",
+	"mail_from": "bmtmgr@aufschlagwechsel.de",
+	"support_email_address": "bmtmgr@aufschlagwechsel.de",
 	"tournament_url": "http://turnier.de/",
 	"timezone": "Europe/Berlin"
 }

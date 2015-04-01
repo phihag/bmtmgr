@@ -1,0 +1,8 @@
+<div class="message_success">
+Ein temporäres Passwort für <em>{{name}}</em> wurde an <em>{{email}}</em> versandt.
+</div>
+
+<form action="{{root_path}}login" class="login_token_form">
+<label>Temporäres Passwort: <input name="t" size="{{token_length}}" minlength="{{token_length}}" maxlength="{{token_length}}" required="required" /></label>
+<input type="submit" value="Anmelden" />
+</form>

@@ -1,6 +1,6 @@
 html, body {
     margin: 0; padding: 0;
-    font-size: 18px;
+    font-size: 20px;
     font-family: sans-serif;
 }
 
@@ -79,4 +79,44 @@ button img {
 }
 .login input {
     font-size: 150%;
+}
+
+.fatal_error {
+    font-size: 120%;
+    background: #FF8787;
+    padding: 20px 0;
+    border-radius: 5px;
+    margin: 20px 20px 0 20px;
+    text-align: center;
+}
+
+
+.message_success, .message_error {
+    padding: 20px 0;
+    border-radius: 5px;
+    margin: 10px 20px;
+    display: block;
+    text-align: center;
+}
+.message_success {
+    background: #ADFFAD;
+}
+.message_error {
+    background: #FF8787;
+}
+.message_title {
+    display: block;
+    font-weight: bold;
+    font-size: 110%;
+    margin: 0 0 10px 0;
+}
+
+.login_token_form {
+    text-align: center;
+    margin: 50px;
+}
+.sent_email {
+    background: #fafafa;
+    padding: 10px 15px;
+    margin: 10px 20px;
 }

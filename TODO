@@ -1,37 +1,42 @@
-* Sending emails (incl. debug_mail)
-* Login via email address
-    short-term token for email (expires after two days)
-    long-term token for user, stored in cookie
+* Admin seasons
+* Add tournaments, include disciplines (and discipline conflicts)
+* Show current tournaments
 
 * Add table for players per club
+* Allow admin to edit this table
+* Allow admin to add new clubs
 * Helper script to sync players for club from turnier.de
-* Add tournaments, include disciplines (and discipline conflicts)
+
 * Allow registration
 	suggest all players via JS
 	search by player ID or name
 * List of tournament organizer accounts per tournament
 * Show all registrations to tournament organizer accounts
-* Export to xlsx
 
-* Make a test account for Miles
-
+show current club
 show all players
 edit players
+add players to club (include a Hobby club)
 
 import clubs (http://www.blv-nrw.de/blvdb/fb/blv_club_kontakte.php?id=2)
-
-CAPTCHA if last email request within 1 day
-export to XLSX
 export to HTML
+export to XLSX
 Freimeldungen
-export costs
 sync exports to local fs (php)
 sync exports to remote fs via upload (php)
-better autocompletion style
 
+* Make a test account for Miles
+	ask for player db
+
+CAPTCHA for login
+export costs
+better autocompletion style
 rewrite discipline UI - make one screen to add new disciplines, when clicking on tournament name
 input by player ID
-online-Meldungen
+online-Meldungen for club
 extend disciplines by gender
 show login and tournaments on frontpage
 handle token clicking when already logged in
+in login email: include timeout date
+log out (CSRF protected)
+support leagues in disciplines

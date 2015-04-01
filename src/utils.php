@@ -30,10 +30,35 @@ function csrf_protect() {
 		header('HTTP/1.1 400 Bad Request');
 		\bmtmgr\render('error', array(
 			'title' => $title,
-			'msg'=> 'Entschuldigung, bei dieser Anfrage ist etwas schief gelaufen: ' . $title .' . Bitte versuchen Sie die vorherige Seite neu zu laden'
+			'msg'=> 'Entschuldigung, bei dieser Anfrage ist etwas schief gelaufen: ' . $title . '. Bitte versuchen Sie die vorherige Seite neu zu laden.'
 		));
 		exit();
 	}
+}
+
+function check_params($keys, $ar, $name) {
+	$missing = array();
+	foreach ($keys as $k) {
+		if (! array_key_exists($k, $ar)) {
+			array_push($missing, $k);
+		}
+	}
+	if (count($missing) > 0) {
+		header('HTTP/1.1 400 Bad Request');
+		\bmtmgr\render('error', array(
+			'title' => 'Fehler: ' . $name . '-Parameter fehlt',
+			'msg' => 'Entschuldigung, wir haben die ' . $name . '-Parameter ' . explode(', ', $missing) . ' im vorherigem Formular vergessen.'
+		));
+		exit();
+	}
+}
+
+function check_post_params($keys) {
+	check_params($keys, $_POST, 'POST');
+}
+
+function check_get_params($keys) {
+	check_params($keys, $_GET, 'GET');
 }
 
 function endswith($haystack, $needle) {
@@ -45,7 +70,7 @@ function gen_token() {
 	if (! $crypto_strong) {
 		throw new Exception('Cannot generate crypto token');
 	}
-	return substr(hash('sha512', $bs), 0, 16);
+	return substr(hash('sha512', $bs), 0, 24);
 }
 
 function root_path() {
@@ -67,7 +92,8 @@ function absolute_url() {
 
 	$domain = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
 	$port = $_SERVER['SERVER_PORT'];
-	if (($_SERVER['HTTPS'] == 'on' && $port != 443) || ($_SERVER['HTTPS'] == '' && $port != 80)) {
+	$https = array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] == 'on';
+	if (($https && $port != 443) || (!$https && $port != 80)) {
 		$domain .= ':' . $port;
 	}
 	$root_path = root_path();
@@ -75,4 +101,13 @@ function absolute_url() {
 		$root_path .= '/';
 	}
 	return $domain . $root_path;
+}
+
+function access_denied() {
+	header('HTTP/1.1 403 Forbidden');
+	\bmtmgr\render('error', array(
+		'title' => 'Zugriff verweigert.',
+		'msg' => 'Entschuldigung, der vorherige Link war fehlerhaft. Sie haben leider keinen Zugriff auf diese Seite.'
+	));
+	exit();
 }

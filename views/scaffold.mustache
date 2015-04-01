@@ -2,12 +2,32 @@
 <html>
 <head>
 <meta encoding="utf-8" />
-<title>{{title}} - Badminton-Turnier-Manager</title>
+<title>{{#title}}{{title}} - {{/title}}Badminton-Turnier-Manager</title>
 <link rel="stylesheet" type="text/css" href="{{root_path}}static/bmtmgr.css">
 </head>
 <body data-root-path="{{root_path}}">
 
+{{#sent_emails}}
+<table class="sent_email message_info">
+<tr><th>From:</th><td>{{from}}</td></tr>
+<tr><th>To:</th><td>{{to}}</td></tr>
+<tr><th>Subject:</th><td>{{subject}}</td></tr>
+<tr><td colspan="2">{{{body_html}}}</td></tr>
+</table>
+{{/sent_emails}}
+
+{{#errors}}
+<div class="message_error">
+{{#title}}
+<div class="message_title">{{title}}</div>
+{{/title}}
+{{message}}
+</div>
+{{/errors}}
+
+<div id="content">
 {{{content}}}
+</div>
 
 <script src="{{root_path}}libs/mousetrap.min.js"></script>
 <script src="{{root_path}}libs/jquery.min.js"></script>

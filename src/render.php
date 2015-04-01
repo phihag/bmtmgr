@@ -16,16 +16,21 @@ function _get_engine() {
 	return $res;
 }
 
-function calc_view($template_id, $data) {
+function get_rendered($template_id, $data) {
 	$mustache = _get_engine();
 
 	$data['csrf_field'] = '<input type="hidden" name="csrf_token" value="' . htmlspecialchars(utils\csrf_token()) . '" />';
+	$data['support_email_address'] = \bmtmgr\config\get('support_email_address');
 	return $mustache->render($template_id, $data);
 }
 
-function calc_full_view($template_id, $data) {
+function get_rendered_full($template_id, $data) {
 	$mustache = _get_engine();
-	$content = calc_view($template_id, $data);
+	$content = get_rendered($template_id, $data);
+
+	if (\array_key_exists('sent_emails', $data)) {
+		$data['sent_emails'] = \array_filter($data['sent_emails']);
+	}
 
 	$data['content'] = $content;
 	$data['root_path'] = \bmtmgr\utils\root_path();
@@ -34,5 +39,5 @@ function calc_full_view($template_id, $data) {
 }
 
 function render($template_id, $data) {
-	echo calc_full_view($template_id, $data);
+	echo get_rendered_full($template_id, $data);
 }
