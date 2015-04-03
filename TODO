@@ -1,5 +1,3 @@
-* Switch to Propel ORM
-
 * Admin seasons
 * Add tournaments, include disciplines (and discipline conflicts)
 * Show current tournaments

@@ -16,8 +16,7 @@ function get_libs() {
 		[
 			'url' => 'http://jqueryui.com/resources/download/jquery-ui-1.11.4.zip',
 			'symlink' => 'jquery-ui'],
-		['url' => 'https://github.com/bobthecow/mustache.php.git'],
-		['url' => 'git://github.com/propelorm/Propel2']
+		['url' => 'https://github.com/bobthecow/mustache.php.git']
 	];
 }
 
