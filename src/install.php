@@ -82,8 +82,9 @@ function run($cmd, $package) {
 	if ($return_var != 0) {
 		\header('HTTP/1.1 500 Internal Server Error');
 		\header('Content-Type: text/plain; charset=utf-8');
-		echo 'Error when installing ' . $name . ":\n";
+		echo 'Error when installing ' . $package . ":\n";
 		echo \implode("\n", $output);
+		echo "\n";
 		exit();
 	}
 }
@@ -114,7 +115,7 @@ function install_libs() {
 
 		switch ($lib['type']) {
 		case 'git':
-			run('giit clone -q ' . \escapeshellarg($url) . ' ' . \escapeshellarg($fn), \basename($fn));
+			run('git clone -q ' . \escapeshellarg($url) . ' ' . \escapeshellarg($fn), \basename($fn));
 			break;
 		case 'file':
 			download($url, $fn);
