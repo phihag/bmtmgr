@@ -12,13 +12,13 @@ utils\check_get_params(array('t'));
 $u = \bmtmgr\user\find_by_token('login_email_token', $_GET['t']);
 if (! $u) {
 	$title = 'Ungültiges oder abgelaufenes temporäres Passwort';
-	render('login', array(
+	render('login', [
 		'title' => $title,
-		'errors' => array(array(
+		'errors' => [[
 			'title' => $title,
 			'message' => 'Entschuldigung, aber das temporäre Passwort ist nicht mehr gültig. Bitte fordern Sie einen neues Passwort an.'
-		))
-	));
+		]]
+	]);
 	exit();
 }
 
