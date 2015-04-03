@@ -7,7 +7,7 @@ require_once dirname(__DIR__) . '/src/user.php';
 require_once dirname(__DIR__) . '/src/email.php';
 
 utils\csrf_protect();
-utils\check_post_params(array('user'));
+utils\require_post_params(array('user'));
 
 $u = user\find_by_input($_POST['user']);
 if (!$u) {

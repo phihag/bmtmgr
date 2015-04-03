@@ -1,7 +1,14 @@
 <nav id="mainnav">
 
+<span id="breadcrumbs">
+<a href="{{root_path}}">Badminton</a>
+{{#breadcrumbs}}
+» <a href="{{root_path}}{{path}}">{{name}}</a>
+{{/breadcrumbs}}
+</span>
+
 {{#is_admin}}
-<a href="{{root_path}}admin/">Administration</a>
+<a href="{{root_path}}admin/" id="mainnav_admin">Administration</a>
 {{/is_admin}}
 
 

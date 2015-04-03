@@ -1,6 +1,5 @@
-* Admin seasons
 * Add tournaments, include disciplines (and discipline conflicts)
-* Show current tournaments
+* Show clubs (and import them)
 
 * Add table for players per club
 * Allow admin to edit this table
@@ -25,10 +24,13 @@ Freimeldungen
 sync exports to local fs (php)
 sync exports to remote fs via upload (php)
 
+* Show current tournaments on root
+
 * Make a test account for Miles
 	ask for player db
 
 CAPTCHA for login
+add breadcrumb UI
 export costs
 better autocompletion style
 rewrite discipline UI - make one screen to add new disciplines, when clicking on tournament name
@@ -41,3 +43,9 @@ in login email: include timeout date
 log out (CSRF protected)
 support leagues in disciplines
 clean up unused controllers
+look into linting
+crawl and check valid HTML / security / valid CSS
+minimize new page loads (instead, just reload content)
+test on IE/.../mobiles
+fix login going invalid while on a subpage such as /admin
+season creation: use AJAX

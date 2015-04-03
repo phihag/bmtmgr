@@ -3,8 +3,6 @@ namespace bmtmgr\db;
 
 require_once __DIR__ . '/config.php';
 
-define('DB_NEWEST_VERSION', 9);
-
 function _init($db) {
 	if (! \bmtmgr\config\get('allow_init', false)) {
 		throw new \Exception('Initialization code triggered, but disabled.');
@@ -35,6 +33,12 @@ function connect() {
 
 	// Do we need to initialize?
 	if (\bmtmgr\config\get('allow_init', false)) {
+		$init_sql = \file_get_contents(dirname(__DIR__) . '/db_init.sql');
+		if (! \preg_match('/INSERT INTO db_version.*VALUES\s*\(([0-9]+)\)/', $init_sql, $matches)) {
+			throw new \Exception('Cannot detect version number');
+		}
+		$newest_version = \intval($matches[1]);
+
 		try {
 			$vdata = $db->query('SELECT version FROM db_version');
 		} catch (\PDOException $e) {
@@ -45,7 +49,7 @@ function connect() {
 		foreach ($vdata as $row) {
 			$version = $row['version'];
 		}
-		if ($version < DB_NEWEST_VERSION) {
+		if ($version < $newest_version) {
 			_init($db);
 		}
 	}

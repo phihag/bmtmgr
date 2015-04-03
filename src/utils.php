@@ -28,15 +28,15 @@ function csrf_protect() {
 
 	if ($title !== false) {
 		header('HTTP/1.1 400 Bad Request');
-		\bmtmgr\render('error', array(
+		\bmtmgr\render('error', [
 			'title' => $title,
 			'msg'=> 'Entschuldigung, bei dieser Anfrage ist etwas schief gelaufen: ' . $title . '. Bitte versuchen Sie die vorherige Seite neu zu laden.'
-		));
+		]);
 		exit();
 	}
 }
 
-function check_params($keys, $ar, $name) {
+function require_params($keys, $ar, $name) {
 	$missing = array();
 	foreach ($keys as $k) {
 		if (! array_key_exists($k, $ar)) {
@@ -53,12 +53,12 @@ function check_params($keys, $ar, $name) {
 	}
 }
 
-function check_post_params($keys) {
-	check_params($keys, $_POST, 'POST');
+function require_post_params($keys) {
+	require_params($keys, $_POST, 'POST');
 }
 
-function check_get_params($keys) {
-	check_params($keys, $_GET, 'GET');
+function require_get_params($keys) {
+	require_params($keys, $_GET, 'GET');
 }
 
 function startswith($haystack, $needle) {
@@ -122,9 +122,18 @@ function absolute_url() {
 
 function access_denied() {
 	header('HTTP/1.1 403 Forbidden');
-	\bmtmgr\render('error', array(
+	\bmtmgr\render('error', [
 		'title' => 'Zugriff verweigert.',
 		'msg' => 'Entschuldigung, der vorherige Link war fehlerhaft. Sie haben leider keinen Zugriff auf diese Seite.'
-	));
+	]);
 	exit();
+}
+
+class DuplicateEntryException extends \Exception {
+	// Name or ID is already in use
+}
+
+function array_filter_keys($ar, $callback) {
+	$keys = array_filter(array_keys($ar), $callback);
+	return array_intersect_key($ar, array_flip($keys));
 }

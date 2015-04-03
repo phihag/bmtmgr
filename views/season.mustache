@@ -1,0 +1,20 @@
+<h2>{{name}}</h2>
+
+{{#is_admin}}
+{{#season}}
+{{^visible}}
+<div class="message_note">
+Diese Liga ist derzeit nur für Administratoren sichtbar.
+
+<form method="post" action="{{root_path}}season/{{id}}/show" class="inline-form">
+{{{csrf_field}}}
+<button class="season_button_hide" data-season-id="{{id}}">Anzeigen</button>
+</form>
+</div>
+{{/visible}}
+{{/season}}
+{{/is_admin}}
+
+<p>
+TODO: a tournament list would be nice here
+</p>

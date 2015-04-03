@@ -1,0 +1,31 @@
+<table class="admin_table">
+<tbody>
+{{#seasons}}
+<tr class="{{#visible}}season_visible{{/visible}}{{^visible}}season_invisible{{/visible}}">
+<td><a href="{{root_path}}season/{{id}}/">{{name}}</a></td>
+<td class="action-buttons">
+{{#visible}}
+<form method="post" action="{{root_path}}season/{{id}}/hide" class="inline-form">
+{{{csrf_field}}}
+<button>Verbergen</button>
+</form>
+{{/visible}}
+{{^visible}}
+<form method="post" action="{{root_path}}season/{{id}}/show" class="inline-form">
+{{{csrf_field}}}
+<button class="season_button_hide" data-season-id="{{id}}">Anzeigen</button>
+</form>
+{{/visible}}
+</td>
+</tr>
+{{/seasons}}
+</tbody>
+<tfoot>
+<tr><th colspan="2">
+<form action="{{root_path}}season/create" method="post" id="season_create" class="inline-form">
+{{{csrf_field}}}
+<input type="text" size="12" name="name" required="required" minlength="3" placeholder="Name" />
+<button><img src="{{icon_path}}add.svg" title="Neue Liga" />Neue Liga</button>
+</form></th></tr>
+</tfoot>
+</table>

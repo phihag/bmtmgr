@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS db_version;
-CREATE TABLE db_version (version INT);
-INSERT INTO db_version (version) VALUES (9);
+CREATE TABLE db_version (version INTEGER);
+INSERT INTO db_version (version) VALUES (16);
 
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
@@ -16,7 +16,7 @@ INSERT INTO user
 
 DROP TABLE IF EXISTS login_email_token;
 CREATE TABLE login_email_token (
-		token TEXT PRIMARY_KEY,
+		token TEXT PRIMARY KEY,
 		user_id TEXT,
 		request_time BIGINT,
 		expiry_time BIGINT,
@@ -25,7 +25,7 @@ CREATE TABLE login_email_token (
 	);
 DROP TABLE IF EXISTS login_cookie_token;
 CREATE TABLE login_cookie_token (
-		token TEXT PRIMARY_KEY,
+		token TEXT PRIMARY KEY,
 		user_id TEXT,
 		request_time BIGINT,
 		expiry_time BIGINT,
@@ -35,16 +35,17 @@ CREATE TABLE login_cookie_token (
 
 DROP TABLE IF EXISTS season;
 CREATE TABLE season (
-	id INT PRIMARY KEY,
-	name TEXT,
-	visible INTEGER(1)
+	id INTEGER PRIMARY KEY,
+	name TEXT UNIQUE NOT NULL,
+	visible INTEGER(1) NOT NULL
 );
+CREATE INDEX IF NOT EXISTS season_name_index ON player(textid);
 
 DROP TABLE IF EXISTS player;
 CREATE TABLE player (
-	id INT PRIMARY KEY,
-	season_id INT,
-	user_id INT,
+	id INTEGER PRIMARY KEY,
+	season_id INTEGER,
+	user_id INTEGER,
 	textid TEXT,
 	name TEXT,
 	FOREIGN KEY(season_id) REFERENCES season(id),
@@ -54,8 +55,8 @@ CREATE INDEX IF NOT EXISTS player_textid_index ON player(textid);
 
 DROP TABLE IF EXISTS tournament;
 CREATE TABLE tournament (
-	id INT PRIMARY KEY,
-	season_id INT,
+	id INTEGER PRIMARY KEY,
+	season_id INTEGER,
 	name TEXT,
 	FOREIGN KEY(season_id) REFERENCES season(id)
 );

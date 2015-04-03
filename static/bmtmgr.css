@@ -10,7 +10,7 @@ html, body {
     left: 0; right: 0;
     height: 30px;
     border-bottom: 1px solid #eeeeee;
-    padding: 10px 0 10px 10px;
+    padding: 10px 0 10px 15px;
     margin: 0;
 
     display: flex;
@@ -21,11 +21,16 @@ html, body {
 }
 #content {
     position: absolute;
-    left: 0;
-    top: 30px;
-    width: 100%;
+    left: 0; right: 0;
+    top: 50px;
+    padding: 15px 15px 0 15px;
 }
 
+#mainnav_admin {
+    display: block;
+    position: absolute;
+    right: 12em;
+}
 #mainnav_user {
     position: absolute;
     right: 10px;
@@ -60,6 +65,10 @@ button, input[type=submit] {
     font-size: inherit;
     display: inline-flex;
     align-items: center;
+}
+.inline-form {
+    display: inline-flex;
+    align-items: center;   
 }
 
 input, textarea {
@@ -98,7 +107,7 @@ button img {
 }
 
 
-.message_success, .message_error {
+.message_success, .message_error, .message_note {
     padding: 20px 0;
     border-radius: 5px;
     margin: 10px 20px;
@@ -110,6 +119,9 @@ button img {
 }
 .message_error {
     background: #FF8787;
+}
+.message_note {
+    background: #E3E57F;
 }
 .message_title {
     display: block;
@@ -126,4 +138,18 @@ button img {
     background: #fafafa;
     padding: 10px 15px;
     margin: 10px 20px;
+}
+
+.admin_table {
+    border-spacing: 0;
+}
+.admin_table tr+tr td {
+    border-top: 2px solid #fff;
+}
+.action-buttons {
+    text-align: right;
+}
+.season_invisible {
+    opacity: 0.6;
+    background: #fdfdfd ;
 }

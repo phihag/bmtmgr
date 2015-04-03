@@ -7,7 +7,7 @@ require_once dirname(__DIR__) . '/src/user.php';
 require_once dirname(__DIR__) . '/src/email.php';
 
 // No CSRF protection necessary; login is harmless
-utils\check_get_params(array('t'));
+utils\require_get_params(array('t'));
 
 $u = \bmtmgr\user\find_by_token('login_email_token', $_GET['t']);
 if (! $u) {

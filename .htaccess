@@ -13,7 +13,10 @@ RewriteRule ^allclubs\.json$ controllers/allclubs.php [L]
 RewriteRule ^$ controllers/root.php [L]
 RewriteRule ^request_token$ controllers/request_token.php [L]
 RewriteRule ^login$ controllers/login.php [L]
-RewriteRule ^season/$ controllers/season.php [L]
+RewriteRule ^season/$ controllers/season_list.php [L]
+RewriteRule ^season/([0-9]+)/$ controllers/season.php?id=$1 [L]
+RewriteRule ^season/([0-9]+)/([a-z]+)$ controllers/season_actions.php?id=$1&action=$2 [L]
+RewriteRule ^season/create$ controllers/season_create.php [L]
 RewriteRule ^admin/$ controllers/admin.php [L]
 
 
