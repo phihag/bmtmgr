@@ -2,3 +2,6 @@
 mustache.php
 jquery-ui
 jquery-ui-*
+install.lock
+Propel*
+*.part

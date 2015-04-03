@@ -61,9 +61,26 @@ function check_get_params($keys) {
 	check_params($keys, $_GET, 'GET');
 }
 
+function startswith($haystack, $needle) {
+	return substr($haystack, 0, strlen($needle)) === $needle;
+}
+
 function endswith($haystack, $needle) {
 	return substr($haystack, -strlen($needle)) === $needle;
 }
+
+function url_basename($url) {
+	if (!preg_match('/.*?\/([^\/]+)(?:\/?$|[?#])/', $url, $matches)) {
+		throw new Exception('Invalid URL ' . $url);
+	}
+	return $matches[1];
+}
+
+function strip_ext($name) {
+	$basename = basename($name);
+	return preg_replace('/\.[^.]+$/', '', $name);
+}
+
 
 function gen_token() {
 	$bs = openssl_random_pseudo_bytes(64, $crypto_strong);

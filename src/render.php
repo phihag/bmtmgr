@@ -21,6 +21,11 @@ function get_rendered($template_id, $data) {
 
 	$data['csrf_field'] = '<input type="hidden" name="csrf_token" value="' . htmlspecialchars(utils\csrf_token()) . '" />';
 	$data['support_email_address'] = \bmtmgr\config\get('support_email_address');
+
+	if (array_key_exists('user', $data)) {
+		$data['is_admin'] = $data['user']->can('admin');
+	}
+
 	return $mustache->render($template_id, $data);
 }
 

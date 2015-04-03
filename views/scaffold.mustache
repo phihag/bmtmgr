@@ -7,6 +7,10 @@
 </head>
 <body data-root-path="{{root_path}}">
 
+{{>mainnav}}
+
+<div id="content">
+
 {{#sent_emails}}
 <table class="sent_email message_info">
 <tr><th>From:</th><td>{{from}}</td></tr>
@@ -25,7 +29,6 @@
 </div>
 {{/errors}}
 
-<div id="content">
 {{{content}}}
 </div>
 

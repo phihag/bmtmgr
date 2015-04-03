@@ -1,6 +1,7 @@
 <?php
 namespace bmtmgr;
 
+require_once dirname(__DIR__) . '/src/install.php';
 require_once dirname(__DIR__) . '/src/common.php';
 require_once dirname(__DIR__) . '/src/user.php';
 require_once dirname(__DIR__) . '/src/tournament.php';

@@ -14,5 +14,6 @@ RewriteRule ^$ controllers/root.php [L]
 RewriteRule ^request_token$ controllers/request_token.php [L]
 RewriteRule ^login$ controllers/login.php [L]
 RewriteRule ^season/$ controllers/season.php [L]
+RewriteRule ^admin/$ controllers/admin.php [L]
 
 

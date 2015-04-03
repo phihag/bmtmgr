@@ -1,33 +1,51 @@
 html, body {
     margin: 0; padding: 0;
+    width: 100%;
     font-size: 20px;
     font-family: sans-serif;
 }
 
-nav {
+#mainnav {
     position: fixed;
-    left: 0;
+    left: 0; right: 0;
     height: 30px;
-    width: 100%;
     border-bottom: 1px solid #eeeeee;
     padding: 10px 0 10px 10px;
+    margin: 0;
+
     display: flex;
     align-items: center;
 }
-#mainnav button+button {
-    margin-left: 8px;
+#mainnav>* {
+    display: inline-block;
+}
+#content {
+    position: absolute;
+    left: 0;
+    top: 30px;
+    width: 100%;
 }
 
-
-#mainnav {
-    top: 0;
-    background: #fbfbfb;
-}
-#current-tournament-name {
-    font-family: serif;
-    margin-right: 15px;
+#mainnav_user {
+    position: absolute;
+    right: 10px;
 }
 
+.dialog_container {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: center;
+}
+.dialog {
+    display: inline-block;
+    border-radius: 2px;
+    padding: 10px 10px;
+}
+.ui-helper-hidden-accessible { display:none; }
+
+ 
 .clickable, button, input[type=submit] {
     cursor: pointer;
     -webkit-user-select: none;
@@ -43,6 +61,7 @@ button, input[type=submit] {
     display: inline-flex;
     align-items: center;
 }
+
 input, textarea {
     font-size: inherit;
 }
@@ -58,21 +77,9 @@ button img {
     padding-right: 3px;
 }
 
-.dialog_container {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 100%;
-    text-align: center;
-}
-.dialog {
-    display: inline-block;
-    border-radius: 2px;
-    padding: 10px 10px;
-}
 
 
-.ui-helper-hidden-accessible { display:none; }
+
 
 .club {
     padding: 5px 0 5px 10px;

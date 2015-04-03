@@ -1,3 +1,11 @@
 <nav id="mainnav">
-{{#user}}<a class="mainnav_user" href="{{root_path}}club/{{id}}">{{name}}</a>{{/user}}
+
+{{#is_admin}}
+(<a href="{{root_path}}admin">Administration</a>)
+{{/is_admin}}
+
+
+{{#user}}
+<a id="mainnav_user" href="{{root_path}}club/{{id}}">{{name}}</a>
+{{/user}}
 </nav>
