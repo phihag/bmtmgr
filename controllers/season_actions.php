@@ -15,7 +15,6 @@ switch ($_GET['action']) {
 case 'hide':
 case 'show':
 	$season->visible = \boolval($_GET['action'] == 'show');
-	var_export($season);
 	$season->save();
 	render_ajax('season/' . $season->id . '/', [
 		'season' => $season

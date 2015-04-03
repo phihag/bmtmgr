@@ -29,6 +29,7 @@ sync exports to remote fs via upload (php)
 * Make a test account for Miles
 	ask for player db
 
+send email to all users
 CAPTCHA for login
 add breadcrumb UI
 export costs
