@@ -1,8 +1,10 @@
+all: download
+
 download:
-	php ../src/install.php
+	php ../src/install.php install
 
 clean:
-	rm -f *.js
+	php ../src/install.php clean
 
 .PHONY: all download clean
 

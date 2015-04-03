@@ -98,6 +98,10 @@ function install_libs() {
 	$libs = get_libs();
 	$lock_fn = LIB_ROOT . 'install.lock';
 	$lock_f = \fopen($lock_fn, 'w');
+	@\chmod($lock_fn, 0666);
+	if ($lock_f === false) {
+		throw new Exception('Could not open lock file ' . $lock_fn);
+	}
 	if (! \flock($lock_f, LOCK_EX | LOCK_NB)) {
 		\header('HTTP/1.1 500 Internal Server Error');
 		\header('Content-Type: text/plain; charset=utf-8');
@@ -138,6 +142,7 @@ function install_libs() {
 function clean() {
 	$lock_fn = LIB_ROOT . 'install.lock';
 	$lock_f = \fopen($lock_fn, 'w');
+	@\chmod($lock_fn, 0666);
 	if (! \flock($lock_f, LOCK_EX | LOCK_NB)) {
 		echo 'Waiting for currently running installation to finish ...';
 		\flock($lock_f, LOCK_EX);
