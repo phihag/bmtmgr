@@ -16,7 +16,7 @@ function _get_engine() {
 	return $res;
 }
 
-function get_rendered($template_id, $data) {
+function get_rendered($template_id, &$data) {
 	$mustache = _get_engine();
 
 	$data['csrf_field'] = '<input type="hidden" name="csrf_token" value="' . htmlspecialchars(utils\csrf_token()) . '" />';
@@ -29,7 +29,7 @@ function get_rendered($template_id, $data) {
 	return $mustache->render($template_id, $data);
 }
 
-function get_rendered_full($template_id, $data) {
+function get_rendered_full($template_id, &$data) {
 	$mustache = _get_engine();
 	$content = get_rendered($template_id, $data);
 
