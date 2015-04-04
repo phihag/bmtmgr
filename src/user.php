@@ -4,21 +4,23 @@ namespace bmtmgr\user;
 require_once __DIR__ . '/render.php';
 
 
-class User {
+class User extends \bmtmgr\Model {
 	public $id;
 	public $name;
 	public $email;
-	private $perms;
+	protected $permissions_json;
+	private $_perms;
 
-	public function __construct($id, $name, $email, $perms) {
-		$this->id = $id;
-		$this->name = $name;
-		$this->email = $email;
-		$this->perms = $perms;
+	public function __construct($row) {
+		$this->id = $row['id'];
+		$this->name = $row['name'];
+		$this->email = $row['email'];
+		$this->permissions_json = $row['permissions_json'];
+		$this->_perms = \json_decode($this->permissions_json);
 	}
 
 	public function can($perm) {
-		return in_array($perm, $this->perms);
+		return in_array($perm, $this->_perms);
 	}
 
 	public function require_perm($perm) {
@@ -26,35 +28,12 @@ class User {
 			\bmtmgr\utils\access_denied();
 		}
 	}
-
-	public static function fetch($where, $input, $add_tables=array()) {
-		$from_tables = implode(',', $add_tables);
-		if ($from_tables) {
-			$from_tables .= ',';
-		}
-		$from_tables .= 'user';
-		$sql = ('SELECT
-			user.id AS id,
-			user.name AS name,
-			user.email AS email,
-			user.permissions_json AS permissions_json
-			FROM ' . $from_tables . '
-			WHERE ' . $where);
-		$s = $GLOBALS['db']->prepare($sql);
-		$s->execute($input);
-		$rows = $s->fetchAll();
-		if (count($rows) != 1) {
-			return null;
-		}
-		$row = $rows[0];
-		return new User($row['id'], $row['name'], $row['email'], json_decode($row['permissions_json']));
-	}
 }
 
 function find_by_token($table, $token) {
 	$now = time();
-	return User::fetch(
-		'user.id = ' . $table . '.user_id AND ' . $table . '.token = ? AND ' . $table . '.expiry_time > ?',
+	return User::fetch_optional(
+		'WHERE user.id = ' . $table . '.user_id AND ' . $table . '.token = ? AND ' . $table . '.expiry_time > ?',
 		array($token, $now),
 		array($table)
 	);
@@ -95,10 +74,10 @@ function create_session($u) {
 
 function find_by_input($input) {
 	if (preg_match('/^\s*\((.*?)\)/', $input, $matches)) {
-		return User::fetch('id = ?', array($matches[1]));
+		return User::fetch_optional('WHERE id = ?', array($matches[1]));
 	}
 
-	return User::fetch('id = ? OR name = ? OR email = ?', array($input, $input, $input));
+	return User::fetch_optional('WHERE id = ? OR name = ? OR email = ?', array($input, $input, $input));
 }
 
 function render_login_form() {

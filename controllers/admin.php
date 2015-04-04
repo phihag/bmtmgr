@@ -2,7 +2,6 @@
 namespace bmtmgr;
 
 require_once dirname(__DIR__) . '/src/common.php';
-require_once dirname(__DIR__) . '/src/user.php';
 require_once dirname(__DIR__) . '/src/season.php';
 
 $u = user\check_current();
@@ -13,5 +12,6 @@ render('admin', [
 	'breadcrumbs' => [
 		['name' => 'Administration', 'path' => 'admin/']
 	],
-	'seasons' => season\get_all(),
+	'seasons' => season\Season::get_all('ORDER BY name DESC'),
+	'clubs' => user\User::get_all(),
 ]);

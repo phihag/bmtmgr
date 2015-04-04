@@ -1,18 +1,21 @@
 DROP TABLE IF EXISTS db_version;
 CREATE TABLE db_version (version INTEGER);
-INSERT INTO db_version (version) VALUES (16);
+INSERT INTO db_version (version) VALUES (22);
 
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
 		id TEXT(50) PRIMARY KEY,
-		email TEXT UNIQUE,
-		name TEXT,
-		permissions_json TEXT
+		email TEXT UNIQUE NOT NULL,
+		name TEXT UNIQUE NOT NULL,
+		permissions_json TEXT NOT NULL
 	);
 CREATE INDEX IF NOT EXISTS user_email_index ON user(email);
 INSERT INTO user
 	(id, email, name, permissions_json) VALUES
 	('admin', 'turniere@aufschlagwechsel.de', 'aufschlagwechsel.de', '["admin"]');
+INSERT INTO user
+	(id, email, name, permissions_json) VALUES
+	('hobby', 'bmtmgr_hobby@aufschlagwechsel.de', 'Hobbyspieler/innen', '[]');
 
 DROP TABLE IF EXISTS login_email_token;
 CREATE TABLE login_email_token (

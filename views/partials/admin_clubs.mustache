@@ -1,0 +1,14 @@
+<table class="admin_table">
+<tbody>
+{{#clubs}}
+<tr><td>
+<a href="{{root_path}}club/{{id}}/">{{name}}</a>
+</td></tr>
+{{/clubs}}
+</tbody>
+</table>
+
+<form method="post" action="{{root_path}}club/import">
+{{{csrf_field}}}
+<button>Clubs von badminton-nrw.de importieren</button>
+</form>

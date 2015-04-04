@@ -1,10 +1,10 @@
-* Add tournaments, include disciplines (and discipline conflicts)
 * Show clubs (and import them)
-
 * Add table for players per club
 * Allow admin to edit this table
 * Allow admin to add new clubs
 * Helper script to sync players for club from turnier.de
+
+* Add tournaments, include disciplines (and discipline conflicts)
 
 * Allow registration
 	suggest all players via JS
@@ -50,3 +50,5 @@ minimize new page loads (instead, just reload content)
 test on IE/.../mobiles
 fix login going invalid while on a subpage such as /admin
 season creation: use AJAX
+nicer URLs for tournaments
+strict error handler for E_NOTICE (catch asserts)
