@@ -9,7 +9,7 @@ class Season extends \bmtmgr\Model {
 	public function __construct($id, $name, $visible) {
 		$this->id = $id;
 		$this->name = $name;
-		$this->visible = \boolval($visible);
+		$this->visible = (bool) $visible;
 	}
 
 	protected static function from_row($row) {
