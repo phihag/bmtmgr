@@ -7,7 +7,7 @@ function _init($db) {
 	if (! \bmtmgr\config\get('allow_init', false)) {
 		throw new \Exception('Initialization code triggered, but disabled.');
 	}
-	$inits = explode(';', file_get_contents(dirname(__DIR__) . '/db_init.sql'));
+	$inits = \explode(';', \file_get_contents(\dirname(__DIR__) . '/db_init.sql'));
 	if (!$inits) {
 		throw new \Exception("Invalid init JSON");
 	}
@@ -24,7 +24,7 @@ function _init($db) {
 }
 
 function connect() {
-	$dsn = \str_replace('$ROOTDIR', dirname(__DIR__), \bmtmgr\config\get('db_dsn'));
+	$dsn = \str_replace('$ROOTDIR', \dirname(__DIR__), \bmtmgr\config\get('db_dsn'));
 	$db = new \PDO($dsn);
 
 	$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
