@@ -1,0 +1,11 @@
+{
+	"allow_init": true,
+	"allow_install": true,
+	"mail_debug": true,
+	"test_force_init": true,
+
+	"db_dsn": "sqlite:$ROOTDIR/tests/testdb.sqlite",
+	"mail_from": "bmtmgr@aufschlagwechsel.de",
+	"support_email_address": "bmtmgr@aufschlagwechsel.de",
+	"timezone": "Europe/Berlin"
+}
