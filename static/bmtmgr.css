@@ -155,3 +155,8 @@ button img {
     opacity: 0.6;
     background: #fdfdfd ;
 }
+
+.dataentry_form label {
+    display: block;
+    vertical-align: top;
+}

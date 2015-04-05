@@ -1,0 +1,25 @@
+{{#tournament}}
+
+
+
+
+
+{{#is_admin}}
+<form method="post" action="{{root_path}}tournament/{{id}}/edit" class="dataentry_form">
+{{{csrf_field}}}
+<label>Beschreibung:
+<textarea name="description" rows="5" cols="40">{{description}}</textarea>
+</label>
+
+<label></label>
+
+<label><input type="checkbox" name="visible" {{#visible}}checked="checked"{{/visible}}/>Turnier veröffentlichen</label>
+
+<button>Ändern</button>
+</form>
+{{/is_admin}}
+{{^is_admin}}
+TODO: Show tournament data for non-admins
+{{/is_admin}}
+
+{{/tournament}}

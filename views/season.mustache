@@ -1,7 +1,5 @@
 {{#season}}
 
-<h2>{{name}}</h2>
-
 {{#is_admin}}
 {{^visible}}
 <div class="message_note">
@@ -17,8 +15,15 @@ Diese Liga ist derzeit nur für Administratoren sichtbar.
 
 <h2><a href="{{root_path}}season/{{id}}/players">{{player_count}} Spieler</a></h2>
 
-<p>
-TODO: a tournament list would be nice here
-</p>
+<h2>Turniere</h2>
+
+{{>tournament_list}}
+
+<form action="{{root_path}}tournament/create" method="post" class="inline-form">
+{{{csrf_field}}}
+<input type="hidden" name="season_id" value="{{id}}" />
+<input type="text" size="20" name="name" required="required" minlength="2" placeholder="Turnier-Name" value="Test-Turnier" />
+<button><img src="{{icon_path}}add.svg" title="Neues Turnier" />Neues Turnier</button>
+</form>
 
 {{/season}}

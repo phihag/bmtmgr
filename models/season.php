@@ -35,4 +35,8 @@ class Season extends \bmtmgr\Model {
 				return $p;
 			});
 	}
+
+	public function get_tournaments($add_sql='') {
+		return Tournament::get_all('WHERE season_id=? ' . $add_sql, [$this->id]);
+	}
 }

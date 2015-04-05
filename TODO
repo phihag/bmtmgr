@@ -1,11 +1,11 @@
-* Add tournaments, include disciplines (and discipline conflicts)
+* Add disciplines (and discipline conflicts)
+
 * Allow registration
 	suggest all players via JS
 	search by player ID or name
 * List of tournament organizer accounts per tournament
 * Show all registrations to tournament organizer accounts
 
-show all players
 edit players
 add players to club (include a Hobby club)
 
@@ -54,3 +54,5 @@ handle users without email
 allow admin to create login_links for other users
 helper method for breadcrumbs
 helper method for URL paths of objects
+switch tournament editing to a more AJAX-y way
+allow configuration of start and end date of tournaments
