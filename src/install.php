@@ -3,6 +3,7 @@ namespace bmtmgr\install;
 
 require_once __DIR__ . '/utils.php';
 require_once __DIR__ . '/config.php';
+\bmtmgr\config\Config::load();
 
 define('LIB_ROOT', dirname(__DIR__) . '/libs/');
 
@@ -32,6 +33,8 @@ if (\bmtmgr\config\get('allow_install', false)) {
 	} else {
 		install_libs();
 	}
+} elseif (isset($argv)) {
+	echo 'Configuration option allow_install unset!' . "\n";
 }
 
 function rm_rf($fn) {
