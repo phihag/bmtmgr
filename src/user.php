@@ -11,12 +11,16 @@ class User extends \bmtmgr\Model {
 	protected $permissions_json;
 	private $_perms;
 
-	public function __construct($row) {
-		$this->id = $row['id'];
-		$this->name = $row['name'];
-		$this->email = $row['email'];
-		$this->permissions_json = $row['permissions_json'];
-		$this->_perms = \json_decode($this->permissions_json);
+	public function __construct($id, $name, $email, $perms) {
+		$this->id = $id;
+		$this->name = $name;
+		$this->email = $email;
+		$this->_perms = $perms;
+		$this->permissions_json = \json_encode($this->_perms);
+	}
+
+	protected static function from_row($row) {
+		return new static($row['id'], $row['name'], $row['email'], \json_decode($row['permissions_json']));
 	}
 
 	public function can($perm) {
@@ -39,7 +43,7 @@ function find_by_token($table, $token) {
 	);
 }
 
-function current_user() {
+function get_current() {
 	if (!isset($_COOKIE['login_token'])) {
 		return null;
 	}
@@ -48,7 +52,7 @@ function current_user() {
 }
 
 function check_current() {
-	$user = current_user();
+	$user = get_current();
 	if (! $user) {
 		render_login_form();
 		exit();
@@ -77,7 +81,7 @@ function find_by_input($input) {
 		return User::fetch_optional('WHERE id = ?', array($matches[1]));
 	}
 
-	return User::fetch_optional('WHERE id = ? OR name = ? OR email = ?', array($input, $input, $input));
+	return User::fetch_optional('WHERE id = ? OR name = ?', array($input, $input));
 }
 
 function render_login_form() {

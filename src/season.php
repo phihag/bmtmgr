@@ -11,19 +11,8 @@ class Season extends \bmtmgr\Model {
 		$this->name = $name;
 		$this->visible = \boolval($visible);
 	}
-}
 
-function create($name, $visible=false) {
-	$s = $GLOBALS['db']->prepare('INSERT INTO season (name, visible) VALUES (?, ?)');
-	try {
-		$s->execute([$name, $visible]);
-	} catch (\PDOException $pe) {
-		if ($pe->getCode() == '23000') {
-			throw new \bmtmgr\utils\DuplicateEntryException();
-		} else {
-			throw $pe;
-		}
+	protected static function from_row($row) {
+		return new Season($row['id'], $row['name'], $row['visible']);
 	}
-	$id = $GLOBALS['db']->lastInsertId();
-	return new Season($id, $name, $visible);
 }

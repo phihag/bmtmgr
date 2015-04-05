@@ -12,5 +12,5 @@ render('season_list', [
 	'breadcrumbs' => [
 		['name' => 'Ligen', 'path' => 'season/']
 	],
-	'seasons' => season\get_all(),
+	'seasons' => season\Season::get_all(),
 ]);

@@ -17,8 +17,7 @@ function _init($db) {
 		try {
 			$db->exec($sql);
 		} catch (\PDOException $e) {
-			echo 'Database initialization failed (query: <code>' . htmlspecialchars($sql) . '</code>)<br />'. "\n";
-			throw $e;
+			throw new \Exception('Database initialization command "' . \trim($sql) . '" failed (' . $e . ')');
 		}
 	}
 	$db->commit();
@@ -33,6 +32,11 @@ function connect() {
 
 	// Do we need to initialize?
 	if (\bmtmgr\config\get('allow_init', false)) {
+		if (\bmtmgr\config\get('test_force_init', false)) {
+			_init($db);
+			return $db;
+		}
+
 		$init_sql = \file_get_contents(dirname(__DIR__) . '/db_init.sql');
 		if (! \preg_match('/INSERT INTO db_version.*VALUES\s*\(([0-9]+)\)/', $init_sql, $matches)) {
 			throw new \Exception('Cannot detect version number');
@@ -56,5 +60,3 @@ function connect() {
 
 	return $db;
 }
-
-$GLOBALS['db'] = connect();

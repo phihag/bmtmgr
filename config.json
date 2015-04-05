@@ -6,6 +6,5 @@
 	"db_dsn": "sqlite:$ROOTDIR/bmcreg.sqlite",
 	"mail_from": "bmtmgr@aufschlagwechsel.de",
 	"support_email_address": "bmtmgr@aufschlagwechsel.de",
-	"tournament_url": "http://turnier.de/",
 	"timezone": "Europe/Berlin"
 }

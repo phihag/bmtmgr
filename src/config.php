@@ -16,11 +16,13 @@ class Config {
 		return $default;		
 	}
 
-	static function load() {
-		self::$config = json_decode(file_get_contents(__DIR__ . '/../config.json'), true);
+	public static function load($fn=null) {
+		if ($fn === null) {
+			$fn = __DIR__ . '/../config.json';
+		}
+		self::$config = json_decode(file_get_contents($fn), true);
 	}
 }
-Config::load();
 
 function get($key, $default='__nodefault__') {
 	return Config::get($key, $default);

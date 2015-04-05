@@ -22,5 +22,5 @@ render('club_list', [
 	'breadcrumbs' => [
 		['name' => 'Clubs', 'path' => 'club/']
 	],
-	'clubs' => user\User::get_all(),
+	'clubs' => user\User::get_all('ORDER BY ID ASC'),
 ]);

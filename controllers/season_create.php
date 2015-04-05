@@ -10,7 +10,8 @@ $u->require_perm('admin');
 
 utils\require_post_params(['name']);
 try {
-	$season = \bmtmgr\season\create($_POST['name']);
+	$season = new \bmtmgr\season\Season(null, $_POST['name'], false);
+	$season->save();
 } catch (utils\DuplicateEntryException $e) {
 	render_ajax_error(
 		'Die Liga "' . $_POST['name'] . '" existiert bereits'

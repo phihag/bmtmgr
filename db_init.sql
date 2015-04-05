@@ -1,11 +1,11 @@
 DROP TABLE IF EXISTS db_version;
 CREATE TABLE db_version (version INTEGER);
-INSERT INTO db_version (version) VALUES (22);
+INSERT INTO db_version (version) VALUES (29);
 
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
-		id TEXT(50) PRIMARY KEY,
-		email TEXT UNIQUE NOT NULL,
+		id TEXT(50) PRIMARY KEY NOT NULL,
+		email TEXT NOT NULL,
 		name TEXT UNIQUE NOT NULL,
 		permissions_json TEXT NOT NULL
 	);
@@ -42,7 +42,7 @@ CREATE TABLE season (
 	name TEXT UNIQUE NOT NULL,
 	visible INTEGER(1) NOT NULL
 );
-CREATE INDEX IF NOT EXISTS season_name_index ON player(textid);
+CREATE INDEX IF NOT EXISTS season_name_index ON season(name);
 
 DROP TABLE IF EXISTS player;
 CREATE TABLE player (

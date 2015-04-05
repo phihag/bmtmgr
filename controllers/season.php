@@ -8,7 +8,7 @@ $u = user\check_current();
 $u->require_perm('admin');
 
 utils\require_get_params(['id']);
-$season = season\by_id($_GET['id']);
+$season = season\Season::by_id($_GET['id']);
 
 
 render('season', [

@@ -24,7 +24,7 @@ function get_rendered($template_id, &$data) {
 	$data['root_path'] = \bmtmgr\utils\root_path();
 	$data['icon_path'] = \bmtmgr\utils\root_path() . 'static/icons/';
 
-	if (array_key_exists('user', $data)) {
+	if (array_key_exists('user', $data) && $data['user']) {
 		$data['is_admin'] = $data['user']->can('admin');
 	}
 

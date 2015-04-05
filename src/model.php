@@ -2,8 +2,16 @@
 namespace bmtmgr;
 
 class Model {
+	protected $_is_new = true;
+
+	public function is_new() {
+		return $this->_is_new;
+	}
+
 	protected static function from_row($row) {
-		return new static($row);
+		$res = new static($row);
+		$res->_is_new = false;
+		return $res;
 	}
 
 	protected static function table_name() {
@@ -16,14 +24,43 @@ class Model {
 				return $k != 'id' && !\bmtmgr\utils\startswith($k, '_');
 			});
 		$table = static::table_name();
-		$sql = "UPDATE $table SET ";
-		$sql .= \implode(', ', \array_map(function($k) {
-			return $table . '.' . $k . '=?';
-		}, array_keys($values)));
-		$sql .= " WHERE $table.id=?;";
 
-		$s = $GLOBALS['db']->prepare($sql);
-		$s->execute(\array_merge(\array_values($values), [$this->id]));
+		if ($this->_is_new) {
+			if ($this->id) {
+				$values['id'] = $this->id;
+			}
+
+			$sql = "INSERT INTO $table (";
+			$sql .= \implode(', ', array_keys($values));
+			$sql .= ') VALUES (';
+			$sql .= \implode(', ', array_fill(0, count($values), '?'));
+			$sql .= ');';
+
+			$s = $GLOBALS['db']->prepare($sql);
+			try {
+				$s->execute(\array_values($values));
+			} catch (\PDOException $pe) {
+				if ($pe->getCode() == '23000') {
+					throw new \bmtmgr\utils\DuplicateEntryException();
+				} else {
+					throw $pe;
+				}
+			}
+
+			if (!$this->id) {
+				$this->id = $GLOBALS['db']->lastInsertId();
+			}
+			$this->_is_new = false;
+		} else {
+			$sql = "UPDATE $table SET ";
+			$sql .= \implode(', ', \array_map(function($k) {
+			       return $k . '=?';
+			}, array_keys($values)));
+			$sql .= " WHERE id=?;";
+
+			$s = $GLOBALS['db']->prepare($sql);
+			$s->execute(\array_merge(\array_values($values), [$this->id]));
+		}
 	}
 
 	public static function get_all($add_sql='', $add_params=[], $add_tables=[]) {
@@ -63,5 +100,17 @@ class Model {
 			throw new \Exception('Expected exactly one item, got ' . \count($res));
 		}
 		return $res[0];
+	}
+
+	public static function by_id($id) {
+		return static::fetch_one('WHERE ' . static::table_name() . '.id=?', [$id]);
+	}
+
+	public static function by_id_optional($id) {
+		return static::fetch_optional('WHERE ' . static::table_name() . '.id=?', [$id]);
+	}
+
+	public static function connect() {
+		$GLOBALS['db'] = \bmtmgr\db\connect();
 	}
 }

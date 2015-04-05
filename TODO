@@ -1,8 +1,11 @@
-* Show clubs (and import them)
+* Set up travis for testing
+* Model should call lastInsertId and handle duplicates (see saeson)
+* Do away with partials (put everything into one)
+
+* import league incl. players from turnier.de
 * Add table for players per club
 * Allow admin to edit this table
 * Allow admin to add new clubs
-* Helper script to sync players for club from turnier.de
 
 * Add tournaments, include disciplines (and discipline conflicts)
 
@@ -12,12 +15,10 @@
 * List of tournament organizer accounts per tournament
 * Show all registrations to tournament organizer accounts
 
-show current club
 show all players
 edit players
 add players to club (include a Hobby club)
 
-import clubs (http://www.blv-nrw.de/blvdb/fb/blv_club_kontakte.php?id=2)
 export to HTML
 export to XLSX
 Freimeldungen
