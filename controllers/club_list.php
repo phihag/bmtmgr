@@ -10,7 +10,7 @@ if (isset($_GET['autocomplete']) && $_GET['autocomplete'] == 'json') {
 			'name' => $c->name,
 			'text' => '(' . $c->id . ') ' . $c->name,
 		];
-	}, user\User::get_all()));
+	}, User::get_all()));
 	exit();
 }
 
@@ -20,7 +20,7 @@ $u->require_perm('admin');
 render('club_list', [
 	'user' => $u,
 	'breadcrumbs' => [
-		['name' => 'Clubs', 'path' => 'club/']
+		['name' => 'Vereine', 'path' => 'club/']
 	],
-	'clubs' => user\User::get_all('ORDER BY ID ASC'),
+	'clubs' => User::get_all('ORDER BY ID ASC'),
 ]);

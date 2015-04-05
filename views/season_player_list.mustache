@@ -1,0 +1,21 @@
+<p>
+Insgesamt {{player_count}} Spieler/innen:
+</p>
+
+<table>
+<thead>
+<tr><th>Spieler-Id</th><th>Name</th><th>Verein</th><th>Nationalität</th><th>Geburtsjahr</th><th>Geschlecht</th>
+</thead>
+<tbody>
+{{#players}}
+<tr>
+<td>{{textid}}</td>
+<td>{{name}}</td>
+<td>{{#club}}{{name}}{{/club}}</td>
+<td>{{nationality}}</td>
+<td>{{birth_year}}</td>
+<td>{{gender}}</td>
+</tr>
+{{/players}}
+</tbody>
+</table>

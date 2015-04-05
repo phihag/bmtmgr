@@ -1,11 +1,11 @@
 DROP TABLE IF EXISTS db_version;
 CREATE TABLE db_version (version INTEGER);
-INSERT INTO db_version (version) VALUES (29);
+INSERT INTO db_version (version) VALUES (35);
 
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
 		id TEXT(50) PRIMARY KEY NOT NULL,
-		email TEXT NOT NULL,
+		email TEXT,
 		name TEXT UNIQUE NOT NULL,
 		permissions_json TEXT NOT NULL
 	);
@@ -47,12 +47,16 @@ CREATE INDEX IF NOT EXISTS season_name_index ON season(name);
 DROP TABLE IF EXISTS player;
 CREATE TABLE player (
 	id INTEGER PRIMARY KEY,
-	season_id INTEGER,
-	user_id INTEGER,
-	textid TEXT,
-	name TEXT,
+	season_id INTEGER NOT NULL,
+	club_id INTEGER NOT NULL,
+	textid TEXT NOT NULL,
+	name TEXT NOT NULL,
+	gender TEXT(1) NOT NULL,
+	birth_year INTEGER,
+	nationality TEXT,
 	FOREIGN KEY(season_id) REFERENCES season(id),
-	FOREIGN KEY(user_id) REFERENCES user(id)
+	FOREIGN KEY(club_id) REFERENCES user(id),
+	UNIQUE (season_id, textid)
 );
 CREATE INDEX IF NOT EXISTS player_textid_index ON player(textid);
 
@@ -60,7 +64,7 @@ DROP TABLE IF EXISTS tournament;
 CREATE TABLE tournament (
 	id INTEGER PRIMARY KEY,
 	season_id INTEGER,
-	name TEXT,
+	name TEXT NOT NULL,
+	description TEXT,
 	FOREIGN KEY(season_id) REFERENCES season(id)
 );
-

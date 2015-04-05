@@ -1,7 +1,8 @@
+{{#season}}
+
 <h2>{{name}}</h2>
 
 {{#is_admin}}
-{{#season}}
 {{^visible}}
 <div class="message_note">
 Diese Liga ist derzeit nur für Administratoren sichtbar.
@@ -12,9 +13,12 @@ Diese Liga ist derzeit nur für Administratoren sichtbar.
 </form>
 </div>
 {{/visible}}
-{{/season}}
 {{/is_admin}}
+
+<h2><a href="{{root_path}}season/{{id}}/players">{{player_count}} Spieler</a></h2>
 
 <p>
 TODO: a tournament list would be nice here
 </p>
+
+{{/season}}

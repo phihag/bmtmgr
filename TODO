@@ -1,10 +1,4 @@
-* import league incl. players from turnier.de
-* Add table for players per club
-* Allow admin to edit this table
-* Allow admin to add new clubs
-
 * Add tournaments, include disciplines (and discipline conflicts)
-
 * Allow registration
 	suggest all players via JS
 	search by player ID or name
@@ -18,16 +12,22 @@ add players to club (include a Hobby club)
 export to HTML
 export to XLSX
 Freimeldungen
-sync exports to local fs (php)
-sync exports to remote fs via upload (php)
+
+sync exports to local fs
+sync exports to remote fs via upload
+allow admins to download current db (and upload it)
 
 * Show current tournaments on root
+* show players per club
+
 
 * Make a test account for Miles
 	ask for player db
 
-send email to all users
 CAPTCHA for login
+* Allow admin to add new clubs
+* Allow admin to edit club players
+send email to all users
 add breadcrumb UI
 export costs
 better autocompletion style
@@ -49,3 +49,8 @@ fix login going invalid while on a subpage such as /admin
 season creation: use AJAX
 nicer URLs for tournaments
 strict error handler for E_NOTICE (catch asserts)
+autoload all model classes
+handle users without email
+allow admin to create login_links for other users
+helper method for breadcrumbs
+helper method for URL paths of objects

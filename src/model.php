@@ -25,7 +25,7 @@ class Model {
 			});
 		$table = static::table_name();
 
-		if ($this->_is_new) {
+		if ($this->_is_new === true) {
 			if ($this->id) {
 				$values['id'] = $this->id;
 			}
@@ -51,7 +51,7 @@ class Model {
 				$this->id = $GLOBALS['db']->lastInsertId();
 			}
 			$this->_is_new = false;
-		} else {
+		} elseif ($this->_is_new === false) {
 			$sql = "UPDATE $table SET ";
 			$sql .= \implode(', ', \array_map(function($k) {
 			       return $k . '=?';
@@ -60,10 +60,12 @@ class Model {
 
 			$s = $GLOBALS['db']->prepare($sql);
 			$s->execute(\array_merge(\array_values($values), [$this->id]));
+		} else {
+			throw new \Exception('Internal programming error: Trying to save an ephemeral object ' . $this);
 		}
 	}
 
-	public static function get_all($add_sql='', $add_params=[], $add_tables=[]) {
+	public static function get_all($add_sql='', $add_params=[], $add_tables=[], $add_fields='', $creation_callback=null) {
 		$all_keys = \array_filter(
 			\array_keys(\get_class_vars(get_called_class())),
 			function($k) {
@@ -74,6 +76,9 @@ class Model {
 		$sql .= \implode(', ', \array_map(function($k) use ($tname) {
 			return "$tname.$k AS $k";
 		}, $all_keys));
+		if ($add_fields) {
+			$sql .= ',' . $add_fields;
+		}
 		$sql .= ' FROM ' . implode(', ', array_merge([$tname], $add_tables)). ' ';
 		$sql .= $add_sql;
 		$sql .= ';';
@@ -81,9 +86,12 @@ class Model {
 		$s = $GLOBALS['db']->prepare($sql);
 		$s->execute($add_params);
 
-		// php cannot just use static::from_row
-		$from_row = get_called_class() . '::from_row';
-		return \array_map($from_row, $s->fetchAll());
+		if ($creation_callback === null) {
+			// php cannot just use static::from_row
+			$creation_callback = get_called_class() . '::from_row';
+		}
+
+		return \array_map($creation_callback, $s->fetchAll());
 	}
 
 	public static function fetch_optional($add_sql='', $add_params=[], $add_tables=[]) {
@@ -112,5 +120,13 @@ class Model {
 
 	public static function connect() {
 		$GLOBALS['db'] = \bmtmgr\db\connect();
+	}
+
+	public static function beginTransaction() {
+		$GLOBALS['db']->beginTransaction();
+	}
+
+	public static function commit() {
+		$GLOBALS['db']->commit();
 	}
 }

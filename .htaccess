@@ -19,7 +19,9 @@ RewriteRule ^login$ controllers/login.php [L]
 RewriteRule ^request_token$ controllers/request_token.php [L]
 RewriteRule ^season/$ controllers/season_list.php [L]
 RewriteRule ^season/([0-9]+)/$ controllers/season.php?id=$1 [L]
-RewriteRule ^season/([0-9]+)/([a-z]+)$ controllers/season_actions.php?id=$1&action=$2 [L]
+RewriteRule ^season/([0-9]+)/(hide|show)$ controllers/season_actions.php?id=$1&action=$2 [L]
+RewriteRule ^season/([0-9]+)/players$ controllers/season_player_list.php?season_id=$1 [L]
 RewriteRule ^season/create$ controllers/season_create.php [L]
+RewriteRule ^season/import$ controllers/season_import.php [L]
 
 

@@ -3,40 +3,9 @@ namespace bmtmgr\user;
 
 require_once __DIR__ . '/render.php';
 
-
-class User extends \bmtmgr\Model {
-	public $id;
-	public $name;
-	public $email;
-	protected $permissions_json;
-	private $_perms;
-
-	public function __construct($id, $name, $email, $perms) {
-		$this->id = $id;
-		$this->name = $name;
-		$this->email = $email;
-		$this->_perms = $perms;
-		$this->permissions_json = \json_encode($this->_perms);
-	}
-
-	protected static function from_row($row) {
-		return new static($row['id'], $row['name'], $row['email'], \json_decode($row['permissions_json']));
-	}
-
-	public function can($perm) {
-		return in_array($perm, $this->_perms);
-	}
-
-	public function require_perm($perm) {
-		if (! $this->can($perm)) {
-			\bmtmgr\utils\access_denied();
-		}
-	}
-}
-
 function find_by_token($table, $token) {
 	$now = time();
-	return User::fetch_optional(
+	return \bmtmgr\User::fetch_optional(
 		'WHERE user.id = ' . $table . '.user_id AND ' . $table . '.token = ? AND ' . $table . '.expiry_time > ?',
 		array($token, $now),
 		array($table)
@@ -78,10 +47,10 @@ function create_session($u) {
 
 function find_by_input($input) {
 	if (preg_match('/^\s*\((.*?)\)/', $input, $matches)) {
-		return User::fetch_optional('WHERE id = ?', array($matches[1]));
+		return \bmtmgr\User::fetch_optional('WHERE id = ?', array($matches[1]));
 	}
 
-	return User::fetch_optional('WHERE id = ? OR name = ?', array($input, $input));
+	return \bmtmgr\User::fetch_optional('WHERE id = ? OR name = ?', array($input, $input));
 }
 
 function render_login_form() {

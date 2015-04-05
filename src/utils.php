@@ -37,18 +37,18 @@ function csrf_protect() {
 }
 
 function require_params($keys, $ar, $name) {
-	$missing = array();
+	$missing = [];
 	foreach ($keys as $k) {
-		if (! array_key_exists($k, $ar)) {
-			array_push($missing, $k);
+		if (! \array_key_exists($k, $ar)) {
+			\array_push($missing, $k);
 		}
 	}
-	if (count($missing) > 0) {
-		header('HTTP/1.1 400 Bad Request');
-		\bmtmgr\render('error', array(
+	if (\count($missing) > 0) {
+		\header('HTTP/1.1 400 Bad Request');
+		\bmtmgr\render('error', [
 			'title' => 'Fehler: ' . $name . '-Parameter fehlt',
-			'msg' => 'Entschuldigung, wir haben die ' . $name . '-Parameter ' . explode(', ', $missing) . ' im vorherigem Formular vergessen.'
-		));
+			'msg' => 'Entschuldigung, wir haben die ' . $name . '-Parameter ' . \implode(', ', $missing) . ' im vorherigem Formular vergessen.'
+		]);
 		exit();
 	}
 }
@@ -62,16 +62,16 @@ function require_get_params($keys) {
 }
 
 function startswith($haystack, $needle) {
-	return substr($haystack, 0, strlen($needle)) === $needle;
+	return \substr($haystack, 0, \strlen($needle)) === $needle;
 }
 
 function endswith($haystack, $needle) {
-	return substr($haystack, -strlen($needle)) === $needle;
+	return \substr($haystack, -\strlen($needle)) === $needle;
 }
 
 function url_basename($url) {
 	if (!preg_match('/.*?\/([^\/]+)(?:\/?$|[?#])/', $url, $matches)) {
-		throw new Exception('Invalid URL ' . $url);
+		throw new \Exception('Invalid URL ' . $url);
 	}
 	return $matches[1];
 }
@@ -85,9 +85,9 @@ function strip_ext($name) {
 function gen_token() {
 	$bs = openssl_random_pseudo_bytes(64, $crypto_strong);
 	if (! $crypto_strong) {
-		throw new Exception('Cannot generate crypto token');
+		throw new \Exception('Cannot generate crypto token');
 	}
-	return substr(hash('sha512', $bs), 0, 24);
+	return \substr(\hash('sha512', $bs), 0, 24);
 }
 
 function root_path() {

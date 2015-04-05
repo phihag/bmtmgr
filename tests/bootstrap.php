@@ -10,4 +10,8 @@ require_once \dirname(__DIR__) . '/src/config.php';
 require_once \dirname(__DIR__) . '/src/db.php';
 require_once \dirname(__DIR__) . '/src/user.php';
 
+// These should be autoloaded later
+require_once \dirname(__DIR__) . '/models/season.php';
+require_once \dirname(__DIR__) . '/models/player.php';
+
 \date_default_timezone_set(\bmtmgr\config\get('timezone'));

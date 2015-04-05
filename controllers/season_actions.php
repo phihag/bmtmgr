@@ -1,20 +1,18 @@
 <?php
 namespace bmtmgr;
-
 require_once dirname(__DIR__) . '/src/common.php';
-require_once dirname(__DIR__) . '/src/season.php';
 
 utils\csrf_protect();
 $u = user\check_current();
 $u->require_perm('admin');
 
 utils\require_get_params(['id', 'action']);
-$season = \bmtmgr\season\by_id($_GET['id']);
+$season = Season::by_id($_GET['id']);
 
 switch ($_GET['action']) {
 case 'hide':
 case 'show':
-	$season->visible = \boolval($_GET['action'] == 'show');
+	$season->visible = ($_GET['action'] == 'show');
 	$season->save();
 	render_ajax('season/' . $season->id . '/', [
 		'season' => $season
