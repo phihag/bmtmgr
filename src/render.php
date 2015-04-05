@@ -10,7 +10,7 @@ function _get_engine() {
 	if ($res === null) {
 		$res = new \Mustache_Engine(array(
 			'loader' => new \Mustache_Loader_FilesystemLoader(dirname(__FILE__).'/../views'),
-		    'partials_loader' => new \Mustache_Loader_FilesystemLoader(dirname(__FILE__).'/../views/partials'),
+		    'partials_loader' => new \Mustache_Loader_FilesystemLoader(dirname(__FILE__).'/../views'),
 		));
 	}
 	return $res;

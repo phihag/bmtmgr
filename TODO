@@ -1,7 +1,3 @@
-* Set up travis for testing
-* Model should call lastInsertId and handle duplicates (see saeson)
-* Do away with partials (put everything into one)
-
 * import league incl. players from turnier.de
 * Add table for players per club
 * Allow admin to edit this table

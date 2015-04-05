@@ -1,1 +1,16 @@
-{{>admin_clubs}}
+<table class="admin_table">
+<tbody>
+{{#clubs}}
+<tr><td>
+<a href="{{root_path}}club/{{id}}/">({{id}}) {{name}}</a>
+</td></tr>
+{{/clubs}}
+</tbody>
+</table>
+
+{{#is_admin}}
+<form method="post" action="{{root_path}}club/import">
+{{{csrf_field}}}
+<button>Clubs von badminton-nrw.de importieren</button>
+</form>
+{{/is_admin}}
