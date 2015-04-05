@@ -6,5 +6,5 @@ php:
   - hhvm
   - nightly
 install:
-	make build
+  - make build
 
