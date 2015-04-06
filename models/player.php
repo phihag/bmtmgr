@@ -57,4 +57,10 @@ class Player extends \bmtmgr\Model {
 		$params = \array_merge([':input' => $inp], $add_params);
 		return static::fetch_one('WHERE player.textid = :input ' . $add_sql, $params);
 	}
+
+	public static function get_in_club_season($club_id, $season_id, $add_sql='') {
+		return static::get_all(
+			'WHERE club_id=:club_id AND season_id = :season_id ' . $add_sql,
+			[':club_id' => $club_id, ':season_id' => $season_id]);
+	}
 }

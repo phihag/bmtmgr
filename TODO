@@ -1,5 +1,6 @@
-edit players (email)
+prevent player in DD-A and as partner in DD-B
 add players to club (include a Hobby club)
+edit players (email)
 
 export to HTML
 export to XLSX
@@ -8,12 +9,10 @@ add email during entry
 
 sync exports to local fs
 sync exports to remote fs via upload
-allow admins to download current db (and upload it)
+allow admins to download current db
 allow reimport
 
 * Show current tournaments on root
-* show players per club
-
 
 * Show only my entries for non-admin users
 	during entry, filter by club id as well

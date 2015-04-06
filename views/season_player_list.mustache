@@ -2,19 +2,29 @@
 Insgesamt {{player_count}} Spieler/innen:
 </p>
 
-<table>
+<table class="player_table">
 <thead>
-<tr><th>Spieler-Id</th><th>Name</th><th>Verein</th><th>Nationalität</th><th>Geburtsjahr</th><th>Geschlecht</th>
+<tr>
+<th class="player_textid">Spieler-Id</th>
+<th class="player_name">Name</th>
+{{^club}}
+<td class="player_club">Verein</th>
+{{/club}}
+<th class="player_nationality">Nationalität</th>
+<th class="player_birthyear">Geburtsjahr</th>
+<th class="player_gender">Geschlecht</th>
 </thead>
 <tbody>
 {{#players}}
 <tr>
-<td>{{textid}}</td>
-<td>{{name}}</td>
-<td>{{club_name}}</td>
-<td>{{nationality}}</td>
-<td>{{birth_year}}</td>
-<td>{{gender}}</td>
+<td class="player_textid">{{textid}}</td>
+<td class="player_name">{{name}}</td>
+{{^club}}
+<td class="player_club_name">{{club_name}}</td>
+{{/club}}
+<td class="player_nationality">{{nationality}}</td>
+<td class="player_birthyear">{{birth_year}}</td>
+<td class="player_gender">{{gender}}</td>
 </tr>
 {{/players}}
 </tbody>

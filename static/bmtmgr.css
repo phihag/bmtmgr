@@ -201,7 +201,7 @@ button img {
     color: #000 !important;
 }
 
-.entries {
+.player_table {
     border-collapse: collapse;
 }
 td.player_textid {
@@ -211,24 +211,24 @@ td.without_partner {
     text-align: center;
     font-style: italic;
 }
-.entries th, .entries td {
+.player_table th, .player_table td {
     padding: 5px 5px 5px 5px;
 }
-.entries td+td, entries th+th {
+.player_table td+td, player_table th+th {
     padding-right: 10px;
 }
-.entries td+td.player_name, entries th+th.player_name {
+.player_table td+td.player_name, player_table th+th.player_name {
      padding-left: 20px;
 }
-.entries tbody tr:hover {
+.player_table tbody tr:hover {
     background: #fafafa;
 }
-.entries tbody tr:hover td {
+.player_table tbody tr:hover td {
     color: #000 !important;
 }
-.entries td.player_club {
+.player_table td.player_club {
     color: #888;
 }
-.entries td.player_textid {
+.player_table td.player_textid {
     color: #999;
 }
