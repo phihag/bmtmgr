@@ -12,4 +12,10 @@ $(function() {
         });
     });
 
+
+    // Shortcuts
+    Mousetrap.bind('d', function() {
+        $('#discipline_create').click();
+    });
+
 });

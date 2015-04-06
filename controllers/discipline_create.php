@@ -10,17 +10,34 @@ utils\require_get_params(['tournament_id']);
 utils\require_post_params(['name', 'dtype']);
 $tournament = Tournament::by_id($_GET['tournament_id']);
 
+if ($_POST['dtype'] == 'all') {
+	$specs = [
+		['name' => 'HE' . $_POST['name'], 'dtype' => 'MS'],
+		['name' => 'DE' . $_POST['name'], 'dtype' => 'WS'],
+		['name' => 'HD' . $_POST['name'], 'dtype' => 'MD'],
+		['name' => 'DD' . $_POST['name'], 'dtype' => 'WD'],
+		['name' => 'MX' . $_POST['name'], 'dtype' => 'MX'],
+	];
+} else {
+	$specs = [
+		['name' => $_POST['name'], 'dtype' => $_POST['dtype']]
+	];
+}
+Model::beginTransaction();
 try {
-	$discipline = Discipline::create($tournament, $_POST['name'], $_POST['dtype']);
-	$discipline->save();
+	foreach ($specs as $spec) {
+		$discipline = Discipline::create($tournament, $spec['name'], $spec['dtype']);
+		$discipline->save();
+	}
 } catch (utils\DuplicateEntryException $e) {
 	render_ajax_error(
 		'Disziplin "' . $_POST['name'] . '" existiert bereits!'
 	);
 	exit();
 }
+Model::commit();
 
 render_ajax('d/' . $discipline->id . '/', [
 	'tournament' => $tournament,
-	'discipline' => $discipline,
+	'disciplines' => $disciplines,
 ]);

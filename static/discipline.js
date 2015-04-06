@@ -1,6 +1,10 @@
 "use strict";
 
 function discipline_guess_dtype(name) {
+    var firstChar = name.substr(0, 1);
+    if (firstChar == ' ' || firstChar == '-') {
+        return 'all';
+    }
     var NAME_TABLE = {
         "MX": "MX",
         "GD": "MX",

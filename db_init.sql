@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS db_version;
 CREATE TABLE db_version (version INTEGER);
-INSERT INTO db_version (version) VALUES (44);
+INSERT INTO db_version (version) VALUES (45);
 
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
@@ -83,7 +83,7 @@ CREATE TABLE discipline (
 	dtype TEXT(2) NOT NULL,
 	ages TEXT,
 	leagues TEXT,
-	capacity INT,
+	capacity INTEGER,
 	FOREIGN KEY(tournament_id) REFERENCES tournament(id),
 	UNIQUE (tournament_id, name)
 );
