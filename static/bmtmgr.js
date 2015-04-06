@@ -17,5 +17,8 @@ $(function() {
     Mousetrap.bind('d', function() {
         $('#discipline_create').click();
     });
+    Mousetrap.bind('ins', function() {
+        $('#entry_add').click();
+    });
 
 });
