@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS db_version;
 CREATE TABLE db_version (version INTEGER);
-INSERT INTO db_version (version) VALUES (42);
+INSERT INTO db_version (version) VALUES (43);
 
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
@@ -68,8 +68,8 @@ CREATE TABLE tournament (
 	season_id INTEGER NOT NULL,
 	name TEXT UNIQUE NOT NULL,
 	description TEXT,
-	start_timestamp BIGINT,
-	end_timestamp BIGINT,
+	start_time BIGINT,
+	end_time BIGINT,
 	visible INTEGER(1),
 	FOREIGN KEY(season_id) REFERENCES season(id)
 );

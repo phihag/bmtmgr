@@ -6,8 +6,8 @@ class Tournament extends \bmtmgr\Model {
 	public $season_id;
 	public $name;
 	public $description;
-	public $start_timestamp;
-	public $end_timestamp;
+	public $start_time;
+	public $end_time;
 	public $visible;
 
 	protected function __construct($row, $_is_new) {
@@ -15,8 +15,8 @@ class Tournament extends \bmtmgr\Model {
 		$this->season_id = $row['season_id'];
 		$this->name = $row['name'];
 		$this->description = $row['description'];
-		$this->start_timestamp = $row['start_timestamp'];
-		$this->end_timestamp = $row['end_timestamp'];
+		$this->start_time = $row['start_time'];
+		$this->end_time = $row['end_time'];
 		$this->visible = $row['visible'];
 
 		$this->_is_new = $_is_new;
@@ -28,8 +28,8 @@ class Tournament extends \bmtmgr\Model {
 			'season_id' => $season->id,
 			'name' => $name,
 			'description' => null,
-			'start_timestamp' => null,
-			'end_timestamp' => null,
+			'start_time' => null,
+			'end_time' => null,
 			'visible' => false,
 		], true);
 	}
