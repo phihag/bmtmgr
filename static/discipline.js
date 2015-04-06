@@ -58,6 +58,5 @@ $('.player_selector').each(function(index, ps) {
     $(ps).autocomplete({
         minLength: 4,
         source: player_search,
-        appendTo: ps.parentNode
     });
 });

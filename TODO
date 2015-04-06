@@ -21,7 +21,7 @@ CAPTCHA for login
 * Allow admin to edit club players
 send email to all users
 export costs
-better autocompletion style
+better autocompletion style for login
 rewrite discipline UI - make one screen to add new disciplines, when clicking on tournament name
 input by player ID
 online-Meldungen for club
@@ -60,7 +60,6 @@ Improve performance of player search for entries
 optimize entry adding with ID when typing out ID (do not send a bunch of players in between)
 helper tool for consistent whitespace
 Improve search (for example for Philipp Ha should because of upper-case know which one to pick)
-improve autocompletion style
 Player selection: when tabbing out or pressing enter while there, pick first result
 better check when adding entry
 player selection in doubles: prevent someone from playing with themselves

@@ -80,7 +80,9 @@ a:hover {
     padding: 10px 10px;
 }
 .ui-helper-hidden-accessible { display:none; }
-
+.ui-autocomplete {
+    background: rgba(255, 255, 255, 0.95);
+}
  
 .clickable, button, input[type=submit] {
     cursor: pointer;
