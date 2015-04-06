@@ -117,13 +117,13 @@ class Discipline extends \bmtmgr\Model {
 			 entry.discipline_id = discipline.id AND
 			 discipline.dtype = :dtype AND
 			 discipline.tournament_id = :tournament_id AND
-			 (entry.player_id = :player_id OR entry.player_id = :partner_id OR entry.partner_id = :player_id)
+			 (entry.player_id = :player_id OR entry.partner_id = :player_id)
 			 ',
 			$vals,
 			['entry']
 		);
-		if (\count ($all_conflicting) > 0) {
-			return $all_conflicting[1];
+		if (\count($all_conflicting) > 0) {
+			return $all_conflicting[0];
 		}
 		return null;
 	}
@@ -198,7 +198,7 @@ class Discipline extends \bmtmgr\Model {
 				  	WHERE d1.id = :discipline_id
 				  	AND ((d1.tournament_id = d2.tournament_id) AND (d1.dtype = d2.dtype))
 				  	AND entry.discipline_id = d2.id
-				  	AND entry.partner_id != NULL
+				  	AND entry.partner_id IS NOT NULL
 			  )
 			  ' . $add_sql;
 		return Player::get_rows_with_club_names(
