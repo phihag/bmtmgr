@@ -1,0 +1,34 @@
+<form method="post" action="{{root_path}}d/{{#discipline}}{{id}}{{/discipline}}/entry_add" class="create_entry dataentry_form">
+{{{csrf_field}}}
+
+<label>
+{{#discipline}}
+{{#male_player}}
+Spieler:
+{{/male_player}}
+{{^male_player}}
+Spielerin:
+{{/male_player}}
+{{#player_restrictions}}
+{{>player_selector}}
+{{/player_restrictions}}
+</label>
+
+{{#with_partner}}
+<label>
+{{#male_partner}}
+Partner:
+{{/male_partner}}
+{{^male_partner}}
+Partnerin:
+{{/male_partner}}
+{{#partner_restrictions}}
+{{>player_selector}}
+{{/partner_restrictions}}
+</label>
+{{/with_partner}}
+
+{{/discipline}}
+
+<button>Meldung erfassen</button>
+</form>

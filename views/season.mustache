@@ -19,7 +19,7 @@ Diese Liga ist derzeit nur für Administratoren sichtbar.
 
 {{>tournament_list}}
 
-<form action="{{root_path}}tournament/create" method="post" class="inline-form">
+<form action="{{root_path}}t/create" method="post" class="inline-form">
 {{{csrf_field}}}
 <input type="hidden" name="season_id" value="{{id}}" />
 <input type="text" size="20" name="name" required="required" minlength="2" placeholder="Turnier-Name" value="Test-Turnier" />

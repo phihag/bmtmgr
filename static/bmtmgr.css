@@ -27,6 +27,22 @@ html, body {
     top: 50px;
     padding: 15px 15px 0 15px;
 }
+#disciplines_bar {
+    position: fixed;
+    left: 0; right: 0;
+    top: 50px;
+    height: 30px;
+    padding: 10px 0 10px 15px;
+    z-index: 1000;
+    background: rgba(250, 250, 250, 0.97);
+    border-bottom: 1px solid #eeeeee;
+
+    display: flex;
+    align-items: center;
+}
+#content.with_disciplines_bar {
+    top: 100px;
+}
 
 #mainnav_admin {
     display: block;
@@ -156,7 +172,63 @@ button img {
     background: #fdfdfd ;
 }
 
-.dataentry_form label {
+.dataentry_form>label, .dataentry_form>fieldset {
     display: block;
-    vertical-align: top;
+    
+    display: flex;
+    align-items: center;
+}
+.dataentry_form button {
+    display: block;
+    margin  
+    font-size: 140%;
+    padding: 10px;
+}
+#disciplines {
+    padding: 0;
+    height: 50px;
+    margin: 0 0 10px 0;
+}
+#disciplines_bar>a {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 120%;
+    margin: 0 10px 0 -10px;
+    padding: 10px 10px;
+}
+.current_discipline {
+    background: rgba(235, 235, 235, 0.97);
+    color: #000 !important;
+}
+
+.entries {
+    border-collapse: collapse;
+}
+td.player_textid {
+    text-align: right;
+}
+td.without_partner {
+    text-align: center;
+    font-style: italic;
+}
+.entries th, .entries td {
+    padding: 5px 5px 5px 5px;
+}
+.entries td+td, entries th+th {
+    padding-right: 10px;
+}
+.entries td+td.player_name, entries th+th.player_name {
+     padding-left: 20px;
+}
+.entries tbody tr:hover {
+    background: #fafafa;
+}
+.entries tbody tr:hover td {
+    color: #000 !important;
+}
+.entries td.player_club {
+    color: #888;
+}
+.entries td.player_textid {
+    color: #999;
 }

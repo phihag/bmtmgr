@@ -1,5 +1,6 @@
-all: test
+all:
 	$(MAKE) build
+	$(MAKE) test
 
 build:
 	$(MAKE) -C libs all

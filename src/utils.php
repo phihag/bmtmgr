@@ -109,7 +109,7 @@ function absolute_url() {
 
 	$domain = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
 	$port = $_SERVER['SERVER_PORT'];
-	$https = array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] == 'on';
+	$https = \array_key_exists('HTTPS', $_SERVER) && $_SERVER['HTTPS'] == 'on';
 	if (($https && $port != 443) || (!$https && $port != 80)) {
 		$domain .= ':' . $port;
 	}
@@ -133,7 +133,11 @@ class DuplicateEntryException extends \Exception {
 	// Name or ID is already in use
 }
 
+class InvalidEntryException extends \Exception {
+	// Entry not allowed
+}
+
 function array_filter_keys($ar, $callback) {
-	$keys = array_filter(array_keys($ar), $callback);
-	return array_intersect_key($ar, array_flip($keys));
+	$keys = \array_filter(\array_keys($ar), $callback);
+	return \array_intersect_key($ar, \array_flip($keys));
 }

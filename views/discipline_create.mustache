@@ -1,0 +1,15 @@
+<form method="post" action="{{root_path}}t/{{#tournament}}{{id}}{{/tournament}}/discipline_create" class="create_discipline dataentry_form">
+{{{csrf_field}}}
+
+<label><input type="text" name="name" required="required" placeholder="Name, z.B. GD U19" autofocus="autofocus" /></label>
+<div>
+<label><input type="radio" name="dtype" value="MS" required="required">Herreneinzel</label>
+<label><input type="radio" name="dtype" value="WS" required="required">Dameneinzel</label>
+<label><input type="radio" name="dtype" value="MD" required="required">Herrendoppel</label>
+<label><input type="radio" name="dtype" value="WD" required="required">Damendoppel</label>
+<label><input type="radio" name="dtype" value="MX" required="required">Mixed</label>
+</div>
+</label>
+
+<button>Disziplin erstellen</button>
+</form>

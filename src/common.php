@@ -12,6 +12,8 @@ Model::connect();
 require_once __DIR__ . '/user.php';
 
 // These should be autoloaded later
+require_once \dirname(__DIR__) . '/models/discipline.php';
+require_once \dirname(__DIR__) . '/models/entry.php';
 require_once \dirname(__DIR__) . '/models/player.php';
 require_once \dirname(__DIR__) . '/models/season.php';
 require_once \dirname(__DIR__) . '/models/tournament.php';

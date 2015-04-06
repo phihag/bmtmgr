@@ -19,13 +19,24 @@ function _get_engine() {
 function get_rendered($template_id, &$data) {
 	$mustache = _get_engine();
 
-	$data['csrf_field'] = '<input type="hidden" name="csrf_token" value="' . htmlspecialchars(utils\csrf_token()) . '" />';
+	$data['csrf_field'] = '<input type="hidden" name="csrf_token" value="' . \htmlspecialchars(utils\csrf_token()) . '" />';
 	$data['support_email_address'] = \bmtmgr\config\get('support_email_address');
 	$data['root_path'] = \bmtmgr\utils\root_path();
 	$data['icon_path'] = \bmtmgr\utils\root_path() . 'static/icons/';
 
-	if (array_key_exists('user', $data) && $data['user']) {
+	if (\array_key_exists('user', $data) && $data['user']) {
 		$data['is_admin'] = $data['user']->can('admin');
+	}
+	if (\array_key_exists('disciplines', $data)) {
+		$data['disciplines_present'] = true;
+	}
+	if (array_key_exists('disciplines', $data) && array_key_exists('discipline', $data)) {
+		foreach ($data['disciplines'] as $d) {
+			if ($d->id == $data['discipline']->id) {
+				$d->_is_new = 'edited';
+				$d->is_active = true;
+			}
+		}
 	}
 
 	return $mustache->render($template_id, $data);

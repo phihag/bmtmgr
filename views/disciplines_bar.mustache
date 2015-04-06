@@ -1,0 +1,13 @@
+{{#disciplines}}
+<button>{{name}}</button>
+{{/disciplines}}
+
+<nav id="disciplines_bar">
+{{#disciplines}}
+<a href="{{root_path}}d/{{id}}/" class="{{#is_active}}current_discipline{{/is_active}}">{{name}}</a>
+{{/disciplines}}
+<form class="inline-form" action="{{root_path}}t/{{#tournament}}{{id}}{{/tournament}}/dialog_discipline_create" method="get">
+<button id="discipline-create"><img src="{{icon_path}}add.svg" title="Neue Disziplin" />Neue Disziplin</button>
+</form>
+</nav>
+

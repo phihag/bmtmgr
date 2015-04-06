@@ -24,19 +24,19 @@ class Season extends \bmtmgr\Model {
 		return $row['count'];
 	}
 
-	public function get_players_with_clubs($add_sql='') {
-		return Player::get_all(
-			'WHERE player.season_id=? AND user.id=player.club_id ' . $add_sql, [$this->id],
-			['user'],
-			'user.name AS club_name',
-			function($row) {
-				$p = Player::from_row($row);
-				$p->club = new User($row['club_id'], $row['club_name'], null, null, 'dontsave');
-				return $p;
-			});
+	public function get_player_rows_with_club_names($add_sql='') {
+		return Player::get_rows_with_club_names(
+				'AND player.season_id=? ' . $add_sql, [$this->id]);
 	}
 
 	public function get_tournaments($add_sql='') {
 		return Tournament::get_all('WHERE season_id=? ' . $add_sql, [$this->id]);
+	}
+
+	public function get_player_by_input($input) {
+		return Player::get_by_input(
+			$input,
+			' AND player.season_id=:season_id ',
+			[':season_id' => $this->id]);
 	}
 }

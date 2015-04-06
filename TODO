@@ -1,26 +1,22 @@
-* Add disciplines (and discipline conflicts)
-
-* Allow registration
-	suggest all players via JS
-	search by player ID or name
-* List of tournament organizer accounts per tournament
-* Show all registrations to tournament organizer accounts
-
-edit players
+edit players (email)
 add players to club (include a Hobby club)
 
 export to HTML
 export to XLSX
-Freimeldungen
+
+add email during entry
 
 sync exports to local fs
 sync exports to remote fs via upload
 allow admins to download current db (and upload it)
+allow reimport
 
 * Show current tournaments on root
 * show players per club
 
 
+* Show only my entries for non-admin users
+	during entry, filter by club id as well
 * Make a test account for Miles
 	ask for player db
 
@@ -56,3 +52,24 @@ helper method for breadcrumbs
 helper method for URL paths of objects
 switch tournament editing to a more AJAX-y way
 allow configuration of start and end date of tournaments
+add shortcuts for the entire app (make it usable with keyboard only)
+highlight current discipline
+* List of tournament organizer accounts per tournament
+always but dialog at the end of URLs
+allow memory-efficient rendering (of whole player lists)
+allow tournament restriction by age
+allow override entries (good lady in MS) when necessary
+drop jquery UI (implement own auto completion)
+remove all TODOs from source code
+Improve performance of player search for entries
+optimize entry adding with ID when typing out ID (do not send a bunch of players in between)
+helper tool for consistent whitespace
+Improve search (for example for Philipp Ha should because of upper-case know which one to pick)
+improve autocompletion style
+Player selection: when tabbing out or pressing enter while there, pick first result
+better check when adding entry
+player selection in doubles: prevent someone from playing with themselves
+player selection (doubles): jump to next field once selected
+add tests for valid player selections
+debug mode to show all SQL queries
+erlaube weibliche Freimeldungen im Mixed! (easy solution: ignore order of players in mixed, and only check that gender is different)

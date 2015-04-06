@@ -1,11 +1,7 @@
 {{#tournament}}
 
-
-
-
-
 {{#is_admin}}
-<form method="post" action="{{root_path}}tournament/{{id}}/edit" class="dataentry_form">
+<form method="post" action="{{root_path}}t/{{id}}/edit" class="dataentry_form">
 {{{csrf_field}}}
 <label>Beschreibung:
 <textarea name="description" rows="5" cols="40">{{description}}</textarea>

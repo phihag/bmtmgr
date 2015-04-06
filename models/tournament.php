@@ -10,7 +10,7 @@ class Tournament extends \bmtmgr\Model {
 	public $end_timestamp;
 	public $visible;
 
-	private function __construct($row, $_is_new) {
+	protected function __construct($row, $_is_new) {
 		$this->id = $row['id'];
 		$this->season_id = $row['season_id'];
 		$this->name = $row['name'];
@@ -20,10 +20,6 @@ class Tournament extends \bmtmgr\Model {
 		$this->visible = $row['visible'];
 
 		$this->_is_new = $_is_new;
-	}
-
-	protected static function from_row($row, $_is_new=false) {
-		return new static($row, $_is_new);
 	}
 
 	public static function create($season, $name) {
@@ -38,7 +34,12 @@ class Tournament extends \bmtmgr\Model {
 		], true);
 	}
 
-	public function getSeason() {
+	public function get_season() {
 		return Season::by_id($this->season_id);
 	}
+
+	public function get_disciplines($add_sql='') {
+		return Discipline::get_all('WHERE tournament_id=? ' . $add_sql, [$this->id]);
+	}
+
 }

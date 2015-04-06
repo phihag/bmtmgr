@@ -2,16 +2,10 @@
 namespace bmtmgr;
 
 class Model {
-	protected $_is_new = true;
+	public $_is_new = true;
 
-	public function is_new() {
-		return $this->_is_new;
-	}
-
-	protected static function from_row($row) {
-		$res = new static($row);
-		$res->_is_new = false;
-		return $res;
+	protected static function from_row($row, $_is_new=false) {
+		return new static($row, $_is_new);
 	}
 
 	protected static function table_name() {
@@ -65,21 +59,26 @@ class Model {
 		}
 	}
 
-	public static function get_all($add_sql='', $add_params=[], $add_tables=[], $add_fields='', $creation_callback=null) {
+	protected static function all_fields_str() {
 		$all_keys = \array_filter(
-			\array_keys(\get_class_vars(get_called_class())),
+			\array_keys(\get_class_vars(\get_called_class())),
 			function($k) {
 				return !\bmtmgr\utils\startswith($k, '_');
 			});
 		$tname = static::table_name();
-		$sql = 'SELECT ';
-		$sql .= \implode(', ', \array_map(function($k) use ($tname) {
+
+		return \implode(', ', \array_map(function($k) use ($tname) {
 			return "$tname.$k AS $k";
 		}, $all_keys));
+	}
+
+	public static function get_all($add_sql='', $add_params=[], $add_tables=[], $add_fields='', $creation_callback=null) {
+		$sql = 'SELECT ';
+		$sql .= static::all_fields_str();
 		if ($add_fields) {
 			$sql .= ',' . $add_fields;
 		}
-		$sql .= ' FROM ' . implode(', ', array_merge([$tname], $add_tables)). ' ';
+		$sql .= ' FROM ' . implode(', ', array_merge([static::table_name()], $add_tables)). ' ';
 		$sql .= $add_sql;
 		$sql .= ';';
 
@@ -92,6 +91,15 @@ class Model {
 		}
 
 		return \array_map($creation_callback, $s->fetchAll());
+	}
+
+	public static function get_dict($add_sql='', $add_params=[], $add_tables=[], $add_fields='', $creation_callback=null) {
+		$data = static::get_all($add_sql, $add_params, $add_tables, $add_fields, $creation_callback);
+		$res = [];
+		foreach ($data as $d) {
+			$res[$d->id] = $d;
+		}
+		return $res;
 	}
 
 	public static function fetch_optional($add_sql='', $add_params=[], $add_tables=[]) {

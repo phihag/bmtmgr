@@ -71,14 +71,16 @@ foreach ($matches as $m) {
 				'gender' => $g,
 				'birth_year' => \intval($m['birth_year']),
 				'nationality' => $m['nationality'],
-			]);
+				'email' => null,
+				'phone' => null,
+			], true);
 			$p->save();
 		}
 	}
 }
 Model::commit();
 
-render_ajax('season/' . urlencode($season->id) . '/players', [
+render_ajax('season/' . urlencode($season->id) . '/', [
 	'season' => $season,
 ]);
 

@@ -10,6 +10,8 @@ class Player extends \bmtmgr\Model {
 	public $gender;
 	public $birth_year;
 	public $nationality;
+	public $email;
+	public $phone;
 
 	public function __construct($row, $_is_new=true) {
 		$this->id = $row['id'];
@@ -20,14 +22,39 @@ class Player extends \bmtmgr\Model {
 		$this->gender = $row['gender'];
 		$this->birth_year = $row['birth_year'];
 		$this->nationality = $row['nationality'];
+		$this->email = $row['email'];
+		$this->phone = $row['phone'];
 		$this->_is_new = $_is_new;
 	}
 
-	protected static function from_row($row) {
-		return new static($row, false);
+	protected static function from_row($row, $_is_new=false) {
+		return new static($row, $_is_new);
 	}
 
 	public static function exists($season, $textid) {
 		return static::fetch_optional('WHERE season_id=? AND textid=?', [$season->id, $textid]) !== null;
+	}
+
+	public static function get_rows_with_club_names($add_sql='', $add_params=[], $add_tables=[], $add_fields='') {
+		return static::get_all(
+			'WHERE user.id=player.club_id ' . $add_sql, $add_params,
+			\array_merge(['user'], $add_tables),
+			'user.name AS club_name' . ($add_fields ? ', ' . $add_fields : ''),
+			function($row) {
+				return $row;
+			});
+	}
+
+	public static function get_by_input($input, $add_sql='', $add_params=[]) {
+		$input = \trim($input);
+		if ($input == '') {
+			return null;
+		}
+		$inp = $input;
+		if (preg_match('/^\s*\((.*?)\)/', $input, $m)) {
+			$inp = $m[1];
+		}
+		$params = \array_merge([':input' => $inp], $add_params);
+		return static::fetch_one('WHERE player.textid = :input ' . $add_sql, $params);
 	}
 }
