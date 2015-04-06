@@ -2,6 +2,7 @@
 <input
 	type="text" name="{{name}}" class="player_selector"
 	size="50"
+	{{#autofocus}}autofocus="autofocus"{{/autofocus}}
 	{{#required}}required="required"{{/required}}
 	data-player_selector-discipline="{{#discipline}}{{id}}{{/discipline}}"
 	data-player_selector-gender="{{gender}}"

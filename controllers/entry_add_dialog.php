@@ -8,7 +8,22 @@ $u->require_perm('admin');
 utils\require_get_params(['discipline_id']);
 $discipline = Discipline::by_id($_GET['discipline_id']);
 $tournament = $discipline->get_tournament();
+$disciplines = $tournament->get_disciplines();
 $season = $tournament->get_season();
+
+
+$player_input_spec = [
+	'gender' => $discipline->player_gender(),
+	'required' => true,
+	'name' => 'player',
+	'autofocus' => 'autofocus'
+];
+$partner_input_spec = [
+	'gender' => $discipline->partner_gender(),
+	'required' => false,  // for now; because we want to handle entries without partners
+	'name' => 'partner',
+];
+
 
 render('entry_add', [
 	'add_scripts' => [['filename' => 'discipline.js']],
@@ -22,5 +37,8 @@ render('entry_add', [
 	],
 	'season' => $season,
 	'tournament' => $tournament,
+	'disciplines' => $disciplines,
 	'discipline' => $discipline,
+	'player_input_spec' => $player_input_spec,
+	'partner_input_spec' => $partner_input_spec,
 ]);

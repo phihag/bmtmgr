@@ -5,6 +5,19 @@ html, body {
     font-family: sans-serif;
 }
 
+a:link,a:visited {
+    text-decoration: none;
+}
+a:link {
+    color: #000CA7;
+}
+a:visited {
+    color: #00086E;
+}
+a:hover {
+    text-decoration: underline;
+}
+
 #mainnav {
     position: fixed;
     left: 0; right: 0;
@@ -229,4 +242,15 @@ td.without_partner {
 }
 .player_table td.player_textid {
     color: #999;
+}
+
+form.entry_add label {
+    font-size: 120%;
+    padding: 10px 0 10px 0;
+}
+form.entry_add label+label {
+    padding-top: 0;
+}
+form.entry_add label>span.labeltext {
+    min-width: 4em;
 }

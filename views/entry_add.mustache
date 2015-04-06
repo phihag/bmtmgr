@@ -1,7 +1,8 @@
-<form method="post" action="{{root_path}}d/{{#discipline}}{{id}}{{/discipline}}/entry_add" class="create_entry dataentry_form">
+<form method="post" action="{{root_path}}d/{{#discipline}}{{id}}{{/discipline}}/entry_add" class="entry_add dataentry_form">
 {{{csrf_field}}}
 
 <label>
+<span class="labeltext">
 {{#discipline}}
 {{#male_player}}
 Spieler:
@@ -9,22 +10,25 @@ Spieler:
 {{^male_player}}
 Spielerin:
 {{/male_player}}
-{{#player_restrictions}}
+</span>
+{{#player_input_spec}}
 {{>player_selector}}
-{{/player_restrictions}}
+{{/player_input_spec}}
 </label>
 
 {{#with_partner}}
 <label>
+<span class="labeltext">
 {{#male_partner}}
 Partner:
 {{/male_partner}}
 {{^male_partner}}
 Partnerin:
 {{/male_partner}}
-{{#partner_restrictions}}
+</span>
+{{#partner_input_spec}}
 {{>player_selector}}
-{{/partner_restrictions}}
+{{/partner_input_spec}}
 </label>
 {{/with_partner}}
 

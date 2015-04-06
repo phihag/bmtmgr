@@ -20,22 +20,6 @@ class Discipline extends \bmtmgr\Model {
 		$this->_is_new = $_is_new;
 	}
 
-	public function player_restrictions() {
-		return [
-			'gender' => $this->player_gender(),
-			'required' => true,
-			'name' => 'player',
-		];
-	}
-
-	public function partner_restrictions() {
-		return [
-			'gender' => $this->partner_gender(),
-			'required' => false,  // for now; because we want to handle entries without partners
-			'name' => 'partner',
-		];
-	}
-
 	public function player_gender() {
 		return $this->male_player() ? 'm': 'f';
 	}
