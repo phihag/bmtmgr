@@ -28,4 +28,22 @@ Insgesamt {{player_count}} Spieler/innen:
 </tr>
 {{/players}}
 </tbody>
+
+{{#club}}
+<tfoot>
+<tr><td colspan="5">
+<form class="inline-form" method="post" action="{{root_path}}season/{{#season}}{{id}}{{/season}}/club/{{#club}}{{id}}{{/club}}/player_create">
+{{{csrf_field}}}
+<div>
+<input size="12" name="firstname" required="required" placeholder="Vorname" />
+<input size="12" name="lastname" required="required" placeholder="Nachname" />
+</div>
+<label><input type="radio" name="gender" value="m" required="required"/>männlich</label>
+<label><input type="radio" name="gender" value="f" required="required"/>weiblich</label>
+<button><img src="{{icon_path}}add-player.svg" title="Neue/r Spieler/in">Neue/r Spieler/in</button>
+</form>
+</td></tr>
+</tfoot>
+{{/club}}
+
 </table>

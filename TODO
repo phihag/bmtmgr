@@ -1,9 +1,7 @@
-add players to club (include a Hobby club)
-edit players (email)
-
 export to HTML
 export to XLSX
 
+edit players (email)
 add email during entry
 
 sync exports to local fs
@@ -22,7 +20,6 @@ CAPTCHA for login
 * Allow admin to add new clubs
 * Allow admin to edit club players
 send email to all users
-add breadcrumb UI
 export costs
 better autocompletion style
 rewrite discipline UI - make one screen to add new disciplines, when clicking on tournament name

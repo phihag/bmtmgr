@@ -63,4 +63,19 @@ class Player extends \bmtmgr\Model {
 			'WHERE club_id=:club_id AND season_id = :season_id ' . $add_sql,
 			[':club_id' => $club_id, ':season_id' => $season_id]);
 	}
+
+	public static function create($season_id, $club_id, $textid, $name, $gender) {
+		return new static([
+			'id' => null,
+			'season_id' => $season_id,
+			'club_id' => $club_id,
+			'textid' => $textid,
+			'name' => $name,
+			'gender' => $gender,
+			'birth_year' => null,
+			'nationality' => null,
+			'email' => null,
+			'phone' => null,
+		], true);
+	}
 }
