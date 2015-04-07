@@ -67,4 +67,3 @@ player selection (doubles): jump to next field once selected
 add tests for valid player selections
 debug mode to show all SQL queries
 erlaube weibliche Freimeldungen im Mixed! (easy solution: ignore order of players in mixed, and only check that gender is different)
-shortcut go discipline (like Ctrl+P in sublime)

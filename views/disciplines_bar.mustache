@@ -4,7 +4,7 @@
 
 <nav id="disciplines_bar">
 {{#disciplines}}
-<a href="{{root_path}}d/{{id}}/" class="{{#is_active}}current_discipline{{/is_active}}">{{name}}</a>
+<a href="{{root_path}}d/{{id}}/" title="{{name}}" data-discipline-id="{{id}}" data-discipline-name="{{name}}" class="{{#is_active}}current_discipline{{/is_active}}">{{name}}</a>
 {{/disciplines}}
 <form class="inline-form" action="{{root_path}}t/{{#tournament}}{{id}}{{/tournament}}/dialog_discipline_create" method="get">
 <button id="discipline_create"><img src="{{icon_path}}add.svg" title="Neue Disziplin" />Neue Disziplin</button>

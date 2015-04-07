@@ -256,3 +256,10 @@ form.entry_add label+label {
 form.entry_add label>span.labeltext {
     min-width: 4.5em;
 }
+
+form#discipline-goto {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    font-size: 150%;
+}
