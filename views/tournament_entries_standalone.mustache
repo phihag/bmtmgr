@@ -39,16 +39,14 @@ td.without_partner {
 <title>{{name}} - Meldungen</title>
 </head>
 <body>
-<h1>{{name}} - Übersicht der Meldungen</h1>
+<h1>{{name}} - Meldungen</h1>
 <div>Stand {{now_date}}</div>
 
 {{#disciplines}}
 <h2>{{name}}</h2>
-{{#entries}}
 
-
+{{#entries_present}}
 <table class="player_table">
-
 <thead><tr>
 <th class="player_name">Name</th>
 <th class="player_club">Verein</th>
@@ -79,10 +77,10 @@ td.without_partner {
 {{/entries}}
 </tbody>
 </table>
+{{/entries_present}}
 
 
 
-{{/entries}}
 
 {{/disciplines}}
 
