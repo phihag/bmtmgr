@@ -34,7 +34,9 @@ $(function() {
         $.each(get_disciplines(), function(i, d) {
             if (unify(d.name) == v) {
                 $('#discipline-goto').hide();
-                window.location.href = window.location.href.replace(/\/d\/[0-9]+\//, '/d/' + d.id + '/');
+                var m = window.location.href.match(/\/d\/[0-9]+\/(.*)$/);
+                var subpage = m ? m[1] : '';
+                window.location.href = root_path + '/d/' + d.id + '/' + subpage;
             }
         });
     }
@@ -48,7 +50,7 @@ $(function() {
     }
 
     // Shortcuts
-    Mousetrap.bind('d', goto_discipline_show);
+    Mousetrap.bind('g', goto_discipline_show);
     Mousetrap.bind('D', function() {
         $('#discipline_create').click();
     });
