@@ -26,7 +26,7 @@ RewriteRule ^season/([0-9]+)/(hide|show)$ controllers/season_actions.php?id=$1&a
 RewriteRule ^season/([0-9]+)/club/$ controllers/season_club_list.php?season_id=$1 [L]
 RewriteRule ^season/([0-9]+)/club/([-a-z0-9]+)/$ controllers/season_club_player_list.php?season_id=$1&club_id=$2 [L]
 RewriteRule ^season/([0-9]+)/club/([-a-z0-9]+)/player_create$ controllers/player_create.php?season_id=$1&club_id=$2 [L]
-RewriteRule ^season/([0-9]+)/players$ controllers/season_player_list.php?season_id=$1 [L]
+RewriteRule ^season/([0-9]+)/player/$ controllers/season_player_list.php?season_id=$1 [L]
 RewriteRule ^season/create$ controllers/season_create.php [L]
 RewriteRule ^season/import$ controllers/season_import.php [L]
 RewriteRule ^t/([0-9]+)/$ controllers/tournament.php?id=$1 [L]

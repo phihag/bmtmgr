@@ -254,5 +254,5 @@ form.entry_add label+label {
     padding-top: 0;
 }
 form.entry_add label>span.labeltext {
-    min-width: 4em;
+    min-width: 4.5em;
 }

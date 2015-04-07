@@ -14,7 +14,7 @@ render('season_player_list', [
 	'breadcrumbs' => [
 		['name' => 'Ligen', 'path' => 'season/'],
 		['name' => $season->name, 'path' => 'season/' . urlencode($season->id) . '/'],
-		['name' => 'Alle Spieler/innen', 'path' => 'season/' . urlencode($season->id) . '/players'],
+		['name' => 'Alle Spieler/innen', 'path' => 'season/' . urlencode($season->id) . '/player/'],
 	],
 	'season' => $season,
 	'players' => $player_rows,
