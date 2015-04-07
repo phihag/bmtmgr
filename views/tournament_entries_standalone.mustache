@@ -17,10 +17,10 @@ td.without_partner {
     font-style: italic;
 }
 .player_table th, .player_table td {
-    padding: 5px 5px 5px 5px;
+    padding: 5px 2px 5px 2px;
 }
 .player_table td+td, player_table th+th {
-    padding-right: 10px;
+    padding-left: 10px;
 }
 .player_table td+td.player_name, player_table th+th.player_name {
      padding-left: 20px;
@@ -33,6 +33,12 @@ td.without_partner {
 }
 .player_table td.player_club {
     color: #666;
+}
+.player_table .player_name {
+    min-width: 10em;
+}
+.player_table .player_club {
+    min-width: 10em;
 }
 </style>
 {{#tournament}}

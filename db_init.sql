@@ -15,7 +15,7 @@ INSERT INTO user
 	('admin', 'turniere@aufschlagwechsel.de', 'aufschlagwechsel.de', '["admin"]');
 INSERT INTO user
 	(id, email, name, permissions_json) VALUES
-	('hobby', 'bmtmgr_hobby@aufschlagwechsel.de', 'Hobbyspieler/innen', '[]');
+	('hobby', 'bmtmgr_hobby@aufschlagwechsel.de', 'Hobby', '[]');
 
 DROP TABLE IF EXISTS login_email_token;
 CREATE TABLE login_email_token (
