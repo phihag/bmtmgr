@@ -118,7 +118,14 @@ button img {
     width: 1em;
     padding-right: 3px;
 }
-
+.rare_button {
+    opacity: 0.5;
+    background:none;
+    border: none;
+}
+.rare_button:hover {
+    opacity: 1;
+}
 
 
 .club {

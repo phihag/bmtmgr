@@ -31,4 +31,8 @@ class Entry extends \bmtmgr\Model {
 			'updated_time' => null,
 		], true);
 	}
+
+	public function get_discipline() {
+		return Discipline::by_id($this->discipline_id);
+	}
 }

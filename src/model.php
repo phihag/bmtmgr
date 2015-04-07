@@ -137,4 +137,9 @@ class Model {
 	public static function commit() {
 		$GLOBALS['db']->commit();
 	}
+
+	public function delete() {
+		$s = $GLOBALS['db']->prepare('DELETE FROM ' . static::table_name() . ' WHERE id=:id');
+		$s->execute([':id' => $this->id]);
+	}
 }

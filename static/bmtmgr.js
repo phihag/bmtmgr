@@ -55,6 +55,9 @@ $(function() {
     Mousetrap.bind('ins', function() {
         $('#entry_add').click();
     });
+    Mousetrap.bind('e', function() {
+        $('#entry_add').click();
+    });
 
 
 

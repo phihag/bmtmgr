@@ -8,6 +8,7 @@
 <th class="player_club">Verein</th>
 <th class="player_textid">Id</th>
 {{/with_partner}}
+<th class="player_actions"></th>
 </tr></thead>
 <tbody>
 {{#entries}}
@@ -29,6 +30,14 @@
 {{/partner}}
 {{/with_partner}}
 
+<th>
+{{#is_admin}}
+<form method="post" action="{{root_path}}entry/{{id}}/delete">
+{{{csrf_field}}}
+<button class="rare_button"><img src="{{icon_path}}delete.svg" title="Meldung löschen" /></button>
+</form>
+{{/is_admin}}
+</th>
 </tr>
 {{/entries}}
 </tbody>
