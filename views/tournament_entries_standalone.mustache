@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta encoding="utf-8">
+<style>
+body, html {
+    font-size: 20px;
+    font-family: sans-serif;
+}
+h1 {margin: 10px 0 10px 0; text-align: center;}
+
+.player_table {
+    border-collapse: collapse;
+}
+td.without_partner {
+    text-align: center;
+    font-style: italic;
+}
+.player_table th, .player_table td {
+    padding: 5px 5px 5px 5px;
+}
+.player_table td+td, player_table th+th {
+    padding-right: 10px;
+}
+.player_table td+td.player_name, player_table th+th.player_name {
+     padding-left: 20px;
+}
+.player_table tbody tr:hover {
+    background: #fafafa;
+}
+.player_table tbody tr:hover td {
+    color: #000 !important;
+}
+.player_table td.player_club {
+    color: #666;
+}
+</style>
+{{#tournament}}
+<title>{{name}} - Meldungen</title>
+</head>
+<body>
+<h1>{{name}} - Übersicht der Meldungen</h1>
+<div>Stand {{now_date}}</div>
+
+{{#disciplines}}
+<h2>{{name}}</h2>
+{{#entries}}
+
+
+<table class="player_table">
+
+<thead><tr>
+<th class="player_name">Name</th>
+<th class="player_club">Verein</th>
+{{#with_partner}}
+<th class="player_name">{{#male_partner}}Partner{{/male_partner}}{{^male_partner}}Partnerin{{/male_partner}}</th>
+<th class="player_club">Verein</th>
+{{/with_partner}}
+</tr></thead>
+<tbody>
+{{#entries}}
+<tr>
+{{#player}}
+<td class="player_name">{{name}}</td>
+<td class="player_club">{{club_name}}</td>
+{{/player}}
+
+{{#with_partner}}
+{{#partner}}
+<td class="player_name">{{name}}</td>
+<td class="player_club">{{club_name}}</td>
+{{/partner}}
+{{^partner}}
+<td colspan="3" class="without_partner">Freimeldung</td>
+{{/partner}}
+{{/with_partner}}
+
+</tr>
+{{/entries}}
+</tbody>
+</table>
+
+
+
+{{/entries}}
+
+{{/disciplines}}
+
+</body>
+{{/tournament}}
+</html>

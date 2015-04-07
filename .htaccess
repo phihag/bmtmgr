@@ -33,6 +33,7 @@ RewriteRule ^t/([0-9]+)/$ controllers/tournament.php?id=$1 [L]
 RewriteRule ^t/([0-9]+)/dialog_discipline_create$ controllers/tournament_dialog_discipline_create.php?tournament_id=$1 [L]
 RewriteRule ^t/([0-9]+)/discipline_create$ controllers/discipline_create.php?tournament_id=$1 [L]
 RewriteRule ^t/([0-9]+)/edit$ controllers/tournament_edit.php?id=$1 [L]
+RewriteRule ^t/([0-9]+)/entries$ controllers/tournament_entries.php?id=$1 [L,QSA]
 RewriteRule ^t/create$ controllers/tournament_create.php [L]
 
 

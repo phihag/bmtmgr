@@ -18,4 +18,15 @@
 TODO: Show tournament data for non-admins
 {{/is_admin}}
 
+<p>
+<form class="inline-form" action="{{root_path}}t/{{#tournament}}{{id}}{{/tournament}}/entries" method="get">
+<button>Alle Meldungen</button>
+</form>
+
+<form method="get" action="{{root_path}}t/{{id}}/entries">
+<input type="hidden" name="standalone" value="download" />
+<button>Meldungen als HTML exportieren</button>
+</form>
+</p>
+
 {{/tournament}}
