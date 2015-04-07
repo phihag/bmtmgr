@@ -32,7 +32,6 @@ $(function() {
         }
         var v = unify($('#discipline-goto input').val());
         $.each(get_disciplines(), function(i, d) {
-            console.log(unify(d.name));
             if (unify(d.name) == v) {
                 $('#discipline-goto').hide();
                 window.location.href = window.location.href.replace(/\/d\/[0-9]+\//, '/d/' + d.id + '/');
