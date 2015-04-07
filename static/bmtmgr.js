@@ -36,7 +36,7 @@ $(function() {
                 $('#discipline-goto').hide();
                 var m = window.location.href.match(/\/d\/[0-9]+\/(.*)$/);
                 var subpage = m ? m[1] : '';
-                window.location.href = root_path + '/d/' + d.id + '/' + subpage;
+                window.location.href = root_path + 'd/' + d.id + '/' + subpage;
             }
         });
     }
