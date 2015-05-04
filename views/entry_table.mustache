@@ -15,14 +15,14 @@
 <tr>
 {{#player}}
 <td class="player_name">{{name}}</td>
-<td class="player_club">{{club_name}}</td>
+<td class="player_club{{#player_club_is_special}} player_club_special{{/player_club_is_special}}">{{#player_club}}{{name}}{{/player_club}}</td>
 <td class="player_textid">{{textid}}</td>
 {{/player}}
 
 {{#with_partner}}
 {{#partner}}
 <td class="player_name">{{name}}</td>
-<td class="player_club">{{club_name}}</td>
+<td class="player_club{{#partner_club_is_special}} player_club_special{{/partner_club_is_special}}">{{#partner_club}}{{name}}{{/partner_club}}</td>
 <td class="player_textid">{{textid}}</td>
 {{/partner}}
 {{^partner}}

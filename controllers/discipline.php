@@ -10,7 +10,7 @@ $discipline = Discipline::by_id($_GET['id']);
 $tournament = $discipline->get_tournament();
 $season = $tournament->get_season();
 $disciplines = $tournament->get_disciplines();
-$entries = $discipline->get_entries_rows_with_verbose_players();
+$entries = $discipline->get_entry_rows();
 
 render('discipline', [
 	'user' => $u,

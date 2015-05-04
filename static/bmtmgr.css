@@ -250,6 +250,9 @@ td.without_partner {
 .player_table td.player_club {
     color: #888;
 }
+.player_table td.player_club.player_club_special {
+    color: #666;
+}
 .player_table td.player_textid {
     color: #999;
 }

@@ -70,22 +70,37 @@ class Discipline extends \bmtmgr\Model {
 		return Entry::get_all('WHERE entry.discipline_id=? ' . $add_sql, [$this->id], [], '', $creation_callback);
 	}
 
-	public function get_entries_rows_with_verbose_players() {
-		$player_rows = Player::get_rows_with_club_names(
-			'AND entry.discipline_id = ? AND (entry.player_id = player.id OR entry.partner_id = player.id)',
+	public function get_entry_rows() {
+		$players = Player::get_all(
+			' WHERE entry.discipline_id = ? AND (entry.player_id = player.id OR entry.partner_id = player.id)',
 			[$this->id],
 			['entry']
 		);
 		$player_dict = [];
-		foreach ($player_rows as $p_row) {
-			$player_dict[$p_row['id']] = $p_row;
+		foreach ($players as $p) {
+			$player_dict[$p->id] = $p;
 		}
 
-		return static::get_entries(' ORDER by entry.id', function($row) use ($player_dict) {
+		$clubs = User::get_all(
+			' WHERE entry.discipline_id = ? AND (entry.player_club_id = user.id OR entry.partner_club_id = user.id)',
+			[$this->id],
+			['entry']
+		);
+		$club_dict = [];
+		foreach ($clubs as $c) {
+			$club_dict[$c->id] = $c;
+		}
+
+		return static::get_entries(' ORDER by entry.id', function($row) use ($player_dict, $club_dict) {
 			return [
 				'id' => $row['id'],
 				'player' => $player_dict[$row['player_id']],
+				'player_club' => $club_dict[$row['player_club_id']],
+				'player_club_is_special' => $row['player_club_id'] != $player_dict[$row['player_id']]->club_id,
 				'partner' => ($row['partner_id'] ? $player_dict[$row['partner_id']] : null),
+				'partner_club' => ($row['partner_club_id'] ? $club_dict[$row['partner_club_id']] : null),
+				'partner_club_is_special' => (($row['partner_id'] && $row['partner_club_id']) ? ($row['partner_club_id'] != $player_dict[$row['partner_id']]->club_id) : null),
+				'email' => $row['email']
 			];
 		});
 	}

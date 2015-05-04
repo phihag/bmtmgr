@@ -142,4 +142,10 @@ class Model {
 		$s = $GLOBALS['db']->prepare('DELETE FROM ' . static::table_name() . ' WHERE id=:id');
 		$s->execute([':id' => $this->id]);
 	}
+
+	protected static function _fetch_all_rows($sql, $params) {
+		$s = $GLOBALS['db']->prepare($sql);
+		$s->execute($params);
+		return $s->fetchAll();
+	}
 }

@@ -10,7 +10,7 @@ $tournament = Tournament::by_id($_GET['id']);
 $season = $tournament->get_season();
 $disciplines = $tournament->get_disciplines();
 foreach ($disciplines as $d) {
-	$d->entries = $d->get_entries_rows_with_verbose_players();
+	$d->entries = $d->get_entry_rows();
 	$d->entries_present = \count($d->entries) > 0;
 	$d->_is_new = 'modified';
 }
