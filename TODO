@@ -1,6 +1,6 @@
 export to XLSX
 
-edit players (email)
+edit players (email, birthdate)
 write test for entries?
 sync exports to local fs
 sync exports to remote fs via upload
