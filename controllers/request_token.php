@@ -3,13 +3,12 @@ namespace bmtmgr;
 
 require_once dirname(__DIR__) . '/src/common.php';
 require_once dirname(__DIR__) . '/src/utils.php';
-require_once dirname(__DIR__) . '/src/user.php';
 require_once dirname(__DIR__) . '/src/email.php';
 
 utils\csrf_protect();
 utils\require_post_params(array('user'));
 
-$u = user\find_by_input($_POST['user']);
+$u = User::find_by_input($_POST['user']);
 if (!$u) {
 	header('HTTP/1.1 404 Not Found');
 	render('error', array(

@@ -7,11 +7,11 @@ utils\csrf_protect();
 $u = user\check_current();
 $u->require_perm('admin');
 
-if (! config\get('allow_init', false)) {
-	throw new \Exception('Configuration directive allow_init not set!');
+if (! config\get('allow_import', false)) {
+	throw new \Exception('Configuration directive allow_import not set!');
 }
 
-// This should later be http://www.blv-nrw.de/blvdb/fb/blv_club_kontakte.php?id=%d
+// TODO This should later be http://www.blv-nrw.de/blvdb/fb/blv_club_kontakte.php?id=%d
 $url_pattern = 'http://localhost/bmtmgr/import/clubs/blv_club_kontakte.php%%3fid=%d';
 
 $imported_clubs = [];

@@ -35,7 +35,7 @@ class Model {
 				$s->execute(\array_values($values));
 			} catch (\PDOException $pe) {
 				if ($pe->getCode() == '23000') {
-					throw new \bmtmgr\utils\DuplicateEntryException();
+					throw new \bmtmgr\utils\DuplicateEntryException($pe->getMessage());
 				} else {
 					throw $pe;
 				}

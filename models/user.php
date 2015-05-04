@@ -21,6 +21,18 @@ class User extends \bmtmgr\Model {
 		return new static($row['id'], $row['name'], $row['email'], \json_decode($row['permissions_json']), false);
 	}
 
+	public static function find_by_input($input) {
+		if (preg_match('/^\s*\((.*?)\)/', $input, $matches)) {
+			return static::fetch_optional('WHERE id = ?', array($matches[1]));
+		}
+
+		return static::fetch_optional('WHERE id = ? OR name = ?', array($input, $input));
+	}
+
+	public static function create($textid, $name, $email, $perms=[]) {
+		return new static($textid, $name, $email, $perms);
+	}
+
 	public function can($perm) {
 		return in_array($perm, $this->_perms);
 	}

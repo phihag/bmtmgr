@@ -45,14 +45,6 @@ function create_session($u) {
 		\bmtmgr\config\get('force_https', false), true);
 }
 
-function find_by_input($input) {
-	if (preg_match('/^\s*\((.*?)\)/', $input, $matches)) {
-		return \bmtmgr\User::fetch_optional('WHERE id = ?', array($matches[1]));
-	}
-
-	return \bmtmgr\User::fetch_optional('WHERE id = ? OR name = ?', array($input, $input));
-}
-
 function render_login_form() {
 	\bmtmgr\render('login', array(
 		'title' => 'Login'

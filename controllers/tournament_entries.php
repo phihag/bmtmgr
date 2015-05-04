@@ -21,7 +21,7 @@ $data = [
 		['name' => 'Ligen', 'path' => 'season/'],
 		['name' => $season->name, 'path' => 'season/' . $season->id . '/'],
 		['name' => $tournament->name, 'path' => 't/' . $tournament->id . '/'],
-		['name' => $tournament->name, 'path' => 't/entries' . $tournament->id . '/'],
+		['name' => $tournament->name, 'path' => 't/' . $tournament->id . '/entries'],
 	],
 	'season' => $season,
 	'tournament' => $tournament,

@@ -1,22 +1,33 @@
+show correct club name in entry display
+
+import new entries
+
+export to facebook!
+	MELDUNGEN REISELAND CUP 2015 - Stand: 26.03.15
+	GD A – Noch 15 Plätze frei:
+	Marie-Christin Kiehl / Christian Sturm (DJK Willich / TUB Bocholt)
+	GD B – Noch 16 Plätze frei :
+	GD C - Noch 14 Plätze frei:
+	Anna Lauber / Robert Le (TBD Osterfeld / TBD Osterfeld)
+	Eveline Warode / Andreas Warode (Siegburger SV04 / Siegburger SV04)
+	HD A – Noch 15 Plätze frei:
+	Dennis Klein-Helmkamp / frei (SG Ddorf Unterrath / )
 export to XLSX
-export to facebook
 
 edit players (email)
 add email during entry
-add club during entry (simply copy it over?)
 
+write test for entries?
 sync exports to local fs
 sync exports to remote fs via upload
 allow admins to download current db
 allow reimport
 
+* add a universal search bar
 * Show current tournaments on root
 
 * Show only my entries for non-admin users
 	during entry, filter by club id as well
-* Make a test account for Miles
-	ask for player db
-
 CAPTCHA for login
 * Allow admin to add new clubs
 * Allow admin to edit club players
@@ -68,3 +79,8 @@ player selection (doubles): jump to next field once selected
 add tests for valid player selections
 debug mode to show all SQL queries
 erlaube weibliche Freimeldungen im Mixed! (easy solution: ignore order of players in mixed, and only check that gender is different)
+add undo for deletions
+fancy styles (border-radius, color swatch?) for breadcrumbs
+goto anything (with autocomplete, allow for shortened input like hd1 to show HD U19)
+"Meldungen" in the left for all disciplines
+set useful titles (from breadcrumb helper function)

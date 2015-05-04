@@ -20,19 +20,16 @@ a:hover {
 
 #mainnav {
     position: fixed;
-    left: 0; right: 0;
-    height: 30px;
+    top: 0; left: 0; right: 0;
+    height: 50px;
     border-bottom: 1px solid #eeeeee;
-    padding: 10px 0 10px 15px;
+    padding: 0 0 0 15px;
     margin: 0;
     z-index: 1000;
     background: rgba(255, 255, 255, 0.97);
 
     display: flex;
     align-items: center;
-}
-#mainnav>* {
-    display: inline-block;
 }
 #content {
     position: absolute;
@@ -57,15 +54,14 @@ a:hover {
     top: 100px;
 }
 
-#mainnav_admin {
-    display: block;
-    position: absolute;
-    right: 12em;
+#mainnav_controls {
+    margin: 0 15px 0 auto;
+    text-align: right;
 }
-#mainnav_user {
-    position: absolute;
-    right: 10px;
+#breadcrumbs>a {
+    padding: 10px 0 10px 0;
 }
+
 
 .dialog_container {
     position: fixed;
@@ -128,7 +124,7 @@ button img {
 }
 
 
-.club {
+.login .club {
     padding: 5px 0 5px 10px;
 }
 .login input {
@@ -211,14 +207,19 @@ button img {
 }
 #disciplines_bar>a {
     display: inline-block;
-    text-decoration: none;
     font-size: 120%;
     margin: 0 10px 0 -10px;
     padding: 10px 10px;
 }
-.current_discipline {
+#disciplines_bar>a:hover {
+    background: rgba(240, 240, 240, 0.97);
+}
+#disciplines_bar>a.current_discipline {
     background: rgba(235, 235, 235, 0.97);
     color: #000 !important;
+}
+#disciplines_bar>a.current_discipline:hover {
+    background: rgba(230, 230, 230, 0.97);
 }
 
 .player_table {
@@ -252,6 +253,12 @@ td.without_partner {
 .player_table td.player_textid {
     color: #999;
 }
+.player_table .player_name {
+    min-width: 10em;
+}
+.player_table .player_club {
+    min-width: 10em;
+}
 
 form.entry_add label {
     font-size: 120%;
@@ -269,4 +276,46 @@ form#discipline-goto {
     right: 0;
     bottom: 0;
     font-size: 150%;
+}
+
+
+.ui-autocomplete {
+    position: absolute;
+    padding: 0;
+    list-style: none;
+}
+.autocomplete_player {
+}
+.autocomplete_player_textid {
+    color: #999;
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 8px;
+}
+.autocomplete_player_name {
+}
+.autocomplete_club_name {
+    position: absolute;
+    right: 5px;
+    color: #999;
+}
+.autocomplete_player.ui-state-focus {
+    background: #94C5FE;
+}
+.autocomplete_player.ui-state-focus .autocomplete_player_textid {
+    color: #000;
+}
+.autocomplete_player.ui-state-focus .autocomplete_club_name {
+    color: #000;
+}
+
+.club_selector_autoset {
+    border: none;
+}
+.player_selector_container .club {
+    width: 14em;
+    color: #999;
+}
+.player_selector_container .club:not(.club_selector_autoset) {
+    color: #444;
 }

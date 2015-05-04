@@ -1,18 +1,20 @@
 <nav id="mainnav">
 
-<span id="breadcrumbs">
+<div id="breadcrumbs">
 <a href="{{root_path}}">Badminton</a>
 {{#breadcrumbs}}
 » <a href="{{root_path}}{{path}}">{{name}}</a>
 {{/breadcrumbs}}
-</span>
+</div>
 
+<div id="mainnav_controls">
 {{#is_admin}}
 <a href="{{root_path}}admin/" id="mainnav_admin">Administration</a>
 {{/is_admin}}
 
-
 {{#user}}
 <a id="mainnav_user" href="{{root_path}}club/{{id}}/">{{name}}</a>
 {{/user}}
+</div>
+
 </nav>

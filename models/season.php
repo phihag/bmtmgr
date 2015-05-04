@@ -6,7 +6,7 @@ class Season extends \bmtmgr\Model {
 	public $name;
 	public $visible;
 
-	public function __construct($id, $name, $visible, $_is_new=true) {
+	protected function __construct($id, $name, $visible, $_is_new=true) {
 		$this->id = $id;
 		$this->name = $name;
 		$this->visible = (bool) $visible;
@@ -15,6 +15,10 @@ class Season extends \bmtmgr\Model {
 
 	protected static function from_row($row) {
 		return new Season($row['id'], $row['name'], $row['visible'], false);
+	}
+
+	public static function create($name, $visible) {
+		return new static(null, $name, $visible, true);
 	}
 
 	public function count_players() {

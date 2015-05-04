@@ -16,7 +16,7 @@ $(function() {
             return c.text;
         });
 
-        $('.login .club').autocomplete({
+        $('.club').autocomplete({
             source: ac,
         });
     });

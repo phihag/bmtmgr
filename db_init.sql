@@ -1,14 +1,14 @@
 DROP TABLE IF EXISTS db_version;
 CREATE TABLE db_version (version INTEGER);
-INSERT INTO db_version (version) VALUES (45);
+INSERT INTO db_version (version) VALUES (51);
 
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
-		id TEXT(50) PRIMARY KEY NOT NULL,
-		email TEXT,
-		name TEXT UNIQUE NOT NULL,
-		permissions_json TEXT NOT NULL
-	);
+	id TEXT(50) PRIMARY KEY NOT NULL,
+	email TEXT,
+	name TEXT UNIQUE NOT NULL,
+	permissions_json TEXT NOT NULL
+);
 CREATE INDEX IF NOT EXISTS user_email_index ON user(email);
 INSERT INTO user
 	(id, email, name, permissions_json) VALUES
@@ -93,11 +93,16 @@ CREATE TABLE entry (
 	id INTEGER PRIMARY KEY,
 	discipline_id INTEGER NOT NULL,
 	player_id INTEGER NOT NULL,
+	player_club_id INTEGER NOT NULL,
 	partner_id INTEGER,
+	partner_club_id INTEGER,
+	email TEXT,
 	created_time BIGINT,
 	updated_time BIGINT,
 	FOREIGN KEY(discipline_id) REFERENCES discipline(id),
 	FOREIGN KEY(player_id) REFERENCES player(id),
+	FOREIGN KEY(player_club_id) REFERENCES user(id),
 	FOREIGN KEY(partner_id) REFERENCES player(id),
+	FOREIGN KEY(partner_club_id) REFERENCES user(id),
 	UNIQUE (discipline_id, player_id)
 );

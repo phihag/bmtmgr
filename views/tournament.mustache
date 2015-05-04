@@ -3,11 +3,8 @@
 {{#is_admin}}
 <form method="post" action="{{root_path}}t/{{id}}/edit" class="dataentry_form">
 {{{csrf_field}}}
-<label>Beschreibung:
-<textarea name="description" rows="5" cols="40">{{description}}</textarea>
-</label>
+<textarea name="description" rows="5" cols="50" placeholder="Beschreibung des Turniers">{{description}}</textarea>
 
-<label></label>
 
 <label><input type="checkbox" name="visible" {{#visible}}checked="checked"{{/visible}}/>Turnier veröffentlichen</label>
 

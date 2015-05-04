@@ -24,16 +24,16 @@ if ($_POST['dtype'] == 'all') {
 	];
 }
 Model::beginTransaction();
-try {
-	foreach ($specs as $spec) {
+foreach ($specs as $spec) {
+	try {
 		$discipline = Discipline::create($tournament, $spec['name'], $spec['dtype']);
 		$discipline->save();
+	} catch (utils\DuplicateEntryException $e) {
+		render_ajax_error(
+			sprintf('Disziplin "%s" existiert bereits!', $spec['name'])
+		);
+		exit();
 	}
-} catch (utils\DuplicateEntryException $e) {
-	render_ajax_error(
-		'Disziplin "' . $_POST['name'] . '" existiert bereits!'
-	);
-	exit();
 }
 Model::commit();
 

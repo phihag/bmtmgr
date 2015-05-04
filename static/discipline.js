@@ -49,14 +49,61 @@ $('.player_selector').each(function(index, ps) {
             term: request.term
         };
         $.getJSON(ac_url, ac_params, function(result) {
-            var res = $.map(result.players, function(player) {
-                return '(' + player.textid + ') ' + player.name + ' - ' + player.club_name;
-            });
-            response(res);
+            response(result.players);
         }).error(response());
     }
+
+    function autocomplete_renderItem(ul, item) {
+        var li = $("<li>");
+        li.addClass('autocomplete_player');
+        li.attr("data-player_textid", item.player_textid);
+        li.attr("data-player_name", item.player_name);
+        $('<span class="autocomplete_player_textid">')
+            .text(item.textid)
+            .appendTo(li);
+        $('<span class="autocomplete_player_name">')
+            .text(item.name)
+            .appendTo(li);
+        $('<span class="autocomplete_club_name">')
+            .text(item.club_name)
+            .appendTo(li);
+        li.appendTo(ul);
+        return li;
+    }
+
+    function autocomplete_set_value(ps, item) {
+        $(ps).val('(' + item.textid + ') ' + item.name);
+        var club_field = $(ps).parent().find('.club');
+        club_field.val('(' + item.club_id + ') ' + item.club_name);
+        club_field.addClass('club_selector_autoset');
+    }
+
     $(ps).autocomplete({
-        minLength: 4,
+        minLength: 3,
         source: player_search,
-    });
+        select: function(event, ui) {
+            autocomplete_set_value(ps, ui.item);
+            event.preventDefault();
+
+            var tabables = $('input:not([tabindex="-1"])');
+            var current = $(':focus');
+            var nextIndex = 0;
+            if (current.length === 1) {
+                var currentIndex = tabables.index(current);
+                if (currentIndex + 1 < tabables.length){
+                    nextIndex = currentIndex + 1;
+                }
+            }
+            tabables.eq(nextIndex).focus();
+        },
+        focus: function(event, ui) {
+            autocomplete_set_value(ps, ui.item);
+            event.preventDefault(); 
+        },
+        appendTo: $(ps).parent()
+    }).data("ui-autocomplete")._renderItem = autocomplete_renderItem;
+});
+
+$('.club').on('click focus', function () {
+    $(this).removeClass('club_selector_autoset');
 });

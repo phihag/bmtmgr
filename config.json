@@ -1,5 +1,6 @@
 {
-	"allow_init": true,
+	"allow_init": false,
+	"allow_import": true,
 	"allow_install": true,
 	"mail_debug": true,
 

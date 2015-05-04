@@ -8,7 +8,7 @@ $u->require_perm('admin');
 
 utils\require_post_params(['name']);
 try {
-	$season = new Season(null, $_POST['name'], false);
+	$season = Season::create($_POST['name'], false);
 	$season->save();
 } catch (utils\DuplicateEntryException $e) {
 	render_ajax_error(

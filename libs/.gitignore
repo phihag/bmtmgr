@@ -5,3 +5,4 @@ jquery-ui-*
 install.lock
 Propel*
 *.part
+PHP_XLSXWriter
