@@ -6,11 +6,27 @@
 </td></tr>
 {{/clubs}}
 </tbody>
-</table>
 
 {{#is_admin}}
-<form method="post" action="{{root_path}}club/import">
+<tfoot>
+
+<tr><td>
+<form class="inline-form" action="{{root_path}}club/create" method="post">
+{{{csrf_field}}}
+<input name="name" placholder="Vereinsname" />
+<button id="club_create"><img src="{{icon_path}}add.svg" title="Neuer Verein" />Neuer Verein</button>
+</form>
+</td></tr>
+
+<tr><td>
+<form class="inline-form" method="post" action="{{root_path}}club/import">
 {{{csrf_field}}}
 <button>Von blv-nrw.de importieren</button>
 </form>
+</td></tr>
+
+</tfoot>
 {{/is_admin}}
+</table>
+
+
