@@ -82,3 +82,4 @@ fancy styles (border-radius, color swatch?) for breadcrumbs
 goto anything (with autocomplete, allow for shortened input like hd1 to show HD U19)
 "Meldungen" in the left for all disciplines
 set useful titles (from breadcrumb helper function)
+focus (but do not select) first entry in player/club autocomplete if there is only one

@@ -100,12 +100,6 @@ $('.player_selector').each(function(index, ps) {
             autocomplete_set_value(ps, ui.item);
             event.preventDefault(); 
         },
-        response: function(event, ui) {
-            if (ui.content.length == 1) {
-                autocomplete_set_value(ps, ui.content[0]);
-                $(this).autocomplete("close");
-            }
-        },
 
         appendTo: $(ps).parent()
     }).data("ui-autocomplete")._renderItem = autocomplete_renderItem;
