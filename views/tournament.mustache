@@ -20,9 +20,14 @@ TODO: Show tournament data for non-admins
 <button>Alle Meldungen</button>
 </form>
 
-<form method="get" action="{{root_path}}t/{{id}}/entries">
-<input type="hidden" name="standalone" value="download" />
+<form class="inline-form" method="get" action="{{root_path}}t/{{id}}/entries">
+<input type="hidden" name="format" value="standalone-html" />
 <button>Meldungen als HTML exportieren</button>
+</form>
+
+<form class="inline-form" method="get" action="{{root_path}}t/{{id}}/entries">
+<input type="hidden" name="format" value="text" />
+<button>Meldungen als Text exportieren</button>
 </form>
 </p>
 

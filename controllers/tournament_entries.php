@@ -29,10 +29,18 @@ $data = [
 	'now_date' => \date('Y-m-d'),
 ];
 
-// TODO actually offer it as a download (then with other styles)
-if (isset($_GET['standalone'])) {
+$format = isset($_GET['format']) ? $_GET['format'] : 'html';
+switch ($format) {
+case 'standalone-html':
 	echo get_rendered('tournament_entries_standalone', $data);
-} else {
+	break;
+case 'text':
+	echo get_rendered('tournament_entries_standalone_text', $data);
+	break;
+case 'html':
 	render('tournament_entries', $data);
+	break;
+default:
+	throw new \Exception('Invalid format code');
 }
 

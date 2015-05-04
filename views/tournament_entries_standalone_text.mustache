@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+body, html {
+    font-size: 20px;
+    font-family: sans-serif;
+}
+h1 {margin: 10px 0 10px 0; text-align: center;}
+
+.player_table {
+    border-collapse: collapse;
+}
+td.without_partner {
+    text-align: center;
+    font-style: italic;
+}
+.player_table th, .player_table td {
+    padding: 5px 2px 5px 2px;
+}
+.player_table td+td, player_table th+th {
+    padding-left: 10px;
+}
+.player_table td+td.player_name, player_table th+th.player_name {
+     padding-left: 20px;
+}
+.player_table tbody tr:hover {
+    background: #fafafa;
+}
+.player_table tbody tr:hover td {
+    color: #000 !important;
+}
+.player_table td.player_club {
+    color: #666;
+}
+.player_table .player_name {
+    min-width: 10em;
+}
+.player_table .player_club {
+    min-width: 10em;
+}
+</style>
+{{#tournament}}
+<title>{{name}} - Meldungen</title>
+</head>
+<body>
+<p>
+MELDUNGEN {{name}} - Stand {{now_date}}:<br />
+
+{{#disciplines}}
+{{name}}:<br />
+
+{{#entries}}
+{{#player}}{{name}}{{/player}}
+{{#with_partner}}
+{{#partner}}
+/ {{name}}
+{{/partner}}
+{{^partner}}
+ (Freimeldung)
+{{/partner}}
+{{/with_partner}}
+
+({{#player_club}}{{name}}{{/player_club}}{{#with_partner}}
+/
+{{#partner}}{{#partner_club}}{{name}}{{/partner_club}}{{/partner}}{{^partner}}Freimeldung{{/partner}}{{/with_partner}})<br />
+
+{{/entries}}
+
+{{/disciplines}}
+{{/tournament}}
+</p>
+</body>
+</html>
