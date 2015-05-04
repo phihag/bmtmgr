@@ -1,8 +1,6 @@
 export to XLSX
 
 edit players (email)
-add email during entry
-
 write test for entries?
 sync exports to local fs
 sync exports to remote fs via upload
@@ -71,3 +69,5 @@ goto anything (with autocomplete, allow for shortened input like hd1 to show HD 
 "Meldungen" in the left for all disciplines
 set useful titles (from breadcrumb helper function)
 focus (but do not select) first entry in player/club autocomplete if there is only one
+allow age restrictions? (or at least show age in player selector)
+allow adding year when adding player
