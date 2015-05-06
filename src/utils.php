@@ -141,3 +141,7 @@ function array_filter_keys($ar, $callback) {
 	$keys = \array_filter(\array_keys($ar), $callback);
 	return \array_intersect_key($ar, \array_flip($keys));
 }
+
+function sanitize_filename($input) {
+	return \preg_replace('/[^äÄöÖüÜßa-zA-Z 0-9_.-]/', '', $input);
+}
