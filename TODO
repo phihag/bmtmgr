@@ -71,3 +71,5 @@ set useful titles (from breadcrumb helper function)
 focus (but do not select) first entry in player/club autocomplete if there is only one
 allow age restrictions? (or at least show age in player selector)
 allow adding year when adding player
+player selection: Show ineligible players, but mark them in red
+move meldung to another discipline (same genders)
