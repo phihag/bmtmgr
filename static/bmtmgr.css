@@ -322,3 +322,9 @@ form#discipline-goto {
 .player_selector_container .club:not(.club_selector_autoset) {
     color: #444;
 }
+
+.publication_sftp_key {
+    display: block;
+    background: #ccc;
+    padding: 10px 10px;
+}

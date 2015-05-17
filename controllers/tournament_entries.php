@@ -12,6 +12,7 @@ $season = $tournament->get_season();
 $disciplines = $tournament->get_disciplines();
 $any_empty_disciplines = false;
 foreach ($disciplines as $d) {
+	$d->name_html_id = utils\html_id($d->name);
 	$d->entries = $d->get_entry_rows();
 	$d->entries_present = \count($d->entries) > 0;
 	$d->_is_new = 'modified';
