@@ -51,6 +51,10 @@ class Discipline extends \bmtmgr\Model {
 		return in_array($this->dtype, ['MD', 'WD', 'MX']);
 	}
 
+	public function entry_player_count() {
+		return $this->with_partner() ? 2 : 1;
+	}
+
 	public static function create($tournament, $name, $dtype) {
 		return new static([
 			'id' => null,

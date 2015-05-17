@@ -21,6 +21,31 @@ foreach ($disciplines as $d) {
 	}
 }
 
+function _count_entries($disciplines, $callback, $count_players) {
+	return \array_reduce($disciplines, function($carry, $d) use($callback, $count_players) {
+		return $carry + $callback(\count($d->entries)) * ($count_players ? $d->entry_player_count() : 1);
+	}, 0);
+}
+
+$stats = [
+	'entry_count' => _count_entries($disciplines, function($entry_count) {
+		return $entry_count;
+	}, false),
+	'player_count' => _count_entries($disciplines, function($entry_count) {
+		return $entry_count;
+	}, true),
+	'gold_medals' => _count_entries($disciplines, function($entry_count) {
+		return ($entry_count >= 1) ? 1 : 0;
+	}, true),
+	'silver_medals' => _count_entries($disciplines, function($entry_count) {
+		return ($entry_count >= 2) ? 1 : 0;
+	}, true),
+	'bronze_medals' => _count_entries($disciplines, function($entry_count) {
+		return ($entry_count >= 3) ? 1 : 0;
+	}, true),
+];
+
+
 $data = [
 	'user' => $u,
 	'breadcrumbs' => [
@@ -34,6 +59,7 @@ $data = [
 	'disciplines' => $disciplines,
 	'now_date' => \date('Y-m-d'),
 	'any_empty_disciplines' => $any_empty_disciplines,
+	'stats' => $stats,
 ];
 
 $format = isset($_GET['format']) ? $_GET['format'] : 'html';
