@@ -145,3 +145,7 @@ function array_filter_keys($ar, $callback) {
 function sanitize_filename($input) {
 	return \preg_replace('/[^äÄöÖüÜßa-zA-Z 0-9_.-]/', '', $input);
 }
+
+function html_id($name) {
+	return \preg_replace('/\s/', '_', sanitize_filename($name));
+}

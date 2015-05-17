@@ -1,0 +1,9 @@
+<form action="/t/{{#tournament}}{{id}}{{/tournament}}/dialog_publication_create_step2" method="post" class="dataentry_form">
+{{{csrf_field}}}
+
+<p>Bitte fügen Sie den folgenden Schlüssel in die Datei <code>~/.ssh/authorized_hosts</code> ein:
+<code class="publication_sftp_key">{{public_key}}</code></p>
+
+<button>Veröffentlichungsmethode hinzufügen</button>
+</form>
+
