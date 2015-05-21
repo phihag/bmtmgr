@@ -15,6 +15,7 @@ foreach ($disciplines as $d) {
 	$d->name_html_id = utils\html_id($d->name);
 	$d->entries = $d->get_entry_rows();
 	$d->entries_present = \count($d->entries) > 0;
+	$d->entry_count = \count($d->entries);
 	$d->_is_new = 'modified';
 	if (! $d->entries_present) {
 		$any_empty_disciplines = true;
@@ -46,6 +47,17 @@ $stats = [
 ];
 
 
+$emails = [];
+foreach ($disciplines as $d) {
+	foreach ($d->entries as $e) {
+		if ($e['email']) {
+			\array_push($emails, $e['email']);
+		}
+	}
+}
+$emails = \array_unique($emails);
+\sort($emails);
+
 $data = [
 	'user' => $u,
 	'breadcrumbs' => [
@@ -60,6 +72,8 @@ $data = [
 	'now_date' => \date('Y-m-d'),
 	'any_empty_disciplines' => $any_empty_disciplines,
 	'stats' => $stats,
+	'emails' => $emails,
+	'tournament_name_urlencoded' => \rawurlencode($tournament->name),
 ];
 
 $format = isset($_GET['format']) ? $_GET['format'] : 'html';

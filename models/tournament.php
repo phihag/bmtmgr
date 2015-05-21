@@ -42,4 +42,15 @@ class Tournament extends \bmtmgr\Model {
 		return Discipline::get_all('WHERE tournament_id=? ' . $add_sql, [$this->id]);
 	}
 
+	public function get_disciplines_with_counts() {
+		$sql = 'SELECT ' . Discipline::all_fields_str() . ', COUNT(entry.id) AS entry_count
+			FROM discipline LEFT JOIN entry ON (discipline.id = entry.discipline_id)
+			WHERE discipline.tournament_id = :tournament_id
+			GROUP BY discipline.id
+		';
+
+		$rows = static::_fetch_all_rows($sql, [':tournament_id' => $this->id]);
+		return $rows;
+	}
+
 }

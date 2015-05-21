@@ -1,3 +1,4 @@
+export costs
 export to XLSX
 
 edit players (email, birthdate)

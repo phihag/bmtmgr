@@ -1,5 +1,5 @@
 {{#disciplines}}
-<h2>{{name}}</h2>
+<h2>{{name}} ({{entry_count}})</h2>
 {{#entries_present}}
 {{>entry_table}}
 {{/entries_present}}
@@ -13,4 +13,9 @@
 <li>{{entry_count}} Meldungen ({{player_count}} Spieler/innen inkl. Freimeldungen)</li>
 <li>{{gold_medals}} Gold-Medaillen, {{silver_medals}} Silber-Medaillen, {{bronze_medals}} Bronze-Medaillen</li>
 </ul>
+
+<p>
+<a href="mailto:?subject={{tournament_name_urlencoded}}&{{#emails}}bcc={{.}}&{{/emails}}">E-Mail an alle Athleten</a>
+</p>
+
 {{/stats}}
