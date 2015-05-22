@@ -28,14 +28,14 @@ class Player extends \bmtmgr\Model {
 	}
 
 	public function get_firstname() {
-		if (\preg_match('/^(?P<firstname>.*?),\s*(?P<lastname>.*?)$/', $this->name, $matches)) {
+		if (\preg_match('/^(?P<lastname>.*?),\s*(?P<firstname>.*?)$/', $this->name, $matches)) {
 			return $matches['firstname'];
 		}
 		return $this->name;
 	}
 
 	public function get_lastname() {
-		if (\preg_match('/^(?P<firstname>.*?),\s*(?P<lastname>.*?)$/', $this->name, $matches)) {
+		if (\preg_match('/^(?P<lastname>.*?),\s*(?P<firstname>.*?)$/', $this->name, $matches)) {
 			return $matches['lastname'];
 		}
 		return $this->name;
