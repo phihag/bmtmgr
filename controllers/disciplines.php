@@ -9,6 +9,9 @@ utils\require_get_params(['tournament_id']);
 $tournament = Tournament::by_id($_GET['tournament_id']);
 $season = $tournament->get_season();
 $disciplines = $tournament->get_disciplines_with_counts();
+\usort($disciplines, function ($d1, $d2) {
+	return \strcmp($d1['name'], $d2['name']);
+});
 
 render('disciplines', [
 	'user' => $u,

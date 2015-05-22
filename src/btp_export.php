@@ -5,25 +5,61 @@ require_once dirname(__DIR__) . '/libs/PHP_XLSXWriter/xlsxwriter.class.php';
 
 function render($data) {
 	$tournament = $data['tournament'];
+	$disciplines = $data['disciplines'];
 
 	$header = [
-		'SpielerID',
-		'Name',
-		'Vorname',
-		'Verein',
-		'Geschlecht',
-		'Email',
-		'Event',
-		'PartnerID',
+		'Event' => 'string',
+		'SpielerID' => 'string',
+		'Name' => 'string',
+		'Vorname' => 'string',
+		'Verein' => 'string',
+		'Geschlecht' => 'string',
+		'Email' => 'string',
+		'Partner ID' => 'string',
 	];
 
-	$data1 = array(
-	);
+	$output = [];
+	foreach ($disciplines as $d) {
+		$dname = $d->name;
+		// Fix up discipline names
+		if (\preg_match('/^H([DE]) U0?([0-9]+)$/', $dname, $m)) {
+			$dname = 'J' . $m[1] . ' U' . $m[2];
+		} elseif (\preg_match('/^D([DE]) U0?([0-9]+)$/', $dname, $m)) {
+			$dname = 'M' . $m[1] . ' U' . $m[2];
+		}
+
+		$is_doubles = $d->with_partner();
+		foreach ($d->entries as $er) {
+			\array_push($output, [
+				$dname,
+				$er['player']->textid,
+				$er['player']->get_lastname(),
+				$er['player']->get_firstname(),
+				$er['player_club']->name,
+				$er['player']->gender,
+				$er['player']->email,
+				$is_doubles ? $er['partner']->textid : '',
+			]);
+			if ($is_doubles) {
+				\array_push($output, [
+					$dname,
+					$er['partner']->textid,
+					$er['partner']->get_lastname(),
+					$er['partner']->get_firstname(),
+					$er['partner_club']->name,
+					$er['partner']->gender,
+					$er['partner']->email,
+					$is_doubles ? $er['player']->textid : '',
+				]);
+			}
+		}
+	}
+
 
 	$writer = new \XLSXWriter();
-	$writer->writeSheet($data1, 'Meldungen', $header);
+	$writer->writeSheet($output, 'Meldungen', $header);
 
-	$safe_filename = \bmtmgr\utils\safe_filename($tournament->name);
+	$safe_filename = \bmtmgr\utils\sanitize_filename($tournament->name);
 	header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 	header('Content-Disposition: attachment; filename="' . $safe_filename . '.xlsx"');
 	echo $writer->writeToString();

@@ -1,6 +1,9 @@
-export costs
 export to XLSX
+export costs
 
+combine disciplines
+btp export with freimeldung
+more stats(#distinct players, #clubs, #entries)
 edit players (email, birthdate)
 write test for entries?
 sync exports to local fs

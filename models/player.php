@@ -27,6 +27,20 @@ class Player extends \bmtmgr\Model {
 		$this->_is_new = $_is_new;
 	}
 
+	public function get_firstname() {
+		if (\preg_match('/^(?P<firstname>.*?),\s*(?P<lastname>.*?)$/', $this->name, $matches)) {
+			return $matches['firstname'];
+		}
+		return $this->name;
+	}
+
+	public function get_lastname() {
+		if (\preg_match('/^(?P<firstname>.*?),\s*(?P<lastname>.*?)$/', $this->name, $matches)) {
+			return $matches['lastname'];
+		}
+		return $this->name;
+	}
+
 	protected static function from_row($row, $_is_new=false) {
 		return new static($row, $_is_new);
 	}
