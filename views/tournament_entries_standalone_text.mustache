@@ -21,19 +21,19 @@ MELDUNGEN {{name}} - Stand {{now_date}}:<br />
 {{name}}:<br />
 
 {{#entries}}
-{{#player}}{{name}}{{/player}}
+{{#player}}{{natural_name}}{{/player}}
 {{#with_partner}}
 {{#partner}}
-/ {{name}}
+/ {{natural_name}}
 {{/partner}}
 {{^partner}}
  (Freimeldung)
 {{/partner}}
 {{/with_partner}}
 
-({{#player_club}}{{name}}{{/player_club}}{{#with_partner}}
+({{#player_club}}{{name}}{{/player_club}}{{#with_partner}}{{^same_club}}
 /
-{{#partner}}{{#partner_club}}{{name}}{{/partner_club}}{{/partner}}{{^partner}}Freimeldung{{/partner}}{{/with_partner}})<br />
+{{#partner}}{{#partner_club}}{{name}}{{/partner_club}}{{/partner}}{{^partner}}Freimeldung{{/partner}}{{/same_club}}{{/with_partner}})<br />
 
 {{/entries}}
 {{/entries_present}}
