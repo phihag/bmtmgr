@@ -95,7 +95,7 @@ class Discipline extends \bmtmgr\Model {
 			$club_dict[$c->id] = $c;
 		}
 
-		return static::get_entries(' ORDER by entry.id', function($row) use ($player_dict, $club_dict) {
+		$res = static::get_entries(' ORDER by entry.id', function($row) use ($player_dict, $club_dict) {
 			return [
 				'id' => $row['id'],
 				'player' => $player_dict[$row['player_id']],
@@ -107,6 +107,10 @@ class Discipline extends \bmtmgr\Model {
 				'email' => $row['email']
 			];
 		});
+		for ($i = 0;$i < \count($res);$i++) {
+			$res[$i]['numstr'] = \strval($i + 1);
+		}
+		return $res;
 	}
 
 	protected function find_conflicting($player_id) {

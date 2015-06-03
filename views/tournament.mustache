@@ -8,6 +8,12 @@
 
 <label><input type="checkbox" name="visible" {{#visible}}checked="checked"{{/visible}}/>Turnier veröffentlichen</label>
 
+<label>Kosten pro Teilnehmer:&nbsp;<input type="number" name="cost" value="{{cost_value}}"/> <select name="cost_currency">
+{{#cost_currencies}}
+<option {{#is_current}}selected="selected"{{/is_current}} size="3" value="{{id}}">{{display}}</option>
+{{/cost_currencies}}
+</select></label>
+
 <button>Ändern</button>
 </form>
 {{/is_admin}}

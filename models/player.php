@@ -41,6 +41,10 @@ class Player extends \bmtmgr\Model {
 		return $this->name;
 	}
 
+	public function natural_name() {
+		return $this->get_firstname() . ' ' . $this->get_lastname();
+	}
+
 	protected static function from_row($row, $_is_new=false) {
 		return new static($row, $_is_new);
 	}

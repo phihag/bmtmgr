@@ -8,7 +8,13 @@ body, html {
     font-family: sans-serif;
 }
 h1 {margin: 10px 0 10px 0; text-align: center;}
+header.discipline {float:left;}
+header.discipline h2 {margin: 0; min-width: 3.5em;}
+.clear {clear: left; height: 1em;}
 
+.today {
+    margin-bottom: 0.5em;
+}
 .player_table {
     border-collapse: collapse;
 }
@@ -40,37 +46,35 @@ td.without_partner {
 .player_table .player_club {
     min-width: 10em;
 }
+.player_table .numstr {
+    color: #666;
+    text-align: right;
+    min-width: 1em;
+}
 </style>
 {{#tournament}}
 <title>{{name}} - Meldungen</title>
 </head>
 <body>
 <h1>{{name}} - Meldungen</h1>
-<div>Stand {{now_date}}</div>
+<div class="today">Stand {{now_date}}</div>
 
 {{#disciplines}}
-<h2 id="{{name_html_id}}">{{name}}</h2>
+<header class="discipline"><h2 id="{{name_html_id}}">{{name}}</h2></header>
 
 {{#entries_present}}
 <table class="player_table">
-<thead><tr>
-<th class="player_name">Name</th>
-<th class="player_club">Verein</th>
-{{#with_partner}}
-<th class="player_name">{{#male_partner}}Partner{{/male_partner}}{{^male_partner}}Partnerin{{/male_partner}}</th>
-<th class="player_club">Verein</th>
-{{/with_partner}}
-</tr></thead>
 <tbody>
 {{#entries}}
 <tr>
+<td class="numstr">{{numstr}}</td>
 {{#player}}
-<td class="player_name">{{name}}</td>
+<td class="player_name">{{natural_name}}</td>
 <td class="player_club">{{#player_club}}{{name}}{{/player_club}}</td>
 {{/player}}
 {{#with_partner}}
 {{#partner}}
-<td class="player_name">{{name}}</td>
+<td class="player_name">{{natural_name}}</td>
 <td class="player_club">{{#partner_club}}{{name}}{{/partner_club}}</td>
 {{/partner}}
 {{^partner}}
@@ -82,6 +86,8 @@ td.without_partner {
 </tbody>
 </table>
 {{/entries_present}}
+
+<div class="clear"></div>
 
 {{/disciplines}}
 
