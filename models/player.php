@@ -45,6 +45,10 @@ class Player extends \bmtmgr\Model {
 		return $this->get_firstname() . ' ' . $this->get_lastname();
 	}
 
+	public function is_official_id() {
+		return \preg_match('/^[0-9-]+$/', $this->textid) > 0;
+	}
+
 	protected static function from_row($row, $_is_new=false) {
 		return new static($row, $_is_new);
 	}

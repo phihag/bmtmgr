@@ -225,9 +225,6 @@ button img {
 .player_table {
     border-collapse: collapse;
 }
-td.player_textid {
-    text-align: right;
-}
 td.without_partner {
     text-align: center;
     font-style: italic;
@@ -252,9 +249,6 @@ td.without_partner {
 }
 .player_table td.player_club.player_club_special {
     color: #666;
-}
-.player_table td.player_textid {
-    color: #999;
 }
 .player_table .player_name {
     min-width: 10em;
@@ -321,6 +315,10 @@ form#discipline-goto {
 }
 .player_selector_container .club:not(.club_selector_autoset) {
     color: #444;
+}
+.entry_numstr {
+    color: #999;
+    text-align: right;
 }
 
 .publication_sftp_key {

@@ -1,29 +1,17 @@
 <table class="player_table">
-<thead><tr>
-<th class="player_name">Name</th>
-<th class="player_club">Verein</th>
-<th class="player_textid">Id</th>
-{{#with_partner}}
-<th class="player_name">{{#male_partner}}Partner{{/male_partner}}{{^male_partner}}Partnerin{{/male_partner}}</th>
-<th class="player_club">Verein</th>
-<th class="player_textid">Id</th>
-{{/with_partner}}
-<th class="player_actions"></th>
-</tr></thead>
 <tbody>
 {{#entries}}
 <tr>
+<td class="entry_numstr">{{numstr}}</td>
 {{#player}}
-<td class="player_name">{{name}}</td>
+<td class="player_name" {{#is_official_id}}title="{{textid}}"{{/is_official_id}}>{{natural_name}}</td>
 <td class="player_club{{#player_club_is_special}} player_club_special{{/player_club_is_special}}">{{#player_club}}{{name}}{{/player_club}}</td>
-<td class="player_textid">{{textid}}</td>
 {{/player}}
 
 {{#with_partner}}
 {{#partner}}
-<td class="player_name">{{name}}</td>
+<td class="player_name" {{#is_official_id}}title="{{textid}}"{{/is_official_id}}>{{natural_name}}</td>
 <td class="player_club{{#partner_club_is_special}} player_club_special{{/partner_club_is_special}}">{{#partner_club}}{{name}}{{/partner_club}}</td>
-<td class="player_textid">{{textid}}</td>
 {{/partner}}
 {{^partner}}
 <td colspan="3" class="without_partner">Freimeldung</td>
