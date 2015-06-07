@@ -1,5 +1,3 @@
-better style of html export (numbers, remove headings), text to the right
-do not show custom IDs
 export costs
 time planning facilities
 combine disciplines (and add that in export)
@@ -8,7 +6,6 @@ improve output
 
 export sftp
 btp export with freimeldung
-more stats(#distinct players, #clubs, #entries, #(gold+silver+bronze) medals)
 edit players (email, birthdate)
 write test for entries?
 sync exports to local fs
