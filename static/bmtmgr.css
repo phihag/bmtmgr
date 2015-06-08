@@ -200,6 +200,12 @@ button img {
     font-size: 140%;
     padding: 10px;
 }
+.clear+header.discipline_name {margin-top: 1.5em;}
+.clear+header.discipline_name+.player_table {margin-top: 1.5em;}
+header.discipline_name {float:left;}
+header.discipline_name h2 {margin: 0; min-width: 4em;}
+.clear {clear: left;}
+
 #disciplines {
     padding: 0;
     height: 50px;

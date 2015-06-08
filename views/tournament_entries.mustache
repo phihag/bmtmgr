@@ -1,7 +1,10 @@
 {{#disciplines}}
-<h2>{{name}} ({{entry_count}})</h2>
+<header class="discipline_name">
+<h2>{{name}}</h2>
+</header>
 {{#entries_present}}
 {{>entry_table}}
+<div class="clear"></div>
 {{/entries_present}}
 
 {{/disciplines}}

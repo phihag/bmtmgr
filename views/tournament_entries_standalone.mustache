@@ -40,6 +40,9 @@ td.without_partner {
 .player_table td.player_club {
     color: #666;
 }
+.player_table tbody tr:target td {
+    background: #ffe889;
+}
 .player_table .player_name {
     min-width: 11em;
 }
@@ -66,7 +69,7 @@ td.without_partner {
 <table class="player_table">
 <tbody>
 {{#entries}}
-<tr>
+<tr id="{{name_html_id}}-{{numstr}}">
 <td class="numstr">{{numstr}}</td>
 {{#player}}
 <td class="player_name">{{natural_name}}</td>
