@@ -1,0 +1,14 @@
+<table>
+{{#disciplines}}
+<tr><td>{{name}} ({{entry_count}})</td>
+<td>
+<form class="inline-form" action="/t/{{#tournament}}{{id}}{{/tournament}}/combine_disciplines" method="post">
+{{{csrf_field}}}
+<input type=""TODO>
+<select name="with_discipline">
+TODO
+</select>
+</form>
+</td></tr>
+{{/disciplines}}
+</table>

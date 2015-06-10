@@ -109,7 +109,7 @@ button:hover, button:focus {
 button:active {
     border-color: #777;
 }
-button img {
+button img, .button img {
     height: 1em;
     width: 1em;
     padding-right: 3px;

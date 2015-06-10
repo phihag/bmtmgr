@@ -20,10 +20,22 @@
 
 <th>
 {{#is_admin}}
-<form method="post" action="{{root_path}}entry/{{id}}/delete">
+<form method="post" action="{{root_path}}entry/{{id}}/edit" class="inline-form">
+{{{csrf_field}}}
+<button class="rare_button"><img src="{{icon_path}}edit.svg" title="Meldung bearbeiten" /></button>
+</form>
+
+<form method="post" action="{{root_path}}entry/{{id}}/delete" class="inline-form">
 {{{csrf_field}}}
 <button class="rare_button"><img src="{{icon_path}}delete.svg" title="Meldung löschen" /></button>
 </form>
+
+<a href="mailto:{{email}}?subject={{#tournament}}{{name}}{{/tournament}}" class="button rare_button">
+<img src="{{icon_path}}email.svg" title="E-Mail verschicken" />
+</a>
+
+</form>
+
 {{/is_admin}}
 </th>
 </tr>
