@@ -7,12 +7,16 @@ function csrf_token() {
 	}
 
 	static $token = null;
-	static $first_run = true;
-	if ($first_run) {
+	if ($token === null) {
 		$token = gen_token();
-		setcookie('csrf_token', $token, time() + 10 * 360 * 24 * 60 * 60);
+		setcookie(
+			'csrf_token', $token,
+			time() + 10 * 360 * 24 * 60 * 60,
+			root_path(), false,
+			\bmtmgr\config\get('force_https', false),
+			true
+		);
 	}
-	$first_run = false;
 	return $token;
 }
 
@@ -22,7 +26,7 @@ function csrf_protect() {
 		$title = 'Sicherheitstoken nicht erstellt';
 	} elseif (((!isset($_POST['csrf_token'])) || strlen($_COOKIE['csrf_token']) < 8)) {
 		$title = 'Sicherheitstoken fehlte';
-	} else if ($_COOKIE['csrf_token'] != $_POST['csrf_token']) {
+	} else if ($_COOKIE['csrf_token'] !== $_POST['csrf_token']) {
 		$title = 'Falsches Sicherheitstoken';
 	}
 

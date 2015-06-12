@@ -3,6 +3,7 @@
 	"allow_import": true,
 	"allow_install": true,
 	"mail_debug": true,
+	"force_https": false,
 
 	"db_dsn": "sqlite:$ROOTDIR/bmcreg.sqlite",
 	"mail_from": "bmtmgr@aufschlagwechsel.de",
