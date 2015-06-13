@@ -30,7 +30,7 @@
 <button class="rare_button"><img src="{{icon_path}}delete.svg" title="Meldung löschen" /></button>
 </form>
 
-<a href="mailto:{{email}}?subject={{#tournament}}{{name}}{{/tournament}}" class="button rare_button">
+<a href="mailto:{{email}}?subject={{#tournament}}{{name}}{{/tournament}}" class="button rare_button {{^email}}email_button_no_email{{/email}}">
 <img src="{{icon_path}}email.svg" title="E-Mail verschicken" />
 </a>
 

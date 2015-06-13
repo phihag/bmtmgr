@@ -326,6 +326,9 @@ form#discipline-goto {
     color: #999;
     text-align: right;
 }
+.email_button_no_email {
+    visibility: hidden;
+}
 
 .publication_sftp_key {
     display: block;
