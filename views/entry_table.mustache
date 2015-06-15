@@ -38,6 +38,12 @@
 
 {{/is_admin}}
 </th>
+
+<td class="conflicts rare_button">
+{{#conflicts}}
+<a href="{{root_path}}d/{{id}}/">{{name}}</a>
+{{/conflicts}}
+</td>
 </tr>
 {{/entries}}
 </tbody>

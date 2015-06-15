@@ -153,3 +153,11 @@ function sanitize_filename($input) {
 function html_id($name) {
 	return \preg_replace('/\s/', '_', sanitize_filename($name));
 }
+
+function array_kunique($array, $key) {
+	$res = [];
+	foreach ($array as $v) {
+		$res[$key($v)] = $v;
+	}
+	return $res;
+}

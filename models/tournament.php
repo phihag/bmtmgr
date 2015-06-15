@@ -53,4 +53,7 @@ class Tournament extends \bmtmgr\Model {
 		return $rows;
 	}
 
+	public function get_entries() {
+		return Entry::fetch_all_in_tournament($this->id);
+	}
 }

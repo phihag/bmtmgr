@@ -66,4 +66,13 @@ class Entry extends \bmtmgr\Model {
 		}
 		return User::by_id($this->partner_club_id);
 	}
+
+	public static function fetch_all_in_tournament($tournament_id) {
+		return static::get_all(
+			'WHERE entry.discipline_id = discipline.id
+			       AND discipline.tournament_id=:tournament_id',
+			[':tournament_id' => $tournament_id],
+			['discipline']
+		);
+	}
 }
