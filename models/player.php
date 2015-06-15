@@ -27,6 +27,10 @@ class Player extends \bmtmgr\Model {
 		$this->_is_new = $_is_new;
 	}
 
+	public function get_display_id() {
+		return sprintf('(%s) %s %s', $this->textid, $this->get_firstname(), $this->get_lastname());
+	}
+
 	public function get_firstname() {
 		if (\preg_match('/^(?P<lastname>.*?),\s*(?P<firstname>.*?)$/', $this->name, $matches)) {
 			return $matches['firstname'];

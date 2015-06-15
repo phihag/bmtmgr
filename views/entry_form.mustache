@@ -1,0 +1,39 @@
+<label>
+<span class="labeltext">
+{{#discipline}}
+{{#male_player}}
+Spieler:
+{{/male_player}}
+{{^male_player}}
+Spielerin:
+{{/male_player}}
+</span>
+{{#player_input_spec}}
+{{>player_selector}}
+{{/player_input_spec}}
+</label>
+
+{{#with_partner}}
+<label>
+<span class="labeltext">
+{{#male_partner}}
+Partner:
+{{/male_partner}}
+{{^male_partner}}
+Partnerin:
+{{/male_partner}}
+</span>
+{{#partner_input_spec}}
+{{>player_selector}}
+{{/partner_input_spec}}
+</label>
+{{/with_partner}}
+
+{{/discipline}}
+
+<label>
+<span class="labeltext">
+E-Mail:
+</span>
+<input type="email" name="email" size="30" autocomplete="off" value="{{#entry}}{{email}}{{/entry}}" />
+</label>

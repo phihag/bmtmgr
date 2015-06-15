@@ -1,6 +1,7 @@
-edit entries
 discipline capacity
 look up leagues
+seeding
+reorder
 
 export costs
 time planning facilities
@@ -83,3 +84,4 @@ allow age restrictions? (or at least show age in player selector)
 allow adding year when adding player
 player selection: Show ineligible players, but mark them in red
 move meldung to another discipline (same genders)
+check autocomplete in entry edit

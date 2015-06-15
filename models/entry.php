@@ -44,4 +44,26 @@ class Entry extends \bmtmgr\Model {
 	public function get_discipline() {
 		return Discipline::by_id($this->discipline_id);
 	}
+
+	public function get_player() {
+		return Player::by_id($this->player_id);
+	}
+
+	public function get_partner() {
+		if (! $this->partner_id) {
+			return NULL;
+		}
+		return Player::by_id($this->partner_id);
+	}
+
+	public function get_player_club() {
+		return User::by_id($this->player_club_id);
+	}
+
+	public function get_partner_club() {
+		if (! $this->partner_club_id) {
+			return NULL;
+		}
+		return User::by_id($this->partner_club_id);
+	}
 }

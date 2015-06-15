@@ -263,14 +263,14 @@ td.without_partner {
     min-width: 10em;
 }
 
-form.entry_add label {
+form.entry_form label {
     font-size: 120%;
     padding: 10px 0 10px 0;
 }
-form.entry_add label+label {
+form.entry_form label+label {
     padding-top: 0;
 }
-form.entry_add label>span.labeltext {
+form.entry_form label>span.labeltext {
     min-width: 4.5em;
 }
 

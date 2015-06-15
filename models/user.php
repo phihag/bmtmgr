@@ -42,4 +42,8 @@ class User extends \bmtmgr\Model {
 			\bmtmgr\utils\access_denied();
 		}
 	}
+
+	public function get_display_id() {
+		return sprintf('(%s) %s', $this->id, $this->name);
+	}
 }
