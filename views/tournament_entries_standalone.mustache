@@ -8,8 +8,11 @@ body, html {
     font-family: sans-serif;
 }
 h1 {margin: 10px 0 10px 0; text-align: center;}
-header.discipline {float:left;}
-header.discipline h2 {margin: 0; min-width: 3.5em;}
+.discipline {
+    page-break-inside: avoid;
+}
+.discipline header {float:left;}
+.discipline header h2 {margin: 0; min-width: 3.5em;}
 .clear {clear: left; height: 1em;}
 
 .today {
@@ -17,6 +20,7 @@ header.discipline h2 {margin: 0; min-width: 3.5em;}
 }
 .player_table {
     border-collapse: collapse;
+    page-break-inside: avoid;
 }
 td.without_partner {
     text-align: center;
@@ -54,6 +58,12 @@ td.without_partner {
     text-align: right;
     min-width: 2em;
 }
+
+.note {
+    margin: 0; padding: 0;
+    margin-left: 5em;
+    font-style: italic;
+}
 </style>
 {{#tournament}}
 <title>{{name}} - Meldungen</title>
@@ -63,7 +73,9 @@ td.without_partner {
 <div class="today">Stand {{now_date}}</div>
 
 {{#disciplines}}
-<header class="discipline"><h2 id="{{name_html_id}}">{{name}}</h2></header>
+
+<div class="discipline">
+<header><h2 id="{{name_html_id}}">{{name}}</h2></header>
 
 {{#entries_present}}
 <table class="player_table">
@@ -90,8 +102,11 @@ td.without_partner {
 </table>
 {{/entries_present}}
 
+{{#note}}
+<p class="note">{{note}}</p>
+{{/note}}
 <div class="clear"></div>
-
+</div>
 {{/disciplines}}
 
 </body>
