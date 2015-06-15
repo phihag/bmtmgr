@@ -21,6 +21,7 @@ if (isset($_POST['partner'])) {
 	$partner_club = User::find_by_input($_POST['partner_club']);
 }
 $email = isset($_POST['email']) ? $_POST['email'] : null;
+$seeding = isset($_POST['seeding']) ? $_POST['seeding'] : null;
 
 try {
 	$discipline->check_entry($player, $partner);
@@ -32,7 +33,7 @@ try {
 }
 
 $entry = Entry::create(
-	$discipline, $player, $player_club, $partner, $partner_club, $email);
+	$discipline, $player, $player_club, $partner, $partner_club, $email, $seeding);
 $entry->save();
 
 render_ajax('d/' . $discipline->id . '/', [

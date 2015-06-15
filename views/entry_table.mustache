@@ -4,13 +4,13 @@
 <tr>
 <td class="entry_numstr" title="{{created_time_str}}">{{numstr}}</td>
 {{#player}}
-<td class="player_name" {{#is_official_id}}title="{{textid}}"{{/is_official_id}}>{{natural_name}}</td>
+<td class="player_name" {{#is_official_id}}title="{{textid}}"{{/is_official_id}}>{{natural_name}}{{#seeding}} [{{seeding}}]{{/seeding}}</td>
 <td class="player_club{{#player_club_is_special}} player_club_special{{/player_club_is_special}}">{{#player_club}}{{name}}{{/player_club}}</td>
 {{/player}}
 
 {{#with_partner}}
 {{#partner}}
-<td class="player_name" {{#is_official_id}}title="{{textid}}"{{/is_official_id}}>{{natural_name}}</td>
+<td class="player_name" {{#is_official_id}}title="{{textid}}"{{/is_official_id}}>{{natural_name}}{{#seeding}} [{{seeding}}]{{/seeding}}</td>
 <td class="player_club{{#partner_club_is_special}} player_club_special{{/partner_club_is_special}}">{{#partner_club}}{{name}}{{/partner_club}}</td>
 {{/partner}}
 {{^partner}}
