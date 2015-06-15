@@ -16,6 +16,7 @@ function render($data) {
 		'Geschlecht' => 'string',
 		'Email' => 'string',
 		'Partner ID' => 'string',
+		'Setzplatz' => 'string',
 	];
 
 	$output = [];
@@ -39,6 +40,7 @@ function render($data) {
 				$er['player']->gender,
 				$er['player']->email,
 				$is_doubles ? $er['partner']->textid : '',
+				$er['seeding'],
 			]);
 			if ($is_doubles) {
 				\array_push($output, [
@@ -50,6 +52,7 @@ function render($data) {
 					$er['partner']->gender,
 					$er['partner']->email,
 					$is_doubles ? $er['player']->textid : '',
+					$er['seeding'],
 				]);
 			}
 		}
