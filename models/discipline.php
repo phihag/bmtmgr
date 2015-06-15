@@ -8,6 +8,8 @@ class Discipline extends \bmtmgr\Model {
 	public $dtype;
 	public $ages;
 	public $leagues;
+	public $note;
+	public $capacity;
 
 	protected function __construct($row, $_is_new) {
 		$this->id = $row['id'];
@@ -16,6 +18,8 @@ class Discipline extends \bmtmgr\Model {
 		$this->dtype = $row['dtype'];
 		$this->ages = $row['ages'];
 		$this->leagues = $row['leagues'];
+		$this->note = $row['note'];
+		$this->capacity = $row['capacity'];
 
 		$this->_is_new = $_is_new;
 	}
@@ -63,6 +67,8 @@ class Discipline extends \bmtmgr\Model {
 			'dtype' => $dtype,
 			'ages' => null,
 			'leagues' => null,
+			'capacity' => null,
+			'note' => null,
 		], true);
 	}
 

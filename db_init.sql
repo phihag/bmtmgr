@@ -84,6 +84,7 @@ CREATE TABLE discipline (
 	ages TEXT,
 	leagues TEXT,
 	capacity INTEGER,
+	note TEXT,
 	FOREIGN KEY(tournament_id) REFERENCES tournament(id),
 	UNIQUE (tournament_id, name)
 );

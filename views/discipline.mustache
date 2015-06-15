@@ -5,4 +5,12 @@
 <button id="entry_add"><img src="{{icon_path}}add-player.svg" title="Neue Meldung" />Meldung</button>
 </form>
 
+<form method="post" class="discipline_properties" action="{{root_path}}d/{{id}}/update">
+{{{csrf_field}}}
+<label>Hinweis: <textarea name="note" cols="50">{{note}}</textarea></label>
+<label>Kapazität: <input type="text" size="2" name="capacity" value="{{capacity}}" /></label>
+<button>Setzen</button>
+</form>
+
+
 {{/discipline}}

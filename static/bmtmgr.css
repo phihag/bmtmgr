@@ -330,6 +330,14 @@ form#discipline-goto {
     visibility: hidden;
 }
 
+.discipline_properties {
+    margin: 10px 0;
+}
+.discipline_properties label {
+    vertical-align: top;
+    display: block;
+}
+
 .publication_sftp_key {
     display: block;
     background: #ccc;
