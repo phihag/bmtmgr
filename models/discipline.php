@@ -116,7 +116,11 @@ class Discipline extends \bmtmgr\Model {
 			];
 		});
 		for ($i = 0;$i < \count($res);$i++) {
-			$res[$i]['numstr'] = \strval($i + 1);
+			$res[$i]['numstr'] = (
+				(($this->capacity === NULL) || ($i < $this->capacity)) ?
+				\strval($i + 1) :
+				\sprintf('%d+%d', $this->capacity, $i - $this->capacity + 1)
+			);
 		}
 		return $res;
 	}
