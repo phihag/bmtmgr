@@ -106,7 +106,7 @@ class Discipline extends \bmtmgr\Model {
 				'partner_club_is_special' => (($row['partner_id'] && $row['partner_club_id']) ? ($row['partner_club_id'] != $player_dict[$row['partner_id']]->club_id) : null),
 				'same_club' => ($row['partner_club_id'] ? $row['player_club_id'] == $row['partner_club_id'] : null),
 				'email' => $row['email'],
-				'updated_time_str' => \date('Y-m-d H:i', $row['updated_time'] ? \intval($row['updated_time']) : \intval($row['created_time'])),
+				'created_time_str' => \date('Y-m-d H:i', $row['created_time']),
 			];
 		});
 		for ($i = 0;$i < \count($res);$i++) {
