@@ -75,7 +75,7 @@ td.without_partner {
 {{#disciplines}}
 
 <div class="discipline">
-<header><h2 id="{{name_html_id}}">{{name}}</h2></header>
+<header><h2 id="{{name_html_id}}">{{name}}</h2>{{#capacity}}<span class="capacity">max {{capacity}}</span>{{/capacity}}</header>
 
 {{#entries_present}}
 <table class="player_table">
