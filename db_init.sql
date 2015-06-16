@@ -101,7 +101,7 @@ CREATE TABLE entry (
 	created_time BIGINT,
 	updated_time BIGINT,
 	seeding INTEGER,
-	order BIGINT,
+	position BIGINT,
 	FOREIGN KEY(discipline_id) REFERENCES discipline(id),
 	FOREIGN KEY(player_id) REFERENCES player(id),
 	FOREIGN KEY(player_club_id) REFERENCES user(id),
