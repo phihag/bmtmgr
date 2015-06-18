@@ -116,12 +116,17 @@ class Discipline extends \bmtmgr\Model {
 				'created_time_str' => \date('Y-m-d H:i', \intval($row['created_time'])),
 			];
 		});
+		$space_size = ((($this->capacity === NULL) || (\count($res) <= $this->capacity)) ?
+			(\strlen(\sprintf('%d', \count($res)))) :
+			(\strlen(\sprintf('%d+%d', $this->capacity, \count($res) - $this->capacity)))
+		);
 		for ($i = 0;$i < \count($res);$i++) {
 			$res[$i]['numstr'] = (
 				(($this->capacity === NULL) || ($i < $this->capacity)) ?
 				\strval($i + 1) :
 				\sprintf('%d+%d', $this->capacity, $i - $this->capacity + 1)
 			);
+			$res[$i]['numstr_spaced'] = \str_pad($res[$i]['numstr'], $space_size, ' ', \STR_PAD_LEFT);
 		}
 		return $res;
 	}

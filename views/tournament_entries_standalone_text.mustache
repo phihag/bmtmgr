@@ -7,6 +7,9 @@ body, html {
     font-size: 20px;
     font-family: sans-serif;
 }
+.numstr {
+	white-space: pre;
+}
 </style>
 {{#tournament}}
 <title>{{name}} - Meldungen</title>
@@ -18,9 +21,13 @@ MELDUNGEN {{name}} - Stand {{now_date}}:<br />
 {{#disciplines}}
 {{#entries_present}}
 <br/>
-{{name}}:<br />
+{{name}}{{#capacity}} (max {{capacity}}){{/capacity}}:<br />
+{{#note}}
+({{note}})<br/>
+{{/note}}
 
 {{#entries}}
+<span class="numstr">{{numstr_spaced}}</span>
 {{#player}}{{natural_name}}{{/player}}
 {{#with_partner}}
 {{#partner}}
