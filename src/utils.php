@@ -161,3 +161,11 @@ function array_kunique($array, $key) {
 	}
 	return $res;
 }
+
+function array_index($array, $keyfunc) {
+	$res = [];
+	foreach ($array as $v) {
+		$res[$keyfunc($v)] = $v;
+	}
+	return $res;
+}

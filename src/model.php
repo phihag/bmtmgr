@@ -138,6 +138,10 @@ class Model {
 		$GLOBALS['db']->commit();
 	}
 
+	public static function rollBack() {
+		$GLOBALS['db']->rollBack();
+	}
+
 	public function delete() {
 		$s = $GLOBALS['db']->prepare('DELETE FROM ' . static::table_name() . ' WHERE id=:id');
 		$s->execute([':id' => $this->id]);

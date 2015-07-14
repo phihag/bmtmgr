@@ -26,7 +26,7 @@ class User extends \bmtmgr\Model {
 			return static::fetch_optional('WHERE id = ?', array($matches[1]));
 		}
 
-		return static::fetch_optional('WHERE id = ? OR name = ?', array($input, $input));
+		return static::fetch_optional('WHERE id = ? OR name = ? COLLATE NOCASE', array($input, $input));
 	}
 
 	public static function create($textid, $name, $email, $perms=[]) {

@@ -84,6 +84,15 @@ class Player extends \bmtmgr\Model {
 		return static::fetch_one('WHERE player.textid = :input ' . $add_sql, $params);
 	}
 
+	public static function find_by_name($season_id, $name) {
+		if (\preg_match('/^(?P<firstname>[^,]*?)\s+(?P<lastname>[^,]+)$/', $name, $matches)) {
+			$name = $matches['lastname'] . ', ' . $matches['firstname'];
+		}
+		return static::fetch_optional(
+			'WHERE player.season_id = :season_id AND player.name = :name',
+			[':name' => $name, ':season_id' => $season_id]);
+	}
+
 	public static function get_in_club_season($club_id, $season_id, $add_sql='') {
 		return static::get_all(
 			'WHERE club_id=:club_id AND season_id = :season_id ' . $add_sql,

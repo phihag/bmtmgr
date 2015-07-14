@@ -1,4 +1,10 @@
+import from text
+	allow re-import with new syntax
+	import capacity
+
 look up leagues
+
+search by club name
 reorder
 
 export costs
@@ -70,7 +76,7 @@ better check when adding entry
 player selection in doubles: prevent someone from playing with themselves
 player selection (doubles): jump to next field once selected
 add tests for valid player selections
-debug mode to show all SQL queries
+debug mode to show all SQL queriesl
 erlaube weibliche Freimeldungen im Mixed! (easy solution: ignore order of players in mixed, and only check that gender is different)
 add undo for deletions
 fancy styles (border-radius, color swatch?) for breadcrumbs
@@ -84,3 +90,5 @@ player selection: Show ineligible players, but mark them in red
 move meldung to another discipline (same genders)
 check autocomplete in entry edit
 show other disciplines the player is in
+add discipline any doubles / any singles
+write tests for import

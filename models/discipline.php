@@ -25,23 +25,35 @@ class Discipline extends \bmtmgr\Model {
 	}
 
 	public function player_gender() {
+		if ($this->allow_any()) {
+			return 'a';
+		}
 		return $this->male_player() ? 'm': 'f';
 	}
 
+	public function allow_any() {
+		return \in_array($this->dtype, ['AS', 'AD', 'AA']);
+	}
+
 	public function male_player() {
-		return in_array($this->dtype, ['MS', 'MD', 'MX']);
+		return \in_array($this->dtype, ['MS', 'MD', 'MX']);
 	}
 
 	public function partner_gender() {
 		switch ($this->dtype) {
 		case 'MS':
 		case 'WS':
+		case 'AS': // Gender doesn't matter
 			return null;
 		case 'MD':
 			return 'm';
 		case 'WD':
 		case 'MX':
 			return 'f';
+		case 'AD':
+			return 'a';
+		case 'AA': // No restrictions on players
+			return 'a';
 		default:
 			\assert(false);
 		}
@@ -121,10 +133,10 @@ class Discipline extends \bmtmgr\Model {
 			(\strlen(\sprintf('%d+%d', $this->capacity, \count($res) - $this->capacity)))
 		);
 		for ($i = 0;$i < \count($res);$i++) {
-			$res[$i]['numstr'] = (
-				(($this->capacity === NULL) || ($i < $this->capacity)) ?
-				\strval($i + 1) :
+			$res[$i]['on_waiting_list'] = ($this->capacity !== NULL) && ($i >= $this->capacity);
+			$res[$i]['numstr'] = ($res[$i]['on_waiting_list'] ?
 				\sprintf('%d+%d', $this->capacity, $i - $this->capacity + 1)
+				: \strval($i + 1)
 			);
 			$res[$i]['numstr_spaced'] = \str_pad($res[$i]['numstr'], $space_size, ' ', \STR_PAD_LEFT);
 		}
@@ -158,21 +170,25 @@ class Discipline extends \bmtmgr\Model {
 			throw new utils\InvalidEntryException('Erster Spieler fehlt!');
 		}
 		if ($player->gender != $this->player_gender()) {
-			if ($partner) {
-				throw new utils\InvalidEntryException('Falsches Geschlecht des ersten Spielers');
-			} else {
-				throw new utils\InvalidEntryException('Falsches Geschlecht des Spielers');
+			if (! $this->allow_any()) {
+				if ($partner) {
+					throw new utils\InvalidEntryException('Falsches Geschlecht des ersten Spielers');
+				} else {
+					throw new utils\InvalidEntryException('Falsches Geschlecht des Spielers');
+				}
 			}
 		}
 		if ($partner != null) {
 			if ((! $this->with_partner())) {
 				throw new utils\InvalidEntryException('Partner in einer Einzeldiziplin angegeben');
 			}
-			if ($player->id == $partner->id) {
-				throw new utils\InvalidEntryException('Ein Spieler kann nicht mit sich selber im Doppel antreten. Feld freilassen für eine Freimeldung.');
-			}
-			if ($partner->gender != $this->partner_gender()) {
-				throw new utils\InvalidEntryException('Falsches Geschlecht des zweiten Spielers');
+			if (! $this->allow_any()) {
+				if ($player->id == $partner->id) {
+					throw new utils\InvalidEntryException('Ein Spieler kann nicht mit sich selber im Doppel antreten. Feld freilassen für eine Freimeldung.');
+				}
+				if ($partner->gender != $this->partner_gender()) {
+					throw new utils\InvalidEntryException('Falsches Geschlecht des zweiten Spielers');
+				}
 			}
 		}
 
@@ -229,5 +245,24 @@ class Discipline extends \bmtmgr\Model {
 		return Player::get_rows_with_club_names(
 			$sql, $vals,
 			['discipline', 'tournament']);
+	}
+
+	public static function guess_dtype($player, $partner) {
+		if ($partner === null) {
+			return $player->gender == 'm' ? 'MS' : 'WS';
+		}
+		if (($player->gender == 'm') && ($partner->gender == 'f')) {
+			return 'MX';
+		}
+		if (($player->gender == 'f') && ($partner->gender == 'm')) {
+			return 'MX';
+		}
+		if (($player->gender == 'm') && ($partner->gender == 'm')) {
+			return 'MD';
+		}
+		if (($player->gender == 'f') && ($partner->gender == 'f')) {
+			return 'WD';
+		}
+		return 'AD';
 	}
 }

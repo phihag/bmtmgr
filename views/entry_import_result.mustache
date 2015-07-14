@@ -1,0 +1,16 @@
+<div class="dialog_container">
+
+<h2>Import abgeschlossen.</h2>
+
+{{>entry_table}}
+
+<form class="dialog" method="post" action="{{root_path}}t/{{#tournament}}{{id}}{{/tournament}}/import">
+{{{csrf_field}}}
+<textarea placeholder="Alle Zeilen wurden zugeordnet!" cols="100" rows="30" name="text">{{#unmatched_lines}}[{{#discipline}}{{name}}{{/discipline}}] {{line}} [{{reason}}]
+{{/unmatched_lines}}</textarea><br />
+<label><input type="checkbox" name="autocreate"{{#autocreate}} checked="checked"{{/autocreate}} /> Disziplinen automatisch erstellen</label>
+
+<input type="submit" value="Importieren" />
+</form>
+
+</div>

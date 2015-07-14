@@ -1,0 +1,12 @@
+<div class="dialog_container">
+
+<form class="dialog" method="post" action="{{root_path}}t/{{#tournament}}{{id}}{{/tournament}}/import">
+{{{csrf_field}}}
+
+<textarea cols="100" rows="30" name="text"></textarea><br/>
+<label><input type="checkbox" name="autocreate" checked="checked" /> Disziplinen automatisch erstellen</label>
+
+<input type="submit" value="Importieren" />
+</form>
+
+</div>

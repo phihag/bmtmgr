@@ -27,10 +27,18 @@ function render($data) {
 			$dname = 'J' . $m[1] . ' U' . $m[2];
 		} elseif (\preg_match('/^D([DE]) U0?([0-9]+)$/', $dname, $m)) {
 			$dname = 'M' . $m[1] . ' U' . $m[2];
+		} elseif (\preg_match('/^(DD|DE|GD|HD|HE|MX)-?\s*([A-Z])$/', $dname, $m)) {
+			$dname = $m[1] . $m[2];
 		}
 
 		$is_doubles = $d->with_partner();
 		foreach ($d->entries as $er) {
+			if ($er['on_waiting_list']) {
+				continue;
+			}
+			if ($is_doubles && ($er['partner'] === NULL)) {
+				continue;
+			}
 			\array_push($output, [
 				$dname,
 				$er['player']->textid,
