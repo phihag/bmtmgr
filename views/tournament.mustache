@@ -64,6 +64,10 @@ TODO: Show tournament data for non-admins
 <button>Importieren</button>
 </form>
 
+<form class="inline-form" action="{{root_path}}t/{{#tournament}}{{id}}{{/tournament}}/lookup_leagues" method="post">
+{{{csrf_field}}}
+<button>Ligen bestimmen</button>
+</form>
 
 </p>
 

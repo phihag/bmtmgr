@@ -19,8 +19,7 @@ $autocreate = \array_key_exists('autocreate', $_POST);
 
 Model::beginTransaction();
 list($new_entries, $unmatched_lines) = \bmtmgr\import\import_text($tournament, $text, $autocreate);
-//Model::commit();
-Model::rollBack();
+Model::commit();
 
 render('entry_import_result', [
 	'user' => $u,

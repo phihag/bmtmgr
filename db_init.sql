@@ -40,7 +40,8 @@ DROP TABLE IF EXISTS season;
 CREATE TABLE season (
 	id INTEGER PRIMARY KEY,
 	name TEXT UNIQUE NOT NULL,
-	visible INTEGER(1) NOT NULL
+	visible INTEGER(1) NOT NULL,
+	baseurl TEXT
 );
 CREATE INDEX IF NOT EXISTS season_name_index ON season(name);
 
@@ -56,6 +57,8 @@ CREATE TABLE player (
 	nationality TEXT,
 	email TEXT,
 	phone TEXT,
+	league TEXT,
+	winrate REAL,
 	FOREIGN KEY(season_id) REFERENCES season(id),
 	FOREIGN KEY(club_id) REFERENCES user(id),
 	UNIQUE (season_id, textid)

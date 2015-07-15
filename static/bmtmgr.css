@@ -262,6 +262,14 @@ td.without_partner {
 .player_table .player_club {
     min-width: 10em;
 }
+.player_table .player_league {
+    padding-right: 0;
+    text-align: right;
+    color: #888;
+}
+.player_table .player_winrate {
+    color: #aaa;
+}
 
 form.entry_form label {
     font-size: 120%;

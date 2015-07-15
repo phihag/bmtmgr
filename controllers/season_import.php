@@ -24,7 +24,7 @@ $name = \html_entity_decode($m[1], ENT_QUOTES | ENT_HTML5, 'utf-8');
 Model::beginTransaction();
 $season = Season::fetch_optional('WHERE name=?', [$name]);
 if (! $season) {
-	$season = Season::create($name, false);
+	$season = Season::create($name, false, $_POST['tournament_url']);
 	$season->save();
 }
 

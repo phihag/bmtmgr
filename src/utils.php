@@ -169,3 +169,13 @@ function array_index($array, $keyfunc) {
 	}
 	return $res;
 }
+
+function array_max_key($array) {
+	$res = \key($array);
+	foreach ($array as $k => $v) {
+		if ($v > $array[$res]) {
+			$res = $k;
+		}
+	}
+	return $res;
+}

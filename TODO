@@ -1,8 +1,6 @@
-import from text
-	allow re-import with new syntax
-	import capacity
-
 look up leagues
+	improve - find players who didn't play a single game
+	implement first and second round (look at dates, configure in league)
 
 search by club name
 reorder
@@ -10,9 +8,6 @@ reorder
 export costs
 time planning facilities
 combine disciplines (and add that in export)
-meaningful discipline limit
-improve output
-
 export sftp
 btp export with freimeldung
 edit players (email, birthdate)
@@ -30,7 +25,6 @@ allow reimport
 CAPTCHA for login
 * Allow admin to add new clubs
 * Allow admin to edit club players
-send email to all users
 export costs
 better autocompletion style for login
 rewrite discipline UI - make one screen to add new disciplines, when clicking on tournament name
@@ -65,7 +59,7 @@ always but dialog at the end of URLs
 allow memory-efficient rendering (of whole player lists)
 allow tournament restriction by age
 allow override entries (good lady in MS) when necessary
-drop jquery UI (implement own auto completion)
+drop jquery UI (implemnent own auto completion)
 remove all TODOs from source code
 Improve performance of player search for entries
 optimize entry adding with ID when typing out ID (do not send a bunch of players in between)
@@ -92,3 +86,12 @@ check autocomplete in entry edit
 show other disciplines the player is in
 add discipline any doubles / any singles
 write tests for import
+improve player search
+	Philipp Meerbusch
+	Hagemeister Philipp
+	start with all eligible suggestions from same club
+test/prevent creation of identically-named disciplines
+import capacity
+test creating new season (baseurl)
+add a link from players to turnier.de
+automatic seeding

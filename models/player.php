@@ -12,6 +12,8 @@ class Player extends \bmtmgr\Model {
 	public $nationality;
 	public $email;
 	public $phone;
+	public $league;
+	public $winrate;
 
 	public function __construct($row, $_is_new=true) {
 		$this->id = $row['id'];
@@ -24,6 +26,8 @@ class Player extends \bmtmgr\Model {
 		$this->nationality = $row['nationality'];
 		$this->email = $row['email'];
 		$this->phone = $row['phone'];
+		$this->league = $row['league'];
+		$this->winrate = $row['winrate'];
 		$this->_is_new = $_is_new;
 	}
 
@@ -51,6 +55,13 @@ class Player extends \bmtmgr\Model {
 
 	public function is_official_id() {
 		return \preg_match('/^[0-9-]+$/', $this->textid) > 0;
+	}
+
+	public function winrate_str() {
+		if ($this->winrate === null) {
+			return '';
+		}
+		return \round(100.0 * $this->winrate);
 	}
 
 	protected static function from_row($row, $_is_new=false) {
@@ -111,6 +122,8 @@ class Player extends \bmtmgr\Model {
 			'nationality' => null,
 			'email' => null,
 			'phone' => null,
+			'league' => null,
+			'winrate' => null,
 		], true);
 	}
 }
