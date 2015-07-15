@@ -14,6 +14,10 @@ function _init($db) {
 
 	$db->beginTransaction();
 	foreach ($inits as $sql) {
+		$sql = \trim($sql);
+		if (! $sql) {
+			continue;
+		}
 		try {
 			$db->exec($sql);
 		} catch (\PDOException $e) {

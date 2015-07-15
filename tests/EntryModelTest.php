@@ -10,12 +10,13 @@ class EntryModelTest extends \PHPUnit_Framework_TestCase {
         $club2 = User::create('entry_test2', 'entry_test2', 'entry_test2@aufschlagwechsel.de', []);
         $club2->save();
 
-    	$s = Season::create('foobar', true);
+    	$s = Season::create('foobar', true, 'http://base/url');
 
     	$this->assertEquals($s->id, null);
     	$this->assertEquals($s->_is_new, true);
     	$this->assertEquals($s->name, 'foobar');
     	$this->assertEquals($s->visible, true);
+        $this->assertEquals($s->baseurl, 'http://base/url');
     	$s->save();
 
     	$id = $s->id;

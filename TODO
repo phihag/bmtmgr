@@ -1,3 +1,6 @@
+erlaube weibliche Freimeldungen im Mixed! (easy solution: ignore order of players in mixed, and only check that gender is different)
+
+
 look up leagues
 	improve - find players who didn't play a single game
 	implement first and second round (look at dates, configure in league)
@@ -71,7 +74,6 @@ player selection in doubles: prevent someone from playing with themselves
 player selection (doubles): jump to next field once selected
 add tests for valid player selections
 debug mode to show all SQL queriesl
-erlaube weibliche Freimeldungen im Mixed! (easy solution: ignore order of players in mixed, and only check that gender is different)
 add undo for deletions
 fancy styles (border-radius, color swatch?) for breadcrumbs
 goto anything (with autocomplete, allow for shortened input like hd1 to show HD U19)
@@ -88,6 +90,7 @@ add discipline any doubles / any singles
 write tests for import
 improve player search
 	Philipp Meerbusch
+	Lena Pasch
 	Hagemeister Philipp
 	start with all eligible suggestions from same club
 test/prevent creation of identically-named disciplines
