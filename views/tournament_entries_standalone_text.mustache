@@ -29,6 +29,10 @@ MELDUNGEN {{name}} - Stand {{now_date}}:<br />
 {{#entries}}
 <span class="numstr">{{numstr_spaced}}</span>
 {{#player}}{{natural_name}}{{/player}}
+{{^player}}
+(Freimeldung)
+{{/player}}
+
 {{#with_partner}}
 {{#partner}}
 / {{natural_name}}
@@ -38,7 +42,7 @@ MELDUNGEN {{name}} - Stand {{now_date}}:<br />
 {{/partner}}
 {{/with_partner}}
 
-({{#player_club}}{{name}}{{/player_club}}{{#with_partner}}{{^same_club}}
+({{#player}}{{#player_club}}{{name}}{{/player_club}}{{/player}}{{^player}}Freimeldung{{/player}}{{#with_partner}}{{^same_club}}
 /
 {{#partner}}{{#partner_club}}{{name}}{{/partner_club}}{{/partner}}{{^partner}}Freimeldung{{/partner}}{{/same_club}}{{/with_partner}})<br />
 

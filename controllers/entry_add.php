@@ -7,19 +7,27 @@ $u = user\check_current();
 $u->require_perm('admin');
 
 utils\require_get_params(['discipline_id']);
-utils\require_post_params(['player', 'player_club']);
 $discipline = Discipline::by_id($_GET['discipline_id']);
 $tournament = $discipline->get_tournament();
 $season = $tournament->get_season();
 
-$player = $season->get_player_by_input($_POST['player']);
-$player_club = User::find_by_input($_POST['player_club']);
+$player = null;
+$player_club = null;
 $partner = null;
 $partner_club = null;
-if (isset($_POST['partner'])) {
-	$partner = $season->get_player_by_input($_POST['partner']);
-	$partner_club = User::find_by_input($_POST['partner_club']);
+if (!empty($_POST['player'])) {
+	$player = $season->get_player_by_input($_POST['player']);
+	if (!empty($_POST['player_club'])) {
+		$player_club = $season->get_club_by_input($_POST['player_club']);
+	}
 }
+if (!empty($_POST['partner'])) {
+	$partner = $season->get_player_by_input($_POST['partner']);
+	if (!empty($_POST['partner_club'])) {
+		$partner_club = $season->get_club_by_input($_POST['partner_club']);
+	}
+}
+
 $email = isset($_POST['email']) ? $_POST['email'] : null;
 $seeding = isset($_POST['seeding']) ? $_POST['seeding'] : null;
 

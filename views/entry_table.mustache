@@ -8,6 +8,9 @@
 <td class="player_league">{{league}}</td><td class="player_winrate">{{winrate_str}}</td>
 <td class="player_club{{#player_club_is_special}} player_club_special{{/player_club_is_special}}">{{#player_club}}{{name}}{{/player_club}}</td>
 {{/player}}
+{{^player}}
+<td colspan="4" class="without_partner">Freimeldung</td>
+{{/player}}
 
 {{#with_partner}}
 {{#partner}}

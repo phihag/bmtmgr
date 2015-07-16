@@ -45,4 +45,8 @@ class Season extends \bmtmgr\Model {
 			' AND player.season_id=:season_id ',
 			[':season_id' => $this->id]);
 	}
+
+	public function get_club_by_input($input) {
+		return User::find_by_input($input);
+	}
 }

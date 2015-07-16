@@ -32,7 +32,9 @@ function _count_players($disciplines) {
 	$players = [];
 	foreach ($disciplines as $d) {
 		foreach ($d->entries as $e) {
-			\array_push($players, $e['player']->id);
+			if ($e['player']) {
+				\array_push($players, $e['player']->id);
+			}
 			if ($e['partner']) {
 				\array_push($players, $e['partner']->id);
 			}
@@ -46,7 +48,9 @@ function _count_clubs($disciplines) {
 	$players = [];
 	foreach ($disciplines as $d) {
 		foreach ($d->entries as $e) {
-			\array_push($players, $e['player_club']->id);
+			if ($e['player']) {
+				\array_push($players, $e['player_club']->id);
+			}
 			if ($e['partner']) {
 				\array_push($players, $e['partner_club']->id);
 			}

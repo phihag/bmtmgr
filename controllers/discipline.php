@@ -40,9 +40,11 @@ foreach ($all_entries as $e) {
 $entries = $discipline->get_entry_rows();
 foreach ($entries as &$e) {
 	$conflicts = [];
-	if (\array_key_exists($e['player']->id, $disciplines_by_player_id)) {
-		$conflicts = \array_merge(
-			$conflicts, $disciplines_by_player_id[$e['player']->id]);
+	if ($e['player']) {
+		if (\array_key_exists($e['player']->id, $disciplines_by_player_id)) {
+			$conflicts = \array_merge(
+				$conflicts, $disciplines_by_player_id[$e['player']->id]);
+		}
 	}
 	if ($e['partner']) {
 		if (\array_key_exists($e['partner']->id, $disciplines_by_player_id)) {

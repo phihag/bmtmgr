@@ -33,8 +33,8 @@ class Entry extends \bmtmgr\Model {
 		return new Entry([
 			'id' => null,
 			'discipline_id' => $discipline->id,
-			'player_id' => $player->id,
-			'player_club_id' => $player_club->id,
+			'player_id' => (($player == null) ? null : $player->id),
+			'player_club_id' => (($player_club == null) ? null : $player_club->id),
 			'partner_id' => (($partner == null) ? null : $partner->id),
 			'partner_club_id' => (($partner_club == null) ? null : $partner_club->id),
 			'email' => $email,

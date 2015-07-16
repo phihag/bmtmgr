@@ -96,8 +96,8 @@ DROP TABLE IF EXISTS entry;
 CREATE TABLE entry (
 	id INTEGER PRIMARY KEY,
 	discipline_id INTEGER NOT NULL,
-	player_id INTEGER NOT NULL,
-	player_club_id INTEGER NOT NULL,
+	player_id INTEGER,
+	player_club_id INTEGER,
 	partner_id INTEGER,
 	partner_club_id INTEGER,
 	email TEXT,

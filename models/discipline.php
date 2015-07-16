@@ -39,6 +39,10 @@ class Discipline extends \bmtmgr\Model {
 		return \in_array($this->dtype, ['MS', 'MD', 'MX']);
 	}
 
+	public function is_mixed() {
+		return $this->dtype == 'MX';
+	}
+
 	public function partner_gender() {
 		switch ($this->dtype) {
 		case 'MS':
@@ -116,9 +120,9 @@ class Discipline extends \bmtmgr\Model {
 		$res = static::get_entries(' ORDER by entry.id', function($row) use ($player_dict, $club_dict) {
 			return [
 				'id' => $row['id'],
-				'player' => $player_dict[$row['player_id']],
-				'player_club' => $club_dict[$row['player_club_id']],
-				'player_club_is_special' => $row['player_club_id'] != $player_dict[$row['player_id']]->club_id,
+				'player' => ($row['player_id'] ? $player_dict[$row['player_id']] : null),
+				'player_club' => ($row['player_club_id'] ? $club_dict[$row['player_club_id']] : null),
+				'player_club_is_special' => ($row['player_club_id'] ? ($row['player_club_id'] != $player_dict[$row['player_id']]->club_id) : null),
 				'partner' => ($row['partner_id'] ? $player_dict[$row['partner_id']] : null),
 				'partner_club' => ($row['partner_club_id'] ? $club_dict[$row['partner_club_id']] : null),
 				'partner_club_is_special' => (($row['partner_id'] && $row['partner_club_id']) ? ($row['partner_club_id'] != $player_dict[$row['partner_id']]->club_id) : null),
@@ -166,15 +170,17 @@ class Discipline extends \bmtmgr\Model {
 	}
 
 	public function check_entry($player, $partner) {
-		if ($player == null) {
-			throw new utils\InvalidEntryException('Erster Spieler fehlt!');
+		if (($player == null) && ($partner == null)) {
+			throw new utils\InvalidEntryException('Kein Spieler angegeben!');
 		}
-		if ($player->gender != $this->player_gender()) {
-			if (! $this->allow_any()) {
-				if ($partner) {
-					throw new utils\InvalidEntryException('Falsches Geschlecht des ersten Spielers');
-				} else {
-					throw new utils\InvalidEntryException('Falsches Geschlecht des Spielers');
+		if ($player != null) {
+			if ($player->gender != $this->player_gender()) {
+				if (! $this->allow_any()) {
+					if ($partner) {
+						throw new utils\InvalidEntryException('Falsches Geschlecht des ersten Spielers');
+					} else {
+						throw new utils\InvalidEntryException('Falsches Geschlecht des Spielers');
+					}
 				}
 			}
 		}
@@ -182,23 +188,29 @@ class Discipline extends \bmtmgr\Model {
 			if ((! $this->with_partner())) {
 				throw new utils\InvalidEntryException('Partner in einer Einzeldiziplin angegeben');
 			}
-			if (! $this->allow_any()) {
+			if ($player != null) {
 				if ($player->id == $partner->id) {
 					throw new utils\InvalidEntryException('Ein Spieler kann nicht mit sich selber im Doppel antreten. Feld freilassen für eine Freimeldung.');
 				}
+			}
+			if (! $this->allow_any()) {
 				if ($partner->gender != $this->partner_gender()) {
 					throw new utils\InvalidEntryException('Falsches Geschlecht des zweiten Spielers');
 				}
 			}
 		}
 
-		$conflicting = static::find_conflicting($player->id);
-		if ($conflicting) {
-			throw new utils\InvalidEntryException(sprintf('%s ist in diesem Turnier schon in %s angemeldet!', $player->name, $conflicting->name));
+		if ($player != null) {
+			$conflicting = static::find_conflicting($player->id);
+			if ($conflicting) {
+				throw new utils\InvalidEntryException(sprintf('%s ist in diesem Turnier schon in %s angemeldet!', $player->name, $conflicting->name));
+			}
 		}
-		$conflicting = static::find_conflicting($partner->id);
-		if ($conflicting) {
-			throw new utils\InvalidEntryException(sprintf('%s ist in diesem Turnier schon in %s angemeldet!', $partner->name, $conflicting->name));
+		if ($partner != null) {
+			$conflicting = static::find_conflicting($partner->id);
+			if ($conflicting) {
+				throw new utils\InvalidEntryException(sprintf('%s ist in diesem Turnier schon in %s angemeldet!', $partner->name, $conflicting->name));
+			}
 		}
 	}
 
@@ -233,6 +245,7 @@ class Discipline extends \bmtmgr\Model {
 				  	WHERE d1.id = :discipline_id
 				  	AND ((d1.tournament_id = d2.tournament_id) AND (d1.dtype = d2.dtype))
 				  	AND entry.discipline_id = d2.id
+				  	AND entry.player_id IS NOT NULL
 			  	UNION
 					SELECT entry.partner_id AS pid
 				  	FROM entry, discipline AS d1, discipline as d2

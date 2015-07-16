@@ -1,6 +1,3 @@
-erlaube weibliche Freimeldungen im Mixed! (easy solution: ignore order of players in mixed, and only check that gender is different)
-
-
 look up leagues
 	improve - find players who didn't play a single game
 	implement first and second round (look at dates, configure in league)
@@ -101,3 +98,4 @@ add a link from players to turnier.de
 automatic seeding
 show league / win percentage in player search
 move to another field
+write tests for female-only MX entries

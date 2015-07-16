@@ -87,6 +87,9 @@ td.without_partner {
 <td class="player_name">{{natural_name}}</td>
 <td class="player_club">{{#player_club}}{{name}}{{/player_club}}</td>
 {{/player}}
+{{^player}}
+<td colspan="2" class="without_partner">Freimeldung</td>
+{{/player}}
 {{#with_partner}}
 {{#partner}}
 <td class="player_name">{{natural_name}}</td>
