@@ -14,7 +14,7 @@ $season = $tournament->get_season();
 
 $player_input_spec = [
 	'gender' => $discipline->player_gender(),
-	'required' => true,
+	'required' => ! $discipline->is_mixed(),
 	'name' => 'player',
 	'autofocus' => 'autofocus',
 	'values' => [
