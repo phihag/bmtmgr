@@ -21,6 +21,9 @@ foreach ($players as $player) {
 	if (! $player->is_official_id()) {
 		continue;
 	}
+	if ($player->league) {
+		continue;
+	}
 
 	$overview_url = 'http://turnier.de/find.aspx?a=8&oid=E3B0DC28-EDDE-426A-9DD9-600D26DCF680&q=' . \urlencode($player->textid) . '&id=2';
 	$overview_page = \file_get_contents($overview_url);

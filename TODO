@@ -93,8 +93,11 @@ improve player search
 	Lena Pasch
 	Hagemeister Philipp
 	start with all eligible suggestions from same club
+	remove non-official IDs
 test/prevent creation of identically-named disciplines
 import capacity
 test creating new season (baseurl)
 add a link from players to turnier.de
 automatic seeding
+show league / win percentage in player search
+move to another field
