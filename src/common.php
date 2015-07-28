@@ -1,8 +1,12 @@
 <?php
 namespace bmtmgr;
 
-// All modules can assume access the following modules and the timezone being set correctly.
+\set_error_handler(function ($errno, $errstr, $errfile, $errline) {
+    throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
+});
 
+
+// All modules can assume access to the following modules and the timezone being set correctly.
 require_once __DIR__ . '/utils.php';
 require_once __DIR__ . '/model.php';
 require_once __DIR__ . '/config.php';
