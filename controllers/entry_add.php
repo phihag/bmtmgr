@@ -30,6 +30,7 @@ if (!empty($_POST['partner'])) {
 
 $email = isset($_POST['email']) ? $_POST['email'] : null;
 $seeding = isset($_POST['seeding']) ? $_POST['seeding'] : null;
+$memo = isset($_POST['memo']) ? $_POST['memo'] : null;
 
 try {
 	$discipline->check_entry($player, $partner);
@@ -41,7 +42,7 @@ try {
 }
 
 $entry = Entry::create(
-	$discipline, $player, $player_club, $partner, $partner_club, $email, $seeding);
+	$discipline, $player, $player_club, $partner, $partner_club, $email, $seeding, $memo);
 $entry->save();
 
 render_ajax('d/' . $discipline->id . '/', [

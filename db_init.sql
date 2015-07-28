@@ -105,6 +105,7 @@ CREATE TABLE entry (
 	updated_time BIGINT,
 	seeding INTEGER,
 	position BIGINT,
+	memo TEXT,
 	FOREIGN KEY(discipline_id) REFERENCES discipline(id),
 	FOREIGN KEY(player_id) REFERENCES player(id),
 	FOREIGN KEY(player_club_id) REFERENCES user(id),

@@ -31,6 +31,7 @@ if (!empty($_POST['partner'])) {
 
 $email = isset($_POST['email']) ? $_POST['email'] : null;
 $seeding = isset($_POST['seeding']) ? $_POST['seeding'] : null;
+$memo = isset($_POST['memo']) ? $_POST['memo'] : null;
 
 $entry->player_id = $player->id;
 $entry->player_club_id = $player_club->id;
@@ -38,6 +39,7 @@ $entry->partner_id = $partner ? $partner->id : null;
 $entry->partner_club_id = $partner ? $partner_club->id : null;
 $entry->email = $email;
 $entry->seeding = $seeding;
+$entry->memo = $memo;
 $entry->updated_time = \time();
 $entry->save();
 

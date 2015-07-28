@@ -12,6 +12,7 @@ class Entry extends \bmtmgr\Model {
 	public $created_time;
 	public $updated_time;
 	public $seeding;
+	public $memo;
 
 	protected function __construct($row, $_is_new) {
 		$this->id = $row['id'];
@@ -24,11 +25,12 @@ class Entry extends \bmtmgr\Model {
 		$this->created_time = $row['created_time'];
 		$this->updated_time = $row['updated_time'];
 		$this->seeding = $row['seeding'];
+		$this->memo = $row['memo'];
 
 		$this->_is_new = $_is_new;
 	}
 
-	public static function create($discipline, $player, $player_club, $partner, $partner_club, $email, $seeding) {
+	public static function create($discipline, $player, $player_club, $partner, $partner_club, $email, $seeding, $memo) {
 		// Call $discipline->check_entry to make sure everything is in order
 		return new Entry([
 			'id' => null,
@@ -41,6 +43,7 @@ class Entry extends \bmtmgr\Model {
 			'created_time' => time(),
 			'updated_time' => null,
 			'seeding' => $seeding,
+			'memo' => $memo,
 		], true);
 	}
 
