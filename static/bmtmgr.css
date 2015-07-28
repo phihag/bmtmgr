@@ -350,4 +350,6 @@ form#discipline-goto {
     display: block;
     background: #ccc;
     padding: 10px 10px;
+    white-space: pre;
+    font-family: monospace;
 }
