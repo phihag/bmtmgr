@@ -15,4 +15,13 @@
 	{{#required}}required="required"{{/required}}
 	placehold="Verein"
 />
+{{#values}}
+{{#player}}
+{{#email}}
+<a href="mailto:{{email}}?subject={{#tournament}}{{name}}{{/tournament}}" class="button">
+<img src="{{icon_path}}email.svg" title="{{email}}" />
+</a>
+{{/email}}
+{{/player}}
+{{/values}}
 </span>
