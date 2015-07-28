@@ -1,5 +1,16 @@
+list all publications
+allow publication deletion
+add publish button
+auto-publishing
+export sftp
+
+include mails of players in all mails, not just entries
+
+automate planning (store plan / calculate # games / finish date on courts)
+separate club (should be per-season) and user (by default only admin)
+
 look up leagues
-	improve - find players who didn't play a single game
+	improve - find players who didn't play a single game, and find their league
 	implement first and second round (look at dates, configure in league)
 
 search by club name
@@ -8,7 +19,6 @@ reorder
 export costs
 time planning facilities
 combine disciplines (and add that in export)
-export sftp
 btp export with freimeldung
 edit players (email, birthdate)
 write test for entries?
@@ -70,7 +80,7 @@ better check when adding entry
 player selection in doubles: prevent someone from playing with themselves
 player selection (doubles): jump to next field once selected
 add tests for valid player selections
-debug mode to show all SQL queriesl
+debug mode to show all SQL queries
 add undo for deletions
 fancy styles (border-radius, color swatch?) for breadcrumbs
 goto anything (with autocomplete, allow for shortened input like hd1 to show HD U19)
@@ -99,3 +109,14 @@ automatic seeding
 show league / win percentage in player search
 move to another field
 write tests for female-only MX entries
+fix left padding inside input fields (see publication creation)
+move together creation and edit forms
+	publication
+sftp export: improve key comment to bmtmgr
+persistent link to entries in static template
+sftp export: share keys to a server
+include email in title of email button
+after adding club within season drop to club details in season
+html standalone: link to team or entry regardless of changes in position (hash of names?)
+edit player email inline
+more detailed player edit

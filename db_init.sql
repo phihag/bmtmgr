@@ -112,3 +112,12 @@ CREATE TABLE entry (
 	FOREIGN KEY(partner_club_id) REFERENCES user(id),
 	UNIQUE (discipline_id, player_id)
 );
+
+DROP TABLE IF EXISTS publication;
+CREATE TABLE publication (
+	id INTEGER PRIMARY KEY,
+	tournament_id INTEGER,
+	ptype TEXT,
+	config TEXT,
+	FOREIGN KEY(tournament_id) REFERENCES tournament(id)
+);

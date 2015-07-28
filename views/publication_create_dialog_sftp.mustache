@@ -1,8 +1,11 @@
-<form action="/t/{{#tournament}}{{id}}{{/tournament}}/dialog_publication_create_step2" method="post" class="dataentry_form">
+<form action="{{root_path}}t/{{#tournament}}{{id}}{{/tournament}}/publication/create" method="post" class="entry_form dataentry_form">
 {{{csrf_field}}}
 
-<p>Bitte fügen Sie den folgenden Schlüssel in die Datei <code>~/.ssh/authorized_hosts</code> ein:
-<code class="publication_sftp_key">{{public_key}}</code></p>
+<input type="hidden" name="type" value="{{publication_type}}" />
+<label><span class="labeltext">Server:</span> <input type="text" required="required" name="server" size="50" placeholder="example.org" /></label>
+<label><span class="labeltext">Port:</span> <input type="number" required="required" min="1" max="65535" name="port" value="22" /></label>
+<label><span class="labeltext">Pfad:</span> <input type="text" required="required" name="path" size="50" placeholder="/var/www/entries.html" /></label>
+<label><span class="labeltext">User:</span> <input type="text" required="required" name="username" placeholder="joe" /></label>
 
 <button>Veröffentlichungsmethode hinzufügen</button>
 </form>

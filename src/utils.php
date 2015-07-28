@@ -87,7 +87,7 @@ function strip_ext($name) {
 
 
 function gen_token() {
-	$bs = openssl_random_pseudo_bytes(64, $crypto_strong);
+	$bs = \openssl_random_pseudo_bytes(64, $crypto_strong);
 	if (! $crypto_strong) {
 		throw new \Exception('Cannot generate crypto token');
 	}

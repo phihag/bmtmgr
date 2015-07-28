@@ -17,8 +17,8 @@ class User extends \bmtmgr\Model {
 		$this->_is_new = $_is_new;
 	}
 
-	protected static function from_row($row) {
-		return new static($row['id'], $row['name'], $row['email'], \json_decode($row['permissions_json']), false);
+	protected static function from_row($row, $_is_new=false) {
+		return new static($row['id'], $row['name'], $row['email'], \json_decode($row['permissions_json']), $_is_new);
 	}
 
 	public static function find_by_input($input) {

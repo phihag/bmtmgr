@@ -18,6 +18,7 @@ require_once \dirname(__DIR__) . '/models/player.php';
 require_once \dirname(__DIR__) . '/models/season.php';
 require_once \dirname(__DIR__) . '/models/tournament.php';
 require_once \dirname(__DIR__) . '/models/user.php';
+require_once \dirname(__DIR__) . '/models/publication.php';
 
 
 \date_default_timezone_set(config\get('timezone'));

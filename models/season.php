@@ -7,20 +7,21 @@ class Season extends \bmtmgr\Model {
 	public $visible;
 	public $baseurl;
 
-	protected function __construct($id, $name, $visible, $baseurl, $_is_new=true) {
-		$this->id = $id;
-		$this->name = $name;
-		$this->visible = (bool) $visible;
-		$this->baseurl = $baseurl;
+	protected function __construct($row, $_is_new=true) {
+		$this->id = $row['id'];
+		$this->name = $row['name'];
+		$this->visible = (bool) $row['visible'];
+		$this->baseurl = $row['baseurl'];
 		$this->_is_new = $_is_new;
 	}
 
-	protected static function from_row($row) {
-		return new Season($row['id'], $row['name'], $row['visible'], $row['baseurl'], false);
-	}
-
 	public static function create($name, $visible, $baseurl) {
-		return new static(null, $name, $visible, $baseurl, true);
+		return new static([
+			'id' => null,
+			'name' => $name,
+			'visible' => $visible,
+			'baseurl' => $baseurl,
+		], true);
 	}
 
 	public function count_players() {

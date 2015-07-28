@@ -1,0 +1,16 @@
+<form action="{{root_path}}publication/{{#publication}}{{id}}{{/publication}}/edit" method="post" class="entry_form dataentry_form">
+{{{csrf_field}}}
+
+{{#publication}}
+<p>Bitte fügen Sie den folgenden Schlüssel in die Datei <code>~/.ssh/authorized_keys</code> ein:
+<code class="publication_sftp_key">{{sftp_get_pub_key}}</code></p>
+
+<input type="hidden" name="type" value="{{ptype}}" />
+<label><span class="labeltext">Server:</span> <input type="text" required="required" name="server" size="50" placeholder="example.org" value="{{sftp_get_server}}" /></label>
+<label><span class="labeltext">Port:</span> <input type="number" required="required" min="1" max="65535" name="port" value="{{sftp_get_port}}" /></label>
+<label><span class="labeltext">Pfad:</span> <input type="text" required="required" name="path" size="50" placeholder="/var/www/entries.html" value="{{sftp_get_path}}" /></label>
+<label><span class="labeltext">User:</span> <input type="text" required="required" name="username" placeholder="joe" value="{{sftp_get_username}}" /></label>
+{{/publication}}
+
+</form>
+
