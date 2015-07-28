@@ -24,10 +24,10 @@ $player_input_spec = [
 ];
 $partner_input_spec = [
 	'gender' => $discipline->partner_gender(),
-	'required' => false,  // for now; because we want to handle entries without partners
+	'required' => false,
 	'name' => 'partner',
 	'values' => [
-		'player' =>$entry->get_partner(),
+		'player' => $entry->get_partner(),
 		'club' => $entry->get_partner_club(),
 	],
 ];

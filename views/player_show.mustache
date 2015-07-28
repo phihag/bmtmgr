@@ -1,0 +1,9 @@
+{{#player}}
+<form class="dataentry_form" method="post" action="{{root_path}}/player/{{id}}/edit">
+{{{csrf_field}}}
+Name: {{natural_name}}<br/>
+Verein: {{#player_club}}{{name}}{{/player_club}}<br/>
+<label>E-Mail: <input name="email" value="{{email}}" type="email" /></label>
+<input type="submit" value="Ändern" />
+</form>
+{{/player}}

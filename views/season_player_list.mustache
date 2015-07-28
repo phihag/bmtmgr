@@ -18,7 +18,7 @@ Insgesamt {{player_count}} Spieler/innen:
 {{#players}}
 <tr>
 <td class="player_textid">{{textid}}</td>
-<td class="player_name">{{name}}</td>
+<td class="player_name"><a href="{{root_path}}player/{{id}}/">{{name}}</a></td>
 {{^club}}
 <td class="player_club_name">{{club_name}}</td>
 {{/club}}

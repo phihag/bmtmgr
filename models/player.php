@@ -64,6 +64,14 @@ class Player extends \bmtmgr\Model {
 		return \round(100.0 * $this->winrate);
 	}
 
+	public function get_season() {
+		return Season::by_id($this->season_id);
+	}
+
+	public function get_club() {
+		return User::by_id($this->club_id);
+	}
+
 	protected static function from_row($row, $_is_new=false) {
 		return new static($row, $_is_new);
 	}

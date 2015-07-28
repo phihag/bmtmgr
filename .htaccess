@@ -34,6 +34,8 @@ RewriteRule ^season/([0-9]+)/club/([-a-z0-9]+)/player_create$ controllers/player
 RewriteRule ^season/([0-9]+)/player/$ controllers/season_player_list.php?season_id=$1 [L]
 RewriteRule ^season/create$ controllers/season_create.php [L]
 RewriteRule ^season/import$ controllers/season_import.php [L]
+RewriteRule ^player/([0-9]+)/$ controllers/player_show.php?player_id=$1 [L]
+RewriteRule ^player/([0-9]+)/edit$ controllers/player_edit.php?player_id=$1 [L]
 RewriteRule ^t/([0-9]+)/$ controllers/tournament.php?id=$1 [L]
 RewriteRule ^t/([0-9]+)/dialog_discipline_create$ controllers/tournament_dialog_discipline_create.php?tournament_id=$1 [L]
 RewriteRule ^t/([0-9]+)/disciplines$ controllers/disciplines.php?tournament_id=$1 [L]

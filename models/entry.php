@@ -49,6 +49,9 @@ class Entry extends \bmtmgr\Model {
 	}
 
 	public function get_player() {
+		if (! $this->player_id) {
+			return NULL;
+		}
 		return Player::by_id($this->player_id);
 	}
 
@@ -60,6 +63,9 @@ class Entry extends \bmtmgr\Model {
 	}
 
 	public function get_player_club() {
+		if (! $this->player_club_id) {
+			return NULL;
+		}
 		return User::by_id($this->player_club_id);
 	}
 
