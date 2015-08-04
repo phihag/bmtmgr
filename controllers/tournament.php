@@ -9,6 +9,7 @@ utils\require_get_params(['id']);
 $tournament = Tournament::by_id($_GET['id']);
 $season = $tournament->get_season();
 $disciplines = $tournament->get_disciplines();
+$publications = $tournament->get_publications();
 
 render('tournament', [
 	'user' => $u,
@@ -20,4 +21,5 @@ render('tournament', [
 	'season' => $season,
 	'tournament' => $tournament,
 	'disciplines' => $disciplines,
+	'publications' => $publications,
 ]);

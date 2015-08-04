@@ -65,17 +65,8 @@ class SFTPPublication extends \bmtmgr\Publication {
 		return $config['pasphrase'];
 	}
 
-
-	public static function load($publication) {
-		if ($publication->ptype != 'sftp') {
-			throw new \Exception('This is not an SFTP publication!');
-		}
-		return new static([
-			'id' => $publication->id,
-			'tournament_id' => $publication->tournament_id,
-			'ptype' => $publication->ptype,
-			'config' => $publication->config,
-		], $publication->_is_new);
+	public function configuration_str() {
+		return $this->sftp_get_server() . ':' . $this->sftp_get_path();
 	}
 }
 

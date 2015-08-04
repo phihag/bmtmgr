@@ -12,14 +12,6 @@ $tournament = $publication->get_tournament();
 $disciplines = $tournament->get_disciplines();
 $season = $tournament->get_season();
     
-switch ($publication->ptype) {
-case 'sftp':
-	$publication = sftp\SFTPPublication::load($publication);
-	break;
-default:
-	throw new \Exception('Invalid publication type');
-}
-
 render('publication_' . $publication->ptype, [
 	'user' => $u,
 	'breadcrumbs' => [

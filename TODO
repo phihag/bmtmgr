@@ -1,11 +1,12 @@
-list all publications
 allow publication deletion
 add publish button
 auto-publishing
 export sftp
-
 include mails of players in all mails, not just entries
 
+disciplines screen: show freimeldung and limits
+
+show an icon for entry memos
 automate planning (store plan / calculate # games / finish date on courts)
 separate club (should be per-season) and user (by default only admin)
 
@@ -18,6 +19,8 @@ reorder
 
 export costs
 time planning facilities
+	add start time/date to disciplines
+	add court count to tournament
 combine disciplines (and add that in export)
 btp export with freimeldung
 edit players (email, birthdate)
@@ -26,6 +29,7 @@ sync exports to local fs
 sync exports to remote fs via upload
 allow admins to download current db
 allow reimport
+
 
 * add a universal search bar
 * Show current tournaments on root

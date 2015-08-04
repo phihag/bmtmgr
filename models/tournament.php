@@ -72,4 +72,8 @@ class Tournament extends \bmtmgr\Model {
 			)
 		', [':tournament_id' => $this->id]);
 	}
+
+	public function get_publications() {
+		return Publication::fetch_all_in_tournament($this->id);
+	}
 }
