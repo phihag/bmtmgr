@@ -2,7 +2,6 @@ allow publication deletion
 add publish button
 auto-publishing
 export sftp
-include mails of players in all mails, not just entries
 
 disciplines screen: show freimeldung and limits
 

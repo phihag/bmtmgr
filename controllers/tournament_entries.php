@@ -91,6 +91,11 @@ foreach ($disciplines as $d) {
 		}
 	}
 }
+foreach ($tournament->get_all_players() as $player) {
+	if ($player->email) {
+		\array_push($emails, $player->email);
+	}
+}
 $emails = \array_unique($emails);
 \sort($emails);
 
