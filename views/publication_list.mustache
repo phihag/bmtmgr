@@ -1,0 +1,23 @@
+<table>
+{{#publications}}
+<tr><td>{{ptype}}</td><td>{{configuration_str}}</td>
+<td>
+{{#is_admin}}
+<form method="post" action="{{root_path}}publication/{{id}}/remove" class="inline-form">
+{{{csrf_field}}}
+<button class="rare_button"><img src="{{icon_path}}delete.svg" title="Veröffentlichung löschen" /></button>
+</form>
+
+</form>
+
+{{/is_admin}}
+</td></tr>
+{{/publications}}
+<tr><td colspan="3">
+<form class="inline-form" action="{{root_path}}t/{{#tournament}}{{id}}{{/tournament}}/publication/dialog_create" method="get">
+<label><select name="type" required="required"><option value="sftp">sftp</option></select></label>
+<button><img src="{{icon_path}}add.svg" title="Neue Veröffentlichung ..." /> Neue Veröffentlichung ...</button>
+</form>
+
+</td></tr>
+</table>
