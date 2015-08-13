@@ -10,4 +10,5 @@ $publication = Publication::by_id($_GET['publication_id']);
 $tournament = $publication->get_tournament();
 
 $publication->delete();
-TODO
+
+render_ajax('t/' . $tournament->id . '/', []);

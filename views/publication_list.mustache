@@ -3,7 +3,7 @@
 <tr><td>{{ptype}}</td><td>{{configuration_str}}</td>
 <td>
 {{#is_admin}}
-<form method="post" action="{{root_path}}publication/{{id}}/remove" class="inline-form">
+<form method="post" action="{{root_path}}publication/{{id}}/delete" class="inline-form">
 {{{csrf_field}}}
 <button class="rare_button"><img src="{{icon_path}}delete.svg" title="Veröffentlichung löschen" /></button>
 </form>
