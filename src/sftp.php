@@ -68,6 +68,10 @@ class SFTPPublication extends \bmtmgr\Publication {
 	public function configuration_str() {
 		return $this->sftp_get_server() . ':' . $this->sftp_get_path();
 	}
+
+	public function publish() {
+		TODO_publish;
+	}
 }
 
 function create_keypair() {

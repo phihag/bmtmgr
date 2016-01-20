@@ -2,6 +2,26 @@
 namespace bmtmgr;
 require_once dirname(__DIR__) . '/src/common.php';
 
+define('CACHE_DIR', __DIR__ . '/../cache');
+function cache_get($url) {
+	if (! is_dir(CACHE_DIR)) {
+		if (!mkdir(CACHE_DIR)) {
+			throw new Exception('Cannot create cache directory ' . CACHE_DIR);
+		}
+	}
+
+	$cache_fn = CACHE_DIR . '/' . hash('sha512', $url) . '.cache';
+	if (\is_file($cache_fn)) {
+		return \file_get_contents($cache_fn);
+	}
+
+	$res = \file_get_contents($url);
+	if (!\file_put_contents($cache_fn . '.tmp', $res)) {
+		throw new Exception('Could not write cache');
+	}
+	\rename($cache_fn . '.tmp', $cache_fn);
+	return $res;
+}
 
 $u = user\check_current();
 $u->require_perm('admin');
@@ -14,7 +34,8 @@ if (! \preg_match('#^(https?://.*?/)[a-z]+(\.aspx.*)$#', $_POST['tournament_url'
 }
 $base_url = $m[1];
 $clubs_url = $base_url . 'clubs' . $m[2];
-$clubs_content = \file_get_contents($clubs_url);
+
+$clubs_content = cache_get($clubs_url);
 
 if (! preg_match('#<div id="divTournamentHeader" class="header">\s*<div class="title"><h3>(.*)</h3>#', $clubs_content, $m)) {
 	throw new \Exception('Cannot find season name');
@@ -37,12 +58,13 @@ if (!\preg_match_all(
 foreach ($matches as $m) {
 	$club = User::by_id_optional($m['id']);
 	if (! $club) {
+		echo 'creating user ' . $m['id'] . '/ ' . $m['name'] . "\n";
 		$club = new User($m['id'], $m['name'], null, ['register']);
 		$club->save();
 	}
 
 	$players_url = $base_url . 'clubplayers.aspx' . $m['club_path'] . '&cid=' . $m['club_num'];
-	$players_page = \file_get_contents($players_url);
+	$players_page = cache_get($players_url);
 
 	$genders = ['Männer' => 'm', 'Frauen' => 'f'];
 	if (! \preg_match_all('#<caption>\s*(?<gender_str>Männer|Frauen)\s*</caption><thead>(?P<table>.*?)</tbody>#s', $players_page, $player_table_m, \PREG_SET_ORDER)) {
@@ -73,6 +95,8 @@ foreach ($matches as $m) {
 				'nationality' => $m['nationality'],
 				'email' => null,
 				'phone' => null,
+				'league' => null,
+				'winrate' => null,
 			], true);
 			$p->save();
 		}

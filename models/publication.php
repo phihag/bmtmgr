@@ -3,7 +3,7 @@ namespace bmtmgr;
 
 require_once dirname(__DIR__) . '/src/sftp.php';
 
-class Publication extends Model {
+abstract class Publication extends Model {
 	public $id;
 	public $tournament_id;
 	public $ptype;
@@ -48,4 +48,6 @@ class Publication extends Model {
 	public function configuration_str() {
 		return '(configured)';
 	}
+
+	abstract public function publish();
 }

@@ -50,5 +50,6 @@ RewriteRule ^t/([0-9]+)/lookup_leagues$ controllers/lookup_leagues.php?tournamen
 RewriteRule ^t/create$ controllers/tournament_create.php [L]
 RewriteRule ^publication/([0-9]+)/$ controllers/publication_view.php?publication_id=$1 [L,QSA]
 RewriteRule ^publication/([0-9]+)/delete$ controllers/publication_delete.php?publication_id=$1 [L,QSA]
+RewriteRule ^publication/([0-9]+)/publish$ controllers/publication_publish.php?publication_id=$1 [L,QSA]
 
 
