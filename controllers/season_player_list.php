@@ -9,6 +9,7 @@ utils\require_get_params(['season_id']);
 $season = Season::by_id($_GET['season_id']);
 $player_rows = $season->get_player_rows_with_club_names('ORDER BY player.name ASC');
 
+
 render('season_player_list', [
 	'user' => $u,
 	'breadcrumbs' => [

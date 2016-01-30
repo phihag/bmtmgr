@@ -333,9 +333,19 @@ form#discipline-goto {
 .entry_numstr {
     color: #999;
     text-align: right;
+    vertical-align: top;
+}
+.entryrow_buttons {
+    vertical-align: top;
+}
+.entry_name {
+    font-weight: bold;
 }
 .email_button_no_email {
     visibility: hidden;
+}
+.entrytable_teamrow:not(:first-child)>td,.entrytable_teamrow:not(:first-child)>th {
+    padding-top: 20px;
 }
 
 .discipline_properties {

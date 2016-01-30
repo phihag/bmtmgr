@@ -22,21 +22,12 @@ foreach ($disciplines as $d) {
 	}
 }
 
-function _count_entries($disciplines, $callback, $count_players) {
-	return \array_reduce($disciplines, function($carry, $d) use($callback, $count_players) {
-		return $carry + $callback(\count($d->entries)) * ($count_players ? $d->entry_player_count() : 1);
-	}, 0);
-}
-
 function _count_players($disciplines) {
 	$players = [];
 	foreach ($disciplines as $d) {
 		foreach ($d->entries as $e) {
-			if ($e['player']) {
-				\array_push($players, $e['player']->id);
-			}
-			if ($e['partner']) {
-				\array_push($players, $e['partner']->id);
+			foreach ($e['players'] as $player) {
+				\array_push($players, $player->id);
 			}
 		}
 	}
@@ -45,47 +36,59 @@ function _count_players($disciplines) {
 }
 
 function _count_clubs($disciplines) {
-	$players = [];
+	$res = [];
 	foreach ($disciplines as $d) {
 		foreach ($d->entries as $e) {
-			if ($e['player']) {
-				\array_push($players, $e['player_club']->id);
-			}
-			if ($e['partner']) {
-				\array_push($players, $e['partner_club']->id);
+			foreach ($e['players'] as $player) {
+				\array_push($res, $player->entry_club->id);
 			}
 		}
 	}
-	$unique_players = \array_unique($players);
-	return \count($unique_players);
+	$unique_res = \array_unique($res);
+	return \count($unique_res);
 }
 
-
+// calculate stats
 $stats = [
-	'entry_count' => _count_entries($disciplines, function($entry_count) {
-		return $entry_count;
-	}, false),
-	'certificate_count' => _count_entries($disciplines, function($entry_count) {
-		return $entry_count;
-	}, true),
-	'gold_medals' => _count_entries($disciplines, function($entry_count) {
-		return ($entry_count >= 1) ? 1 : 0;
-	}, true),
-	'silver_medals' => _count_entries($disciplines, function($entry_count) {
-		return ($entry_count >= 2) ? 1 : 0;
-	}, true),
-	'bronze_medals' => _count_entries($disciplines, function($entry_count) {
-		return ($entry_count >= 3) ? 1 : 0;
-	}, true),
+	'entry_count' => 0,
+	'certificate_count' => 0,
+	'gold_medals' => 0,
+	'silver_medals' => 0,
+	'bronze_medals' => 0,
 	'player_count' => _count_players($disciplines),
 	'club_count' => _count_clubs($disciplines),
 ];
+foreach ($disciplines as $discipline) {
+	$entry_sizes = [];
+	foreach ($discipline->entries as $entry) {
+		$player_count = \count($entry['players']);
+
+		$stats['entry_count']++;
+		$stats['certificate_count'] += $player_count;
+		$entry_sizes[] = $player_count;
+	}
+
+	if (\count($entry_sizes) === 0) {
+		continue;
+	}
+	\sort($entry_sizes, SORT_NUMERIC);
+	$max_size = $entry_sizes[\count($entry_sizes) - 1];
+	if (\count($entry_sizes) >= 3) {
+		$stats['bronze_medals'] += $max_size;
+	}
+	if (\count($entry_sizes) >= 2) {
+		$stats['silver_medals'] += $max_size;
+	}
+	if (\count($entry_sizes) >= 1) {
+		$stats['gold_medals'] += $max_size;
+	}
+}
 $stats['medal_count'] = $stats['gold_medals'] + $stats['silver_medals'] + $stats['bronze_medals'];
 
 
 $emails = [];
-foreach ($disciplines as $d) {
-	foreach ($d->entries as $e) {
+foreach ($disciplines as &$d) {
+	foreach ($d->entries as &$e) {
 		if ($e['email']) {
 			\array_push($emails, $e['email']);
 		}
@@ -98,6 +101,13 @@ foreach ($tournament->get_all_players() as $player) {
 }
 $emails = \array_unique($emails);
 \sort($emails);
+
+foreach ($disciplines as &$d) {
+	foreach ($d->entries as &$e) {
+		$e['entry_rowspan'] = \count($e['players']) + 1;
+	}
+}
+
 
 $data = [
 	'user' => $u,

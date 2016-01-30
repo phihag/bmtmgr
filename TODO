@@ -1,6 +1,16 @@
-fix importing (add a cache)
+html export
+text export
+BTP export for teams
+publish our tournamnet!
 
+in teams move seeding to top
+re-test adding to t5
+list is missing entries
+update new entry model everywhere (switch to Club from User as well)
+export
+collision (prevent entering a player twice)
 
+re-enable checking for entries
 allow second user
 publish to file
 add publish button
@@ -10,6 +20,7 @@ export sftp
 include all emails for a discipline (incl. player emails)
 disciplines screen: show freimeldung and limits
 
+re-add conflicts?
 show an icon for entry memos
 automate planning (store plan / calculate # games / finish date on courts)
 separate club (should be per-season) and user (by default only admin)

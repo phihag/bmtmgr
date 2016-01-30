@@ -1,21 +1,25 @@
 <span class="player_selector_container">
 <input
-	type="text" name="{{name}}" class="player_selector"
-	value="{{#values}}{{#player}}{{get_display_id}}{{/player}}{{/values}}"
+	type="text" name="{{key}}" class="player_selector"
+	value="{{#player}}{{get_display_id}}{{/player}}"
 	size="50"
+
+	{{#spec}}
 	{{#autofocus}}autofocus="autofocus"{{/autofocus}}
 	{{#required}}required="required"{{/required}}
 	data-player_selector-discipline="{{#discipline}}{{id}}{{/discipline}}"
 	data-player_selector-gender="{{gender}}"
+	{{/spec}}
 />
 <input
-	type="text" name="{{name}}_club" class="club club_selector_autoset"
-	value="{{#values}}{{#club}}{{get_display_id}}{{/club}}{{/values}}"
+	type="text" name="{{key}}_club" class="club club_selector_autoset"
+	value="{{#club}}{{get_display_id}}{{/club}}"
 	tabindex="-1"
+	{{#spec}}
 	{{#required}}required="required"{{/required}}
+	{{/spec}}
 	placehold="Verein"
 />
-{{#values}}
 {{#player}}
 {{#email}}
 <a href="mailto:{{email}}?subject={{#tournament}}{{name}}{{/tournament}}" class="button">
@@ -23,5 +27,5 @@
 </a>
 {{/email}}
 {{/player}}
-{{/values}}
+
 </span>

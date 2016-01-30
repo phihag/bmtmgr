@@ -39,5 +39,5 @@ Model::commit();
 
 render_ajax('d/' . $discipline->id . '/', [
 	'tournament' => $tournament,
-	'disciplines' => $disciplines,
+	'discipline' => $discipline,
 ]);

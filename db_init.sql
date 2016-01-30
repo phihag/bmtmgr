@@ -13,9 +13,16 @@ CREATE INDEX IF NOT EXISTS user_email_index ON user(email);
 INSERT INTO user
 	(id, email, name, permissions_json) VALUES
 	('admin', 'turniere@aufschlagwechsel.de', 'aufschlagwechsel.de', '["admin"]');
-INSERT INTO user
-	(id, email, name, permissions_json) VALUES
-	('hobby', 'bmtmgr_hobby@aufschlagwechsel.de', 'Hobby', '[]');
+
+CREATE TABLE club (
+	id INTEGER PRIMARY KEY,
+	textid TEXT(50) UNIQUE NOT NULL,
+	name TEXT UNIQUE NOT NULL
+);
+CREATE INDEX IF NOT EXISTS club_textid_index ON club(textid);
+INSERT INTO club
+	(textid, name) VALUES
+	('hobby', 'Hobby');
 
 DROP TABLE IF EXISTS login_email_token;
 CREATE TABLE login_email_token (
@@ -60,7 +67,7 @@ CREATE TABLE player (
 	league TEXT,
 	winrate REAL,
 	FOREIGN KEY(season_id) REFERENCES season(id),
-	FOREIGN KEY(club_id) REFERENCES user(id),
+	FOREIGN KEY(club_id) REFERENCES club(id),
 	UNIQUE (season_id, textid)
 );
 CREATE INDEX IF NOT EXISTS player_textid_index ON player(textid);
@@ -96,23 +103,29 @@ DROP TABLE IF EXISTS entry;
 CREATE TABLE entry (
 	id INTEGER PRIMARY KEY,
 	discipline_id INTEGER NOT NULL,
-	player_id INTEGER,
-	player_club_id INTEGER,
-	partner_id INTEGER,
-	partner_club_id INTEGER,
+	entry_name TEXT,
 	email TEXT,
 	created_time BIGINT,
 	updated_time BIGINT,
 	seeding INTEGER,
 	position BIGINT,
 	memo TEXT,
-	FOREIGN KEY(discipline_id) REFERENCES discipline(id),
-	FOREIGN KEY(player_id) REFERENCES player(id),
-	FOREIGN KEY(player_club_id) REFERENCES user(id),
-	FOREIGN KEY(partner_id) REFERENCES player(id),
-	FOREIGN KEY(partner_club_id) REFERENCES user(id),
-	UNIQUE (discipline_id, player_id)
+	FOREIGN KEY(discipline_id) REFERENCES discipline(id)
 );
+
+DROP TABLE IF EXISTS entry_player;
+CREATE TABLE entry_player (
+	id INTEGER PRIMARY KEY,
+	entry_id INTEGER NOT NULL,
+	position BIGINT NOT NULL,
+	player_id INTEGER NOT NULL,
+	club_id INTEGER NOT NULL,
+	FOREIGN KEY(entry_id) REFERENCES entry(id),
+	FOREIGN KEY(player_id) REFERENCES player(id),
+	FOREIGN KEY(club_id) REFERENCES club(id),
+	UNIQUE (entry_id, player_id)
+);
+
 
 DROP TABLE IF EXISTS publication;
 CREATE TABLE publication (

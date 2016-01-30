@@ -37,7 +37,7 @@ abstract class Publication extends Model {
 		);
 	}
 
-	protected static function from_row($row, $_is_new=false) {
+	public static function from_row($row, $_is_new=false) {
 		switch ($row['ptype']) {
 		case 'sftp':
 			return new \bmtmgr\sftp\SFTPPublication($row, $_is_new);

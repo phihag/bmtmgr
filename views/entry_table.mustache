@@ -1,8 +1,14 @@
 <table class="player_table">
 <tbody>
 {{#entries}}
-<tr>
-<td class="entry_numstr" title="{{created_time_str}}">{{numstr}}</td>
+<tr class="{{#is_team}}entrytable_teamrow{{/is_team}}">
+<td class="entry_numstr" title="{{created_time_str}}" rowspan="{{entry_rowspan}}">{{numstr}}</td>
+
+{{#is_team}}
+<td colspan="4" class="entry_name">{{entry_name}}{{#seeding}} [{{seeding}}]{{/seeding}}</td>
+{{/is_team}}
+{{^is_team}}
+
 {{#player}}
 <td class="player_name" {{#is_official_id}}title="{{textid}}"{{/is_official_id}}>{{natural_name}}{{#seeding}} [{{seeding}}]{{/seeding}}</td>
 <td class="player_league">{{league}}</td><td class="player_winrate">{{winrate_str}}</td>
@@ -22,8 +28,9 @@
 <td colspan="4" class="without_partner">Freimeldung</td>
 {{/partner}}
 {{/with_partner}}
+{{/is_team}}
 
-<th>
+<th rowspan="{{entry_rowspan}}" class="entryrow_buttons">
 {{#is_admin}}
 <form method="post" action="{{root_path}}entry/{{id}}/edit_dialog" class="inline-form">
 {{{csrf_field}}}
@@ -43,13 +50,18 @@
 
 {{/is_admin}}
 </th>
-
-<td class="conflicts rare_button">
-{{#conflicts}}
-<a href="{{root_path}}d/{{id}}/">{{name}}</a>
-{{/conflicts}}
-</td>
 </tr>
+
+{{#is_team}}
+{{#players}}
+<tr>
+<td class="player_name" {{#is_official_id}}title="{{textid}}"{{/is_official_id}}>{{natural_name}}</td>
+<td class="player_league">{{league}}</td><td class="player_winrate">{{winrate_str}}</td>
+<td class="player_club{{#player_club_is_special}} player_club_special{{/player_club_is_special}}">{{#entry_club}}{{name}}{{/entry_club}}</td>
+</tr>
+{{/players}}
+{{/is_team}}
+
 {{/entries}}
 </tbody>
 </table>

@@ -4,8 +4,20 @@ namespace bmtmgr;
 class Model {
 	public $_is_new = true;
 
-	protected static function from_row($row, $_is_new=false) {
+	public static function from_row($row, $_is_new=false) {
 		return new static($row, $_is_new);
+	}
+
+	protected static function from_prefixed_row($row, $prefix) {
+		$plain_row = [];
+		foreach ($row as $k=>$v) {
+			if (\bmtmgr\utils\startswith($k, $prefix)) {
+				$plain_k = \substr($k, \strlen($prefix));
+				$plain_row[$plain_k] = $v;
+			}
+		}
+
+		return static::from_row($plain_row);
 	}
 
 	protected static function table_name() {
@@ -59,7 +71,7 @@ class Model {
 		}
 	}
 
-	protected static function all_fields_str() {
+	public static function all_fields_str($prefixed=false) {
 		$all_keys = \array_filter(
 			\array_keys(\get_class_vars(\get_called_class())),
 			function($k) {
@@ -67,8 +79,8 @@ class Model {
 			});
 		$tname = static::table_name();
 
-		return \implode(', ', \array_map(function($k) use ($tname) {
-			return "$tname.$k AS $k";
+		return \implode(', ', \array_map(function($k) use ($tname, $prefixed) {
+			return "$tname.$k" . ($prefixed ? " AS ${tname}_$k" : " AS $k");
 		}, $all_keys));
 	}
 
@@ -82,15 +94,24 @@ class Model {
 		$sql .= $add_sql;
 		$sql .= ';';
 
-		$s = $GLOBALS['db']->prepare($sql);
-		$s->execute($add_params);
+		$rows = self::sql($sql, $add_params);
 
 		if ($creation_callback === null) {
 			// php cannot just use static::from_row
 			$creation_callback = get_called_class() . '::from_row';
 		}
 
-		return \array_map($creation_callback, $s->fetchAll());
+		return \array_map($creation_callback, $rows);
+	}
+
+	public static function sql($sql, $params) {
+		$s = static::prepare($sql);
+		$s->execute($params);
+		return $s->fetchAll();
+	}
+
+	public static function prepare($sql) {
+		return $GLOBALS['db']->prepare($sql);
 	}
 
 	public static function get_dict($add_sql='', $add_params=[], $add_tables=[], $add_fields='', $creation_callback=null) {

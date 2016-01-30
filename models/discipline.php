@@ -24,55 +24,116 @@ class Discipline extends \bmtmgr\Model {
 		$this->_is_new = $_is_new;
 	}
 
-	public function player_gender() {
-		if ($this->allow_any()) {
-			return 'a';
+	public function player_specs() {
+		$g1 = $this->player_gender();
+		$spec1 = self::gender2spec($g1, ['required' => ! $this->is_mixed(), 'name' => 'player0']);
+		if ($this->player_count() === 1) {
+			return [$spec1];
 		}
-		return $this->male_player() ? 'm': 'f';
+
+		$spec2 = self::gender2spec($this->partner_gender(), ['name' => 'player1', 'required' => false]);
+		if ($this->player_count() === 2) {
+			return [$spec1, $spec2];
+		} else {
+			$res = [$spec1, $spec2];
+			$pcount = $this->player_count() - 2;
+			for ($i = 2;$i < $pcount;$i++) {
+				$spec2['name'] = 'player' . $i;
+				\array_push($res, $spec2);
+			}
+			return $res;
+		}
 	}
 
-	public function allow_any() {
-		return \in_array($this->dtype, ['AS', 'AD', 'AA']);
-	}
+	protected static function gender2spec($g, $add=null) {
+		switch ($g) {
+		case 'a':
+			$res = [
+				'spec_any' => true,
+			];
+			break;
+		case 'm':
+			$res = [
+				'spec_male' => true,
+			];
+			break;
+		case 'f':
+			$res = [
+				'spec_female' => true,
+			];
+			break;
+		default:
+			\assert(false);
+		}
 
-	public function male_player() {
-		return \in_array($this->dtype, ['MS', 'MD', 'MX']);
+		$res['gender'] = $g;
+		if ($add) {
+			$res = \array_merge($res, $add);
+		}
+		return $res;
 	}
 
 	public function is_mixed() {
-		return $this->dtype == 'MX';
+		return $this->dtype === 'MX';
 	}
 
-	public function partner_gender() {
+	public function player_count() {
 		switch ($this->dtype) {
 		case 'MS':
 		case 'WS':
-		case 'AS': // Gender doesn't matter
-			return null;
+		case 'AS':
+			return 1;
 		case 'MD':
+		case 'WD':
+		case 'AD':
+		case 'MX':
+			return 2;
+		case 't5':
+			return 10;
+		default:
+			\assert(false);
+		}
+	}
+
+	public function player_gender() {
+		switch ($this->dtype) {
+		case 'MX':
+		case 'MD':
+		case 'MS':
 			return 'm';
 		case 'WD':
-		case 'MX':
+		case 'WS':
 			return 'f';
+		case 't5':
 		case 'AD':
-			return 'a';
-		case 'AA': // No restrictions on players
+		case 'AS':
 			return 'a';
 		default:
 			\assert(false);
 		}
 	}
 
-	public function male_partner() {
-		return in_array($this->dtype, ['MD']);
+	public function partner_gender() {
+		switch ($this->dtype) {
+		case 'MD':
+			return 'm';
+		case 'MX':
+		case 'WD':
+			return 'f';
+		case 't5':
+		case 'AD':
+			return 'a';
+		case 'AS':
+		case 'WS':
+		case 'MS':
+			return null;
+		default:
+			\assert(false);
+		}
 	}
 
-	public function with_partner() {
-		return in_array($this->dtype, ['MD', 'WD', 'MX']);
-	}
-
-	public function entry_player_count() {
-		return $this->with_partner() ? 2 : 1;
+	public function is_team() {
+		return $this->dtype === 't5';
 	}
 
 	public static function create($tournament, $name, $dtype) {
@@ -97,41 +158,53 @@ class Discipline extends \bmtmgr\Model {
 	}
 
 	public function get_entry_rows() {
-		$players = Player::get_all(
-			' WHERE entry.discipline_id = ? AND (entry.player_id = player.id OR entry.partner_id = player.id)',
-			[$this->id],
-			['entry']
-		);
-		$player_dict = [];
-		foreach ($players as $p) {
-			$player_dict[$p->id] = $p;
+		$db_rows = self::sql('
+			SELECT
+				entry.id AS id,
+				entry.created_time AS created_time,
+				entry.email AS email,
+				entry.seeding AS seeding,
+				entry.entry_name AS entry_name,
+				' . Player::all_fields_str(true) . ',
+				' . Club::all_fields_str(true) . '
+			FROM entry
+			INNER JOIN entry_player ON entry.id = entry_player.entry_id
+			INNER JOIN player ON player.id = entry_player.player_id
+			INNER JOIN club ON entry_player.club_id = club.id
+			WHERE entry.discipline_id = :discipline_id
+			ORDER BY entry.position, entry.id, entry_player.position
+		', [
+			':discipline_id' => $this->id,
+		]);
+
+		$cur_id = null;
+		$cur = null;
+		$res = [];
+		foreach ($db_rows as $dbr) {
+			$club_id = null;
+			if ($dbr['id'] !== $cur_id) {
+				$cur_id = $dbr['id'];
+				$club_id = $dbr['club_id'];
+				$res[] = [
+					'id' => $dbr['id'],
+					'players' => [],
+					'created_time_str' => \date('Y-m-d H:i', \intval($dbr['created_time'])),
+					'email' => $dbr['email'],
+					'seeding' => $dbr['seeding'],
+					'same_club' => true,
+					'entry_name' => $dbr['entry_name'],
+				];
+			}
+			$p = Player::from_prefixed_row($dbr, 'player_');
+			$club = Club::from_prefixed_row($dbr, 'club_');
+			$p->entry_club = $club;
+			$p->entry_club_is_special = $p->club_id !== $club->id;
+			if ($club->id !== $club_id) {
+				$res[\count($res) - 1]['same_club'] = false;
+			}
+			$res[\count($res) - 1]['players'][] = $p;
 		}
 
-		$clubs = User::get_all(
-			' WHERE entry.discipline_id = ? AND (entry.player_club_id = user.id OR entry.partner_club_id = user.id)',
-			[$this->id],
-			['entry']
-		);
-		$club_dict = [];
-		foreach ($clubs as $c) {
-			$club_dict[$c->id] = $c;
-		}
-
-		$res = static::get_entries(' ORDER by entry.id', function($row) use ($player_dict, $club_dict) {
-			return [
-				'id' => $row['id'],
-				'player' => ($row['player_id'] ? $player_dict[$row['player_id']] : null),
-				'player_club' => ($row['player_club_id'] ? $club_dict[$row['player_club_id']] : null),
-				'player_club_is_special' => ($row['player_club_id'] ? ($row['player_club_id'] != $player_dict[$row['player_id']]->club_id) : null),
-				'partner' => ($row['partner_id'] ? $player_dict[$row['partner_id']] : null),
-				'partner_club' => ($row['partner_club_id'] ? $club_dict[$row['partner_club_id']] : null),
-				'partner_club_is_special' => (($row['partner_id'] && $row['partner_club_id']) ? ($row['partner_club_id'] != $player_dict[$row['partner_id']]->club_id) : null),
-				'same_club' => ($row['partner_club_id'] ? $row['player_club_id'] == $row['partner_club_id'] : null),
-				'email' => $row['email'],
-				'seeding' => $row['seeding'],
-				'created_time_str' => \date('Y-m-d H:i', \intval($row['created_time'])),
-			];
-		});
 		$space_size = ((($this->capacity === NULL) || (\count($res) <= $this->capacity)) ?
 			(\strlen(\sprintf('%d', \count($res)))) :
 			(\strlen(\sprintf('%d+%d', $this->capacity, \count($res) - $this->capacity)))
@@ -158,7 +231,7 @@ class Discipline extends \bmtmgr\Model {
 			 entry.discipline_id = discipline.id AND
 			 discipline.dtype = :dtype AND
 			 discipline.tournament_id = :tournament_id AND
-			 (entry.player_id = :player_id OR entry.partner_id = :player_id)
+			 (entry.player_id = :player_id OR entry.TODO_partner_id = :player_id)
 			 ',
 			$vals,
 			['entry']
@@ -169,58 +242,33 @@ class Discipline extends \bmtmgr\Model {
 		return null;
 	}
 
-	public function check_entry($player, $partner) {
-		if (($player == null) && ($partner == null)) {
+	public function check_entry($players) {
+		if (\count($players) === 0) {
 			throw new utils\InvalidEntryException('Kein Spieler angegeben!');
 		}
-		if ($player != null) {
-			if ($player->gender != $this->player_gender()) {
-				if (! $this->allow_any()) {
-					if ($partner) {
-						throw new utils\InvalidEntryException('Falsches Geschlecht des ersten Spielers');
-					} else {
-						throw new utils\InvalidEntryException('Falsches Geschlecht des Spielers');
-					}
-				}
-			}
-		}
-		if ($partner != null) {
-			if ((! $this->with_partner())) {
-				throw new utils\InvalidEntryException('Partner in einer Einzeldiziplin angegeben');
-			}
-			if ($player != null) {
-				if ($player->id == $partner->id) {
-					throw new utils\InvalidEntryException('Ein Spieler kann nicht mit sich selber im Doppel antreten. Feld freilassen für eine Freimeldung.');
-				}
-			}
-			if (! $this->allow_any()) {
-				if ($partner->gender != $this->partner_gender()) {
-					throw new utils\InvalidEntryException('Falsches Geschlecht des zweiten Spielers');
-				}
-			}
+		if ($this->is_team()) {
+			return;
 		}
 
-		if ($player != null) {
-			$conflicting = static::find_conflicting($player->id);
-			if ($conflicting) {
-				throw new utils\InvalidEntryException(sprintf('%s ist in diesem Turnier schon in %s angemeldet!', $player->name, $conflicting->name));
-			}
+		$specs = $this->player_specs();
+		if (\count($players) > \count($specs)) {
+			throw new utils\InvalidEntryException('Zu viele Spieler - erwarte maximal ' . $this->player_count());
 		}
-		if ($partner != null) {
-			$conflicting = static::find_conflicting($partner->id);
-			if ($conflicting) {
-				throw new utils\InvalidEntryException(sprintf('%s ist in diesem Turnier schon in %s angemeldet!', $partner->name, $conflicting->name));
-			}
+
+		for ($i = 0;$i < \count($players);$i++) {
+			// TODO: match spec
 		}
 	}
 
 	public static function suggest_player_rows_with_clubs_by_id($discipline_id, $term, $gender, $add_sql='') {
 		$vals = [
-			':gender' => $gender,
 			':discipline_id' => $discipline_id,
 			':term_search_textid' => '%' . $term . '%',
 			':term_search' => '%' . $term . '%',
 		];
+		if ($gender !== 'a') {
+			$vals[':gender'] = $gender;
+		}
 
 		$reverse_term = '';
 		$p = \strpos($term, ' ');
@@ -230,7 +278,8 @@ class Discipline extends \bmtmgr\Model {
 		}
 		$term = \str_replace(' ', '%', \trim($term));
 
-		$sql = ' AND player.gender = :gender
+		$sql = ' 
+			' . (($gender === 'a') ? '' : 'AND player.gender = :gender') . '
 			  AND (
 				player.name LIKE :term_search
 				OR player.textid LIKE :term_search_textid
@@ -240,19 +289,9 @@ class Discipline extends \bmtmgr\Model {
 			  AND discipline.tournament_id = tournament.id
 			  AND tournament.season_id = player.season_id
 			  AND player.id NOT IN (
-			  		SELECT entry.player_id AS pid
-				  	FROM entry, discipline AS d1, discipline as d2
-				  	WHERE d1.id = :discipline_id
-				  	AND ((d1.tournament_id = d2.tournament_id) AND (d1.dtype = d2.dtype))
-				  	AND entry.discipline_id = d2.id
-				  	AND entry.player_id IS NOT NULL
-			  	UNION
-					SELECT entry.partner_id AS pid
-				  	FROM entry, discipline AS d1, discipline as d2
-				  	WHERE d1.id = :discipline_id
-				  	AND ((d1.tournament_id = d2.tournament_id) AND (d1.dtype = d2.dtype))
-				  	AND entry.discipline_id = d2.id
-				  	AND entry.partner_id IS NOT NULL
+			  		SELECT entry_player.player_id
+				  	FROM entry_player, entry
+				  	WHERE entry.discipline_id = :discipline_id AND entry_player.entry_id = entry.id
 			  )
 			  ' . $add_sql;
 		return Player::get_rows_with_club_names(
@@ -277,5 +316,9 @@ class Discipline extends \bmtmgr\Model {
 			return 'WD';
 		}
 		return 'AD';
+	}
+
+	public function pseudo_entry() {
+		return Entry::pseudo_entry($this->player_specs());
 	}
 }

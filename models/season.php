@@ -48,6 +48,6 @@ class Season extends \bmtmgr\Model {
 	}
 
 	public function get_club_by_input($input) {
-		return User::find_by_input($input);
+		return Club::find_by_input($input);
 	}
 }

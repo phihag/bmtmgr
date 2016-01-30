@@ -12,35 +12,31 @@ $discipline = $entry->get_discipline();
 $tournament = $discipline->get_tournament();
 $season = $tournament->get_season();
 
-$player = null;
-$player_club = null;
-$partner = null;
-$partner_club = null;
-if (!empty($_POST['player'])) {
-	$player = $season->get_player_by_input($_POST['player']);
-	if (!empty($_POST['player_club'])) {
-		$player_club = $season->get_club_by_input($_POST['player_club']);
+$players = [];
+$clubs = [];
+for ($i = 0;$i < 100;$i++) {
+	if (!empty($_POST['player' . $i])) {
+		$players[] = $season->get_player_by_input($_POST['player' . $i]);
+		if (!empty($_POST['player' . $i . '_club'])) {
+			$clubs[] = $season->get_club_by_input($_POST['player' . $i . '_club']);
+		}
 	}
 }
-if (!empty($_POST['partner'])) {
-	$partner = $season->get_player_by_input($_POST['partner']);
-	if (!empty($_POST['partner_club'])) {
-		$partner_club = $season->get_club_by_input($_POST['partner_club']);
-	}
-}
+
+// TODO check entry
 
 $email = isset($_POST['email']) ? $_POST['email'] : null;
 $seeding = isset($_POST['seeding']) ? $_POST['seeding'] : null;
 $memo = isset($_POST['memo']) ? $_POST['memo'] : null;
+$entry_name = isset($_POST['entry_name']) ? $_POST['entry_name'] : null;
 
-$entry->player_id = $player->id;
-$entry->player_club_id = $player_club->id;
-$entry->partner_id = $partner ? $partner->id : null;
-$entry->partner_club_id = $partner ? $partner_club->id : null;
+$entry->entry_name = $entry_name;
 $entry->email = $email;
 $entry->seeding = $seeding;
 $entry->memo = $memo;
 $entry->updated_time = \time();
+$entry->_players = $players;
+$entry->_clubs = $clubs;
 $entry->save();
 
 render_ajax('d/' . $discipline->id . '/', [

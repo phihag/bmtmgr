@@ -37,7 +37,7 @@ class Player extends \bmtmgr\Model {
 
 	public function get_firstname() {
 		if (\preg_match('/^(?P<lastname>.*?),\s*(?P<firstname>.*?)$/', $this->name, $matches)) {
-			return $matches['firstname'];
+				return $matches['firstname'];
 		}
 		return $this->name;
 	}
@@ -72,19 +72,15 @@ class Player extends \bmtmgr\Model {
 		return User::by_id($this->club_id);
 	}
 
-	protected static function from_row($row, $_is_new=false) {
-		return new static($row, $_is_new);
-	}
-
 	public static function exists($season, $textid) {
 		return static::fetch_optional('WHERE season_id=? AND textid=?', [$season->id, $textid]) !== null;
 	}
 
 	public static function get_rows_with_club_names($add_sql='', $add_params=[], $add_tables=[], $add_fields='') {
 		return static::get_all(
-			'WHERE user.id=player.club_id ' . $add_sql, $add_params,
-			\array_merge(['user'], $add_tables),
-			'user.name AS club_name' . ($add_fields ? ', ' . $add_fields : ''),
+			'WHERE club.id = player.club_id ' . $add_sql, $add_params,
+			\array_merge(['club'], $add_tables),
+			'club.name AS club_name' . ($add_fields ? ', ' . $add_fields : ''),
 			function($row) {
 				return $row;
 			});

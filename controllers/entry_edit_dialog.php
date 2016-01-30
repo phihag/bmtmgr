@@ -8,29 +8,17 @@ $u->require_perm('admin');
 utils\require_get_params(['entry_id']);
 $entry = Entry::by_id($_GET['entry_id']);
 $discipline = $entry->get_discipline();
+$entry->_specs = $discipline->player_specs();
 $tournament = $discipline->get_tournament();
 $disciplines = $tournament->get_disciplines();
 $season = $tournament->get_season();
 
-$player_input_spec = [
-	'gender' => $discipline->player_gender(),
-	'required' => ! $discipline->is_mixed(),
-	'name' => 'player',
-	'autofocus' => 'autofocus',
-	'values' => [
-		'player' => $entry->get_player(),
-		'club' => $entry->get_player_club(),
-	],
-];
-$partner_input_spec = [
-	'gender' => $discipline->partner_gender(),
-	'required' => false,
-	'name' => 'partner',
-	'values' => [
-		'player' => $entry->get_partner(),
-		'club' => $entry->get_partner_club(),
-	],
-];
+// Mustache skips null values, so set emails to empty string
+foreach ($entry->_players as &$p) {
+	if (!$p->email) {
+		$p->email = '';
+	}
+}
 
 render('entry_edit', [
 	'add_scripts' => [['filename' => 'discipline.js']],
@@ -46,7 +34,5 @@ render('entry_edit', [
 	'tournament' => $tournament,
 	'disciplines' => $disciplines,
 	'discipline' => $discipline,
-	'player_input_spec' => $player_input_spec,
-	'partner_input_spec' => $partner_input_spec,
 	'entry' => $entry,
 ]);

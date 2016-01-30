@@ -7,10 +7,11 @@ if (isset($_GET['autocomplete']) && $_GET['autocomplete'] == 'json') {
 	render_json(array_map(function($c) {
 		return [
 			'id' => $c->id,
+			'textid' => $c->textid,
 			'name' => $c->name,
-			'text' => '(' . $c->id . ') ' . $c->name,
+			'text' => '(' . $c->textid . ') ' . $c->name,
 		];
-	}, User::get_all()));
+	}, Club::get_all()));
 	exit();
 }
 
@@ -22,5 +23,5 @@ render('club_list', [
 	'breadcrumbs' => [
 		['name' => 'Vereine', 'path' => 'club/']
 	],
-	'clubs' => User::get_all('ORDER BY ID ASC'),
+	'clubs' => Club::get_all('ORDER BY ID ASC'),
 ]);

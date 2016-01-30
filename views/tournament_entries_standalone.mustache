@@ -29,12 +29,6 @@ td.without_partner {
 .player_table th, .player_table td {
     padding: 5px 2px 5px 2px;
 }
-.player_table td+td, player_table th+th {
-    padding-left: 10px;
-}
-.player_table td+td.player_name, player_table th+th.player_name {
-     padding-left: 20px;
-}
 .player_table tbody tr:hover {
     background: #fafafa;
 }
@@ -57,7 +51,16 @@ td.without_partner {
     color: #666;
     text-align: right;
     min-width: 2em;
+    vertical-align: top;
 }
+
+.entrytable_teamrow:not(:first-child)>td,.entrytable_teamrow:not(:first-child)>th {
+    padding-top: 20px;
+}
+.entry_name {
+    font-weight: bold;
+}
+
 
 .note {
     margin: 0; padding: 0;
@@ -81,8 +84,16 @@ td.without_partner {
 <table class="player_table">
 <tbody>
 {{#entries}}
-<tr id="{{name_html_id}}-{{numstr}}">
-<td class="numstr">{{numstr}}</td>
+<tr id="{{name_html_id}}-{{numstr}}"{{#is_team}} class="entrytable_teamrow"{{/is_team}}>
+<td class="numstr" rowspan="{{entry_rowspan}}">{{numstr}}</td>
+
+{{#is_team}}
+<td colspan="2" class="entry_name">{{entry_name}}{{#seeding}} [{{seeding}}]{{/seeding}}</td>
+{{/is_team}}
+
+
+{{^is_team}}
+TODO: entries in non-team categories
 {{#player}}
 <td class="player_name">{{natural_name}}</td>
 <td class="player_club">{{#player_club}}{{name}}{{/player_club}}</td>
@@ -99,7 +110,19 @@ td.without_partner {
 <td colspan="2" class="without_partner">Freimeldung</td>
 {{/partner}}
 {{/with_partner}}
+{{/is_team}}
+
 </tr>
+
+{{#is_team}}
+{{#players}}
+<tr>
+<td class="player_name">{{natural_name}}</td>
+<td class="player_club">{{#entry_club}}{{name}}{{/entry_club}}</td>
+</tr>
+{{/players}}
+{{/is_team}}
+
 {{/entries}}
 </tbody>
 </table>

@@ -21,6 +21,17 @@ $(function() {
         });
     });
 
+    var root_path = $('body').attr('data-root-path');
+    $.getJSON(root_path + 'user/?autocomplete=json', function(users) {
+        var ac = $.map(users, function(u) {
+            return u.text;
+        });
+
+        $('.user').autocomplete({
+            source: ac,
+        });
+    });
+
     $('#discipline-goto input').on('keyup', function(e) {
         if (e.keyCode == 27) { // Esc
             $('#discipline-goto').hide();

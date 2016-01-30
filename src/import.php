@@ -141,6 +141,7 @@ function import_text($tournament, $text, $autocreate) {
 				$d->save();
 			}
 			$d->check_entry($player, $partner);
+			TODO_new_Entry_API();
 			$entry = \bmtmgr\Entry::create(
 				$d, $player, $player_club, $partner, $partner_club, null, null);
 			\array_push($new_entries, $entry);

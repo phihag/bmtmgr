@@ -1,53 +1,54 @@
-<label>
-<span class="labeltext">
 {{#discipline}}
-{{#male_player}}
-Spieler:
-{{/male_player}}
-{{^male_player}}
-Spielerin:
-{{/male_player}}
-</span>
-{{#player_input_spec}}
-{{>player_selector}}
-{{/player_input_spec}}
-</label>
+{{#entry}}
 
-{{#with_partner}}
+{{#is_team}}
+<label><span class="labeltext">Team-Name:</span><input name="entry_name" value="{{entry_name}}" autofocus="autofocus" /></label>
+{{/is_team}}
+
+{{#combined_list}}
 <label>
 <span class="labeltext">
-{{#male_partner}}
-Partner:
-{{/male_partner}}
-{{^male_partner}}
-Partnerin:
-{{/male_partner}}
-</span>
-{{#partner_input_spec}}
-{{>player_selector}}
-{{/partner_input_spec}}
-</label>
-{{/with_partner}}
 
-{{/discipline}}
+{{#spec}}
+{{#spec_male}}
+Spieler:
+{{/spec_male}}
+{{#spec_female}}
+Spielerin:
+{{/spec_female}}
+{{#spec_any}}
+Spieler/in:
+{{/spec_any}}
+</span>
+{{/spec}}
+
+{{>player_selector}}
+
+</label>
+
+{{/combined_list}}
+
 
 <label>
 <span class="labeltext">
 E-Mail:
 </span>
-<input type="email" name="email" size="30" autocomplete="off" value="{{#entry}}{{email}}{{/entry}}" />
+<input type="email" name="email" size="30" autocomplete="off" value="{{email}}" />
 </label>
 
 <label>
 <span class="labeltext">
 Seeding:
 </span>
-<input type="text" name="seeding" size="1" autocomplete="off" value="{{#entry}}{{seeding}}{{/entry}}" />
+<input type="text" name="seeding" size="1" autocomplete="off" value="{{seeding}}" />
 </label>
 
 <label>
 <span class="labeltext">
 Memo:
 </span>
-<textarea name="memo" rows="2" cols="40">{{#entry}}{{memo}}{{/entry}}</textarea>
+<textarea name="memo" rows="2" cols="40">{{memo}}</textarea>
 </label>
+
+{{/entry}}
+{{/discipline}}

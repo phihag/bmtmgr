@@ -11,6 +11,7 @@ Deny from all
 RewriteEngine On
 RewriteRule ^$ controllers/root.php [L]
 RewriteRule ^admin/$ controllers/admin.php [L]
+RewriteRule ^user/$ controllers/user_list.php [L]
 RewriteRule ^club/$ controllers/club_list.php [L]
 RewriteRule ^club/([-a-z0-9]+)/$ controllers/club.php?id=$1 [L]
 RewriteRule ^club/create$ controllers/club_create.php [L]

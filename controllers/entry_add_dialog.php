@@ -10,19 +10,7 @@ $discipline = Discipline::by_id($_GET['discipline_id']);
 $tournament = $discipline->get_tournament();
 $disciplines = $tournament->get_disciplines();
 $season = $tournament->get_season();
-
-$player_input_spec = [
-	'gender' => $discipline->player_gender(),
-	'required' => ! $discipline->is_mixed(),
-	'name' => 'player',
-	'autofocus' => 'autofocus'
-];
-$partner_input_spec = [
-	'gender' => $discipline->partner_gender(),
-	'required' => false,  // for now; because we want to handle entries without partners
-	'name' => 'partner',
-];
-
+$pseudo_entry = $discipline->pseudo_entry();
 
 render('entry_add', [
 	'add_scripts' => [['filename' => 'discipline.js']],
@@ -38,6 +26,5 @@ render('entry_add', [
 	'tournament' => $tournament,
 	'disciplines' => $disciplines,
 	'discipline' => $discipline,
-	'player_input_spec' => $player_input_spec,
-	'partner_input_spec' => $partner_input_spec,
+	'entry' => $pseudo_entry,
 ]);

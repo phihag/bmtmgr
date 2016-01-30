@@ -59,17 +59,21 @@ class Tournament extends \bmtmgr\Model {
 
 	public function get_all_players() {
 		return Player::get_all('
-			WHERE player.id IN (
-				SELECT entry.player_id AS pid
-				FROM entry, discipline
-				WHERE entry.discipline_id = discipline.id
-				AND discipline.tournament_id = :tournament_id
-			UNION
-				SELECT entry.partner_id AS pid
-				FROM entry, discipline
-				WHERE entry.discipline_id = discipline.id
-				AND discipline.tournament_id = :tournament_id
-			)
+			INNER JOIN (
+				SELECT entry_player.player_id AS pid
+				FROM entry_player
+				INNER JOIN (
+					SELECT entry.id AS eid
+					FROM entry
+					INNER JOIN discipline ON
+					(
+						entry.discipline_id = discipline.id AND
+						discipline.tournament_id = :tournament_id
+					)
+				) AS entries ON entries.eid = entry_player.entry_id
+				GROUP BY pid
+			) AS ep
+			ON player.id = ep.pid;
 		', [':tournament_id' => $this->id]);
 	}
 

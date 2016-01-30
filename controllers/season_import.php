@@ -56,10 +56,9 @@ if (!\preg_match_all(
 	throw new \Exception('Cannot find any club entries!');
 }
 foreach ($matches as $m) {
-	$club = User::by_id_optional($m['id']);
+	$club = Club::by_id_optional($m['id']);
 	if (! $club) {
-		echo 'creating user ' . $m['id'] . '/ ' . $m['name'] . "\n";
-		$club = new User($m['id'], $m['name'], null, ['register']);
+		$club = Club::create($m['id'], $m['name']);
 		$club->save();
 	}
 
