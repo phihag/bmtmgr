@@ -27,7 +27,16 @@ MELDUNGEN {{name}} - Stand {{now_date}}:<br />
 {{/note}}
 
 {{#entries}}
-<span class="numstr">{{numstr_spaced}}</span>
+<span class="numstr">{{numstr_spaced}}</span> {{entry_name}}<br />
+
+{{#is_team}}
+{{#players}}
+{{natural_name}} ({{#entry_club}}{{name}}{{/entry_club}})<br />
+{{/players}}
+{{/is_team}}
+<br />
+
+{{^is_team}}
 {{#player}}{{natural_name}}{{/player}}
 {{^player}}
 (Freimeldung)
@@ -45,6 +54,8 @@ MELDUNGEN {{name}} - Stand {{now_date}}:<br />
 ({{#player}}{{#player_club}}{{name}}{{/player_club}}{{/player}}{{^player}}Freimeldung{{/player}}{{#with_partner}}{{^same_club}}
 /
 {{#partner}}{{#partner_club}}{{name}}{{/partner_club}}{{/partner}}{{^partner}}Freimeldung{{/partner}}{{/same_club}}{{/with_partner}})<br />
+{{/is_team}}
+
 
 {{/entries}}
 {{/entries_present}}
