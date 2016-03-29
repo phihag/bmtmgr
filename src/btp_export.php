@@ -9,14 +9,16 @@ function render($data) {
 
 	$header = [
 		'Event' => 'string',
-		'SpielerID' => 'string',
+		'Member ID' => 'string',
 		'Name' => 'string',
-		'Vorname' => 'string',
-		'Verein' => 'string',
-		'Geschlecht' => 'string',
+		'First name' => 'string',
+		'Club' => 'string',
+		'Club-ID' => 'string',
+		'Gender' => 'string',
 		'Email' => 'string',
-		'Partner ID' => 'string',
 		'Setzplatz' => 'string',
+		'Team-ID' => 'string',
+		'Team' => 'string',
 	];
 
 	$output = [];
@@ -31,38 +33,25 @@ function render($data) {
 			$dname = $m[1] . $m[2];
 		}
 
-		$is_doubles = $d->with_partner();
-		foreach ($d->entries as $er) {
-			if ($er['on_waiting_list']) {
-				continue;
-			}
-			if ($is_doubles && ($er['partner'] === NULL)) {
-				continue;
-			}
-			\array_push($output, [
-				$dname,
-				$er['player']->textid,
-				$er['player']->get_lastname(),
-				$er['player']->get_firstname(),
-				$er['player_club']->name,
-				$er['player']->gender,
-				$er['player']->email,
-				$is_doubles ? $er['partner']->textid : '',
-				$er['seeding'],
-			]);
-			if ($is_doubles) {
+		\assert($d->is_team());
+		$entry_id = 0;
+		foreach ($d->entries as $entry) {
+			foreach ($entry['players'] as $player) {
 				\array_push($output, [
 					$dname,
-					$er['partner']->textid,
-					$er['partner']->get_lastname(),
-					$er['partner']->get_firstname(),
-					$er['partner_club']->name,
-					$er['partner']->gender,
-					$er['partner']->email,
-					$is_doubles ? $er['player']->textid : '',
-					$er['seeding'],
+					$player->textid,
+					$player->get_lastname(),
+					$player->get_firstname(),
+					$player->entry_club->name,
+					$player->entry_club->textid,
+					$player->gender,
+					$player->email,
+					$entry['seeding'],
+					$dname . '-' . $entry_id,
+					$entry['entry_name'],
 				]);
 			}
+			$entry_id++;
 		}
 	}
 

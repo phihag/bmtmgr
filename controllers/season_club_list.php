@@ -7,7 +7,7 @@ $u->require_perm('admin');
 
 utils\require_get_params(['season_id']);
 $season = Season::by_id($_GET['season_id']);
-$clubs = User::get_all('ORDER BY name ASC');
+$clubs = Club::get_all('ORDER BY name ASC');
 
 render('club_list', [
 	'user' => $u,

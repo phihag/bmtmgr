@@ -10,7 +10,7 @@ utils\require_post_params(['name']);
 $textid = \preg_replace('/[^a-z]+/', '', strtolower($_POST['name']));
 assert(\preg_match('/^[a-z]+$/', $textid));
 try {
-	$club = User::create($textid, $_POST['name'], null);
+	$club = Club::create($textid, $_POST['name'], null);
 	$club->save();
 } catch (utils\DuplicateEntryException $e) {
 	render_ajax_error(

@@ -210,6 +210,7 @@ class Discipline extends \bmtmgr\Model {
 			(\strlen(\sprintf('%d+%d', $this->capacity, \count($res) - $this->capacity)))
 		);
 		for ($i = 0;$i < \count($res);$i++) {
+			$res[$i]['player_slots'] = $this->calc_player_slots($res[$i]['players']);
 			$res[$i]['on_waiting_list'] = ($this->capacity !== NULL) && ($i >= $this->capacity);
 			$res[$i]['numstr'] = ($res[$i]['on_waiting_list'] ?
 				\sprintf('%d+%d', $this->capacity, $i - $this->capacity + 1)
@@ -320,5 +321,15 @@ class Discipline extends \bmtmgr\Model {
 
 	public function pseudo_entry() {
 		return Entry::pseudo_entry($this->player_specs());
+	}
+
+	protected function calc_player_slots($players) {
+		if (($this->dtype == 'MX') && (\count($players) === 1) && ($players[0]->gender === 'f')) {
+			return [['empty' => True], $players[0]];
+		}
+		if (($this->player_count() == 2) && (\count($players) == 1)) {
+			return [$players[0], ['empty' => True]];
+		}
+		return $players;
 	}
 }

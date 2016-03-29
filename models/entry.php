@@ -139,4 +139,10 @@ class Entry extends \bmtmgr\Model {
 		}
 		return $res;
 	}
+
+	public function delete() {
+		$s = $this->prepare('DELETE FROM entry_player WHERE entry_id=:entry_id');
+		$s->execute([':entry_id' => $this->id]);
+		parent::delete();
+	}
 }

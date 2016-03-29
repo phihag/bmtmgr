@@ -10,7 +10,7 @@ utils\require_get_params(['club_id', 'season_id']);
 utils\require_post_params(['firstname', 'lastname', 'gender']);
 
 $season = Season::by_id($_GET['season_id']);
-$club = User::by_id($_GET['club_id']);
+$club = Club::by_id($_GET['club_id']);
 
 $name = \sprintf('%s, %s', $_POST['lastname'], $_POST['firstname']);
 $textid = \str_replace(' ', '_', $club->name . '-' . $_POST['firstname'] . ' ' . $_POST['lastname']);
