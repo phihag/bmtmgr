@@ -30,6 +30,6 @@ class Club extends \bmtmgr\Model {
 	}
 
 	public function get_display_id() {
-		return sprintf('(%s) %s', $this->id, $this->name);
+		return sprintf('(%s) %s', $this->textid, $this->name);
 	}
 }
