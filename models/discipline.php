@@ -89,7 +89,7 @@ class Discipline extends \bmtmgr\Model {
 		case 'MX':
 			return 2;
 		case 't5':
-			return 10;
+			return 15;
 		default:
 			\assert(false);
 		}
