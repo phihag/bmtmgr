@@ -74,7 +74,7 @@ $('.player_selector').each(function(index, ps) {
     function autocomplete_set_value(ps, item) {
         $(ps).val('(' + item.textid + ') ' + item.name);
         var club_field = $(ps).parent().find('.club');
-        club_field.val('(' + item.club_id + ') ' + item.club_name);
+        club_field.val('(' + item.club_textid + ') ' + item.club_name);
         club_field.addClass('club_selector_autoset');
     }
 

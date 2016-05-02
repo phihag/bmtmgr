@@ -80,7 +80,7 @@ class Player extends \bmtmgr\Model {
 		return static::get_all(
 			'WHERE club.id = player.club_id ' . $add_sql, $add_params,
 			\array_merge(['club'], $add_tables),
-			'club.name AS club_name' . ($add_fields ? ', ' . $add_fields : ''),
+			'club.name AS club_name, club.textid AS club_textid' . ($add_fields ? ', ' . $add_fields : ''),
 			function($row) {
 				return $row;
 			});
