@@ -15,7 +15,7 @@
 {{^empty}}
 <td class="player_name" {{#is_official_id}}title="{{textid}}"{{/is_official_id}}>{{natural_name}}{{#seeding}} [{{seeding}}]{{/seeding}}</td>
 <td class="player_league">{{league}}</td><td class="player_winrate">{{winrate_str}}</td>
-<td class="player_club{{#player_club_is_special}} player_club_special{{/player_club_is_special}}">{{#player_club}}{{name}}{{/player_club}}</td>
+<td class="player_club{{#player_club_is_special}} player_club_special{{/player_club_is_special}}">{{#entry_club}}{{name}}{{/entry_club}}</td>
 {{/empty}}
 {{/player_slots}}
 {{/is_team}}

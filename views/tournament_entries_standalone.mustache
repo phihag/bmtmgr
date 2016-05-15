@@ -93,23 +93,15 @@ td.without_partner {
 
 
 {{^is_team}}
-TODO: entries in non-team categories
-{{#player}}
-<td class="player_name">{{natural_name}}</td>
-<td class="player_club">{{#player_club}}{{name}}{{/player_club}}</td>
-{{/player}}
-{{^player}}
+{{#player_slots}}
+{{#empty}}
 <td colspan="2" class="without_partner">Freimeldung</td>
-{{/player}}
-{{#with_partner}}
-{{#partner}}
-<td class="player_name">{{natural_name}}</td>
-<td class="player_club">{{#partner_club}}{{name}}{{/partner_club}}</td>
-{{/partner}}
-{{^partner}}
-<td colspan="2" class="without_partner">Freimeldung</td>
-{{/partner}}
-{{/with_partner}}
+{{/empty}}
+{{^empty}}
+<td class="player_name">{{natural_name}}{{#seeding}} [{{seeding}}]{{/seeding}}</td>
+<td class="player_club">{{#entry_club}}{{name}}{{/entry_club}}</td>
+{{/empty}}
+{{/player_slots}}
 {{/is_team}}
 
 </tr>
