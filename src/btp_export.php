@@ -7,19 +7,39 @@ function render($data) {
 	$tournament = $data['tournament'];
 	$disciplines = $data['disciplines'];
 
-	$header = [
-		'Event' => 'string',
-		'Member ID' => 'string',
-		'Name' => 'string',
-		'First name' => 'string',
-		'Club' => 'string',
-		'Club-ID' => 'string',
-		'Gender' => 'string',
-		'Email' => 'string',
-		'Setzplatz' => 'string',
-		'Team-ID' => 'string',
-		'Team' => 'string',
-	];
+	$is_team = $disciplines[0]->is_team();
+	foreach ($disciplines as &$d) {
+		\assert($is_team === $d->is_team());
+	}
+
+	if ($is_team) {
+		$header = [
+			'Event' => 'string',
+			'Member ID' => 'string',
+			'Name' => 'string',
+			'First name' => 'string',
+			'Club' => 'string',
+			'Club-ID' => 'string',
+			'Gender' => 'string',
+			'Email' => 'string',
+			'Setzplatz' => 'string',
+			'Team-ID' => 'string',
+			'Team' => 'string',
+		];
+	} else {
+		$header = [
+			'Event' => 'string',
+			'SpielerID' => 'string',
+			'Name' => 'string',
+			'Vorname' => 'string',
+			'Verein' => 'string',
+			'Club ID' => 'string',
+			'Geschlecht' => 'string',
+			'Email' => 'string',
+			'Setzplatz' => 'string',
+			'Partner ID' => 'string',
+		];
+	}
 
 	$output = [];
 	foreach ($disciplines as $d) {
@@ -33,11 +53,12 @@ function render($data) {
 			$dname = $m[1] . $m[2];
 		}
 
-		\assert($d->is_team());
 		$entry_id = 0;
 		foreach ($d->entries as $entry) {
-			foreach ($entry['players'] as $player) {
-				\array_push($output, [
+			$eplayers = $entry['players'];
+			$i = 0;
+			foreach ($eplayers as $player) {
+				$row = [
 					$dname,
 					$player->textid,
 					$player->get_lastname(),
@@ -47,9 +68,26 @@ function render($data) {
 					$player->gender,
 					$player->email,
 					$entry['seeding'],
-					$dname . '-' . $entry_id,
-					$entry['entry_name'],
-				]);
+				];
+
+				if ($is_team) {
+					$row[] = $dname . '-' . $entry_id;
+					$row[] = $entry['entry_name'];
+				} else {
+					if ($i === 0) {
+						if (\count($eplayers) > 1) {
+							$partner_id = $eplayers[1]->textid;
+						} else {
+							$partner_id = '';
+						}
+					} else {
+						$partner_id = $eplayers[0]->textid;
+					}
+					$row[] = $partner_id;
+				}
+
+				\array_push($output, $row);
+				$i++;
 			}
 			$entry_id++;
 		}
