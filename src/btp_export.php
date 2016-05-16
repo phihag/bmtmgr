@@ -8,8 +8,8 @@ function render($data) {
 	$disciplines = $data['disciplines'];
 
 	$is_team = $disciplines[0]->is_team();
-	foreach ($disciplines as &$d) {
-		\assert($is_team === $d->is_team());
+	foreach ($disciplines as $testd) {
+		\assert($is_team === $testd->is_team());
 	}
 
 	if ($is_team) {
@@ -56,7 +56,7 @@ function render($data) {
 		$entry_id = 0;
 		foreach ($d->entries as $entry) {
 			$eplayers = $entry['players'];
-			$i = 0;
+			$player_idx = 0;
 			foreach ($eplayers as $player) {
 				$row = [
 					$dname,
@@ -74,7 +74,7 @@ function render($data) {
 					$row[] = $dname . '-' . $entry_id;
 					$row[] = $entry['entry_name'];
 				} else {
-					if ($i === 0) {
+					if ($player_idx === 0) {
 						if (\count($eplayers) > 1) {
 							$partner_id = $eplayers[1]->textid;
 						} else {
@@ -87,12 +87,11 @@ function render($data) {
 				}
 
 				\array_push($output, $row);
-				$i++;
+				$player_idx++;
 			}
 			$entry_id++;
 		}
 	}
-
 
 	$writer = new \XLSXWriter();
 	$writer->writeSheet($output, 'Meldungen', $header);
