@@ -104,7 +104,7 @@ $emails = \array_unique($emails);
 
 foreach ($disciplines as &$d) {
 	foreach ($d->entries as &$e) {
-		$e['entry_rowspan'] = \count($e['players']) + 1;
+		$e['entry_rowspan'] = $discipline->is_team() ? (\count($e['players']) + 1) : 1;
 	}
 }
 
