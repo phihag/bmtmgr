@@ -69,7 +69,7 @@ class Player extends \bmtmgr\Model {
 	}
 
 	public function get_club() {
-		return User::by_id($this->club_id);
+		return Club::by_id($this->club_id);
 	}
 
 	public static function exists($season, $textid) {
