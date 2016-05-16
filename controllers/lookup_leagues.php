@@ -28,7 +28,9 @@ foreach ($players as $player) {
 	$overview_url = 'http://turnier.de/find.aspx?a=8&oid=E3B0DC28-EDDE-426A-9DD9-600D26DCF680&q=' . \urlencode($player->textid) . '&id=2';
 	$overview_page = \file_get_contents($overview_url);
 	if (! \preg_match('/<a href="(?P<detail_path>[^"]*id=' . \preg_quote($season_internal_id) . '[^"]*)"/', $overview_page, $matches)) {
-		throw new \Exception('Cannot find season information for ' . $player->name);
+		$player->league = 'NA/Hobby';
+		$player->save();
+		continue;
 	}
 
 	$detail_url = 'http://turnier.de/' . $matches['detail_path'];
