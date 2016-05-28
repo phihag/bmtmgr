@@ -8,9 +8,12 @@ go through style
 SPAM prevention for new entries
 mail Miles
 
+on forced login screen check HTTP error code
 minify
 add report_error
 option devmode that enables/disables stuff in progress
+fix tests
+add JavaScript linting
 
 in teams move seeding to top
 re-test adding to t5
