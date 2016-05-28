@@ -6,7 +6,7 @@ $u = user\check_current();
 $u->require_perm('admin');
 
 utils\require_get_params(['id']);
-$club = User::by_id($_GET['id']);
+$club = Club::by_id($_GET['id']);
 
 render('club', [
 	'user' => $u,

@@ -1,0 +1,16 @@
+{{#tournament}}
+
+<form type="post" action="{{root_path}}t/{{id}}/aentry_create">
+{{{csrf_field}}}
+
+<div class="aentries" data-tournament-info="{{aentry_json}}">
+<noscript>Entschulding, JavaScript ist für Meldungen erforderlich. <a href="http://www.enable-javascript.com/de/" target="_blank">Erfahren Sie hier, wie JavaScript einzuschalten ist.</a></noscript>
+</div>
+
+<button role="submit">Melden</button>
+
+</form>
+
+
+<a href="{{root_path}}t/{{id}}/aentries">Alle Meldungen anzeigen</a>
+{{/tournament}}

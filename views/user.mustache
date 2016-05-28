@@ -1,0 +1,15 @@
+{{#page_user}}
+<h2>({{id}}) {{name}}</h2>
+
+{{#is_admin}}
+<p>E-Mail: <a href="mailto:{{email}}">{{email}}</a></p>
+{{/is_admin}}
+
+{{#is_me}}
+<form method="post" action="{{root_path}}logout">
+{{{csrf_field}}}
+<button role="submit">Logout</button>
+</form>
+{{/is_me}}
+
+{{/page_user}}

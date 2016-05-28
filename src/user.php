@@ -45,6 +45,14 @@ function create_session($u) {
 		\bmtmgr\config\get('force_https', false), true);
 }
 
+function delete_session() {
+	$token = $_COOKIE['login_token'];
+	$s = $GLOBALS['db']->prepare('UPDATE login_cookie_token
+		SET expiry_time = 0
+		WHERE token=?');
+	$s->execute([$token]);
+}
+
 function render_login_form() {
 	\bmtmgr\render('login', array(
 		'title' => 'Login'

@@ -80,4 +80,11 @@ class Tournament extends \bmtmgr\Model {
 	public function get_publications() {
 		return Publication::fetch_all_in_tournament($this->id);
 	}
+
+	/**
+	* @returns A Tournament object for every tournament marked as public.
+	*/
+	public static function get_all_public() {
+		return static::get_all('WHERE tournament.visible = 1');
+	}
 }

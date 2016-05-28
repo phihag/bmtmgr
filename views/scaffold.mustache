@@ -9,9 +9,12 @@
 <body data-root-path="{{root_path}}">
 
 {{>mainnav}}
+
+{{#user}}
 {{#disciplines_present}}
 {{>disciplines_bar}}
 {{/disciplines_present}}
+{{/user}}
 
 <div id="content" class="{{#disciplines_present}}with_disciplines_bar{{/disciplines_present}}">
 

@@ -86,12 +86,9 @@ td.without_partner {
 {{#entries}}
 <tr id="{{name_html_id}}-{{numstr}}"{{#is_team}} class="entrytable_teamrow"{{/is_team}}>
 <td class="numstr" rowspan="{{entry_rowspan}}">{{numstr}}</td>
-
 {{#is_team}}
 <td colspan="2" class="entry_name">{{entry_name}}{{#seeding}} [{{seeding}}]{{/seeding}}</td>
 {{/is_team}}
-
-
 {{^is_team}}
 {{#player_slots}}
 {{#empty}}
@@ -103,7 +100,6 @@ td.without_partner {
 {{/empty}}
 {{/player_slots}}
 {{/is_team}}
-
 </tr>
 
 {{#is_team}}
