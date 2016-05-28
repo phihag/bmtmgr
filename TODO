@@ -1,4 +1,3 @@
-option to log out
 anonymous entry
 	depending on discipline show fields
 add player during entry
@@ -9,7 +8,8 @@ go through style
 SPAM prevention for new entries
 mail Miles
 
-
+minify
+add report_error
 option devmode that enables/disables stuff in progress
 
 in teams move seeding to top

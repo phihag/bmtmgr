@@ -33,6 +33,7 @@ if ($u) {
 				'id' => $d->id,
 				'name' => $d->name,
 				'dtype' => $d->dtype,
+				'specs' => $d->player_specs(),
 			];
 		}, $disciplines),
 	];
