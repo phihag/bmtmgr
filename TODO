@@ -1,6 +1,9 @@
 anonymous entry
 	depending on discipline show fields
-add player during entry
+	support discipline change
+	allow changing club
+	add player during entry
+	fix style
 anonymous entry list
 installation tool
 	configure first user in installation

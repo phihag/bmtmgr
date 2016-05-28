@@ -81,20 +81,22 @@ function autocomplete_renderItem(ul, item) {
 	return li;
 }
 
-function autocomplete_set_value(ps, item) {
-	$(ps).val('(' + item.textid + ') ' + item.name);
-	var club_field = $(ps).parent().find('.club');
-	club_field.val('(' + item.club_textid + ') ' + item.club_name);
-	club_field.addClass('club_selector_autoset');
-}
-
 function add_player_selection_row(discipline, spec, container, entry_idx, row_idx) {
 	var sel_row = uiu.create_el(container, 'div', {
 		'class': 'aentry_selection_row',
 	});
 
-	var ps = uiu.create_el(container, 'input', {
-		'name': 'player_name_' + entry_idx,
+	var textid_input = uiu.create_el(sel_row, 'input', {
+		'name': 'player_textid_' + entry_idx + '_' + row_idx,
+		'class': 'aentry_textid',
+		'readonly': 'readonly',
+		'size': 8,
+	});
+	var player_input = uiu.create_el(sel_row, 'input', {
+		'name': 'player_name_' + entry_idx + '_' + row_idx,
+	});
+	var club_input = uiu.create_el(sel_row, 'input', {
+		'name': 'club_' + entry_idx + '_' + row_idx,
 	});
 
 	function player_search(request, response) {
@@ -109,11 +111,17 @@ function add_player_selection_row(discipline, spec, container, entry_idx, row_id
 		}).error(response());
 	}
 
-	$(ps).autocomplete({
+	function autocomplete_set_value(item) {
+		textid_input.value = item.textid;
+		player_input.value = item.name;
+		club_input.value = '(' + item.club_textid + ') ' + item.club_name;
+	}
+
+	$(player_input).autocomplete({
 		minLength: 3,
 		source: player_search,
 		select: function(event, ui) {
-			autocomplete_set_value(ps, ui.item);
+			autocomplete_set_value(ui.item);
 			event.preventDefault();
 
 			var tabables = $('input:not([tabindex="-1"])');
@@ -128,11 +136,11 @@ function add_player_selection_row(discipline, spec, container, entry_idx, row_id
 			tabables.eq(nextIndex).focus();
 		},
 		focus: function(event, ui) {
-			autocomplete_set_value(ps, ui.item);
+			autocomplete_set_value(ui.item);
 			event.preventDefault(); 
 		},
 
-		appendTo: $(ps).parent()
+		appendTo: $(player_input).parent()
 	}).data("ui-autocomplete")._renderItem = autocomplete_renderItem;
 
 }
