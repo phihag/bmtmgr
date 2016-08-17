@@ -55,6 +55,10 @@ function render($data) {
 
 		$entry_id = 0;
 		foreach ($d->entries as $entry) {
+			if ($d->capacity && ($entry_id >= $d->capacity)) {
+				break;
+			}
+
 			$eplayers = $entry['players'];
 			$player_idx = 0;
 			foreach ($eplayers as $player) {
