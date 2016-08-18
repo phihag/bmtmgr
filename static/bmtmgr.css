@@ -270,6 +270,11 @@ td.without_partner {
 .player_table .player_winrate {
     color: #aaa;
 }
+.player_table .avg_bax {
+    color: #888;
+    text-align: right;
+}
+
 
 form.entry_form label {
     font-size: 120%;

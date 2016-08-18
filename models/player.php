@@ -14,6 +14,9 @@ class Player extends \bmtmgr\Model {
 	public $phone;
 	public $league;
 	public $winrate;
+	public $baxe;
+	public $baxd;
+	public $baxm;
 
 	public function __construct($row, $_is_new=true) {
 		$this->id = $row['id'];
@@ -28,6 +31,9 @@ class Player extends \bmtmgr\Model {
 		$this->phone = $row['phone'];
 		$this->league = $row['league'];
 		$this->winrate = $row['winrate'];
+		$this->baxe = $row['baxe'];
+		$this->baxd = $row['baxd'];
+		$this->baxm = $row['baxm'];
 		$this->_is_new = $_is_new;
 	}
 
@@ -128,6 +134,9 @@ class Player extends \bmtmgr\Model {
 			'phone' => null,
 			'league' => null,
 			'winrate' => null,
+			'baxe' => null,
+			'baxd' => null,
+			'baxm' => null,
 		], true);
 	}
 }

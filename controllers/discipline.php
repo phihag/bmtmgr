@@ -12,8 +12,20 @@ $season = $tournament->get_season();
 $disciplines = $tournament->get_disciplines();
 $entries = $discipline->get_entry_rows();
 
+$bax_row = $discipline->bax_row();
 foreach ($entries as &$e) {
 	$e['entry_rowspan'] = $discipline->is_team() ? (\count($e['players']) + 1) : 1;
+	$bax_count = 0;
+	$bax_sum = 0;
+	foreach ($e['players'] as $player) {
+		$bax_val = $player->{$bax_row};
+		if (! $bax_val) continue;
+		$bax_sum += $bax_val;
+		$bax_count++;
+	}
+	if ($bax_count > 0) {
+		$e['avg_bax'] = \intval(\round($bax_sum / $bax_count));
+	}
 }
 
 render('discipline', [

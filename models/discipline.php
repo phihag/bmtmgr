@@ -113,6 +113,24 @@ class Discipline extends \bmtmgr\Model {
 		}
 	}
 
+	public function bax_row() {
+		switch ($this->dtype) {
+		case 'AS':
+		case 'MS':
+		case 'WS':
+		case 't5':
+			return 'baxe';
+		case 'MD':
+		case 'WD':
+		case 'AD':
+			return 'baxd';
+		case 'MX':
+			return 'baxm';
+		default:
+			\assert(false);
+		}
+	}
+
 	public function partner_gender() {
 		switch ($this->dtype) {
 		case 'MD':
