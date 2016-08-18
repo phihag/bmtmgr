@@ -35,6 +35,7 @@ RewriteRule ^season/([0-9]+)/club/$ controllers/season_club_list.php?season_id=$
 RewriteRule ^season/([0-9]+)/club/([-a-z0-9]+)/$ controllers/season_club_player_list.php?season_id=$1&club_id=$2 [L]
 RewriteRule ^season/([0-9]+)/club/([-a-z0-9]+)/player_create$ controllers/player_create.php?season_id=$1&club_id=$2 [L]
 RewriteRule ^season/([0-9]+)/player/$ controllers/season_player_list.php?season_id=$1 [L]
+RewriteRule ^season/([0-9]+)/bax-download$ controllers/bax_download.php?season_id=$1 [L]
 RewriteRule ^season/create$ controllers/season_create.php [L]
 RewriteRule ^season/import$ controllers/season_import.php [L]
 RewriteRule ^player/([0-9]+)/$ controllers/player_show.php?player_id=$1 [L]

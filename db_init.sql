@@ -66,6 +66,9 @@ CREATE TABLE player (
 	phone TEXT,
 	league TEXT,
 	winrate REAL,
+	baxe INTEGER,
+	baxd INTEGER,
+	baxm INTEGER,
 	FOREIGN KEY(season_id) REFERENCES season(id),
 	FOREIGN KEY(club_id) REFERENCES club(id),
 	UNIQUE (season_id, textid)

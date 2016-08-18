@@ -28,4 +28,10 @@ Diese Liga ist derzeit nur für Administratoren sichtbar.
 
 <h2><a href="{{root_path}}season/{{id}}/club/">Vereine</a></h2>
 
+
+<form action="{{root_path}}season/{{id}}/bax-download" method="post">
+{{{csrf_field}}}
+<button>BAX herunterladen</button>
+</form>
+
 {{/season}}
