@@ -274,6 +274,10 @@ td.without_partner {
     color: #888;
     text-align: right;
 }
+.player_table .player_bax {
+    color: #888;
+    text-align: right;
+}
 
 
 form.entry_form label {

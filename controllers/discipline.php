@@ -17,9 +17,10 @@ foreach ($entries as &$e) {
 	$e['entry_rowspan'] = $discipline->is_team() ? (\count($e['players']) + 1) : 1;
 	$bax_count = 0;
 	$bax_sum = 0;
-	foreach ($e['players'] as $player) {
+	foreach ($e['players'] as &$player) {
 		$bax_val = $player->{$bax_row};
 		if (! $bax_val) continue;
+		$player->bax = $bax_val;
 		$bax_sum += $bax_val;
 		$bax_count++;
 	}
