@@ -96,6 +96,9 @@ foreach ($matches as $m) {
 				'phone' => null,
 				'league' => null,
 				'winrate' => null,
+				'baxe' => null,
+				'baxm' => null,
+				'baxd' => null,
 			], true);
 			$p->save();
 		}
