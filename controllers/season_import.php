@@ -37,7 +37,7 @@ $clubs_url = $base_url . 'clubs' . $m[2];
 
 $clubs_content = cache_get($clubs_url);
 
-if (! preg_match('#<div id="divTournamentHeader" class="header">\s*<div class="title"><h3>(.*)</h3>#', $clubs_content, $m)) {
+if (! preg_match('#<div class="title">\s*<h3>(.*?)</h3>#', $clubs_content, $m)) {
 	throw new \Exception('Cannot find season name');
 }
 $name = \html_entity_decode($m[1], ENT_QUOTES | ENT_HTML5, 'utf-8');
