@@ -26,12 +26,18 @@ class Discipline extends \bmtmgr\Model {
 
 	public function player_specs() {
 		$g1 = $this->player_gender();
-		$spec1 = self::gender2spec($g1, ['required' => ! $this->is_mixed(), 'name' => 'player0']);
+		$spec1 = self::gender2spec($g1, [
+			'required' => ! $this->is_mixed(),
+			'name' => 'player0',
+			'autofocus' => !$this->is_team()]);
 		if ($this->player_count() === 1) {
 			return [$spec1];
 		}
 
-		$spec2 = self::gender2spec($this->partner_gender(), ['name' => 'player1', 'required' => false]);
+		$spec2 = self::gender2spec($this->partner_gender(), [
+			'name' => 'player1',
+			'required' => false
+		]);
 		if ($this->player_count() === 2) {
 			return [$spec1, $spec2];
 		} else {
