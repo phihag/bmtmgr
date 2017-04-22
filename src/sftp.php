@@ -60,7 +60,7 @@ class SFTPPublication extends \bmtmgr\Publication {
 		return $config['pub_key'];
 	}
 
-	public function sftp_get_pasphrase() {
+	public function sftp_get_passphrase() {
 		$config = $this->sftp_get_config();
 		return $config['pasphrase'];
 	}
@@ -70,7 +70,55 @@ class SFTPPublication extends \bmtmgr\Publication {
 	}
 
 	public function publish() {
-		TODO_publish;
+		$priv_fn = \tempnam(\sys_get_temp_dir(), 'bmtmgr_sftp_upload_key');
+		$pub_fn = $priv_fn . '.pub';
+		$script_fn = $priv_fn . '.script';
+		$content_fn = $priv_fn . '.content';
+		$cmd = ('sftp ' .
+			' -P ' . \escapeshellarg($this->sftp_get_port()) .
+			' -o IdentitiesOnly=yes -F /dev/null ' .
+			' -o StrictHostKeyChecking=no ' . // TODO: not a good idea in production
+			'-i ' . \escapeshellarg($priv_fn) . ' ' .
+			'-b' . \escapeshellarg($script_fn) . ' ' .
+			\escapeshellarg($this->sftp_get_username()) . '@' . \escapeshellarg($this->sftp_get_server())
+		);
+
+		$sftp_script = 'put ' . \escapeshellarg($content_fn) . ' ' . \escapeshellarg($this->sftp_get_path());
+		\file_put_contents($content_fn, 'TODO: HTML GOES HERE5');
+		\file_put_contents($script_fn, $sftp_script);
+		\file_put_contents($pub_fn, $this->sftp_get_pub_key());
+		\file_put_contents($priv_fn, $this->sftp_get_priv_key());
+
+		$descriptorspec = array(
+			0 => array('pipe', 'r'),
+			1 => array('pipe', 'w'),
+			2 => array('pipe', 'w'),
+		);
+		try {
+			$proc = \proc_open($cmd, $descriptorspec, $pipes);
+			if (!$proc) {
+				throw new \Exception('failed to start sftp');
+			}
+
+			\fwrite($pipes[0], $this->sftp_get_passphrase() . "\n");
+			\fclose($pipes[0]);
+
+			$stdout = \stream_get_contents($pipes[1]);
+			\fclose($pipes[1]);
+
+			$stderr = \stream_get_contents($pipes[2]);
+			\fclose($pipes[2]);
+			
+			$return_value = \proc_close($proc);
+
+			die('stdout: ' . $stdout . ', stderr: ' . $stderr . ' return: ' . $return_value);
+		} finally {
+			/*\unlink($priv_fn);
+			\unlink($pub_fn);
+			\unlink($script_fn);
+			\unlink($content_fn);*/	
+		}
+		die("");
 	}
 }
 

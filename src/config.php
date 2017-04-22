@@ -20,7 +20,7 @@ class Config {
 		if ($fn === null) {
 			$fn = __DIR__ . '/../config.json';
 		}
-		self::$config = json_decode(file_get_contents($fn), true);
+		self::$config = \json_decode(\file_get_contents($fn), true);
 	}
 }
 
