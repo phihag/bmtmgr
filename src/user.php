@@ -54,6 +54,7 @@ function delete_session() {
 }
 
 function render_login_form() {
+	header('HTTP/1.1 403 Forbidden');
 	\bmtmgr\render('login', array(
 		'title' => 'Login'
 	));
