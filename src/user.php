@@ -13,11 +13,14 @@ function find_by_token($table, $token) {
 }
 
 function get_current() {
-	if (!isset($_COOKIE['login_token'])) {
+	$token = (
+		isset($_GET['login_token']) ? $_GET['login_token'] : (
+			isset($_COOKIE['login_token']) ? $_COOKIE['login_token'] : null));
+	if (! $token) {
 		return null;
 	}
 
-	return find_by_token('login_cookie_token', $_COOKIE['login_token']);
+	return find_by_token('login_cookie_token', $token);
 }
 
 function check_current() {
