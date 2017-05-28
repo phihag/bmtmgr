@@ -39,7 +39,7 @@ $(function() {
     });
     function goto_discipline_go() {
         function unify(s) {
-            return s.toLowerCase().replace(/[-\suo]/g, '');
+            return s.toLowerCase().replace(/[-\su]/g, '');
         }
         var v = unify($('#discipline-goto input').val());
         $.each(get_disciplines(), function(i, d) {
