@@ -13,7 +13,11 @@ $season = Season::by_id($_GET['season_id']);
 $club = Club::by_id($_GET['club_id']);
 
 $name = \sprintf('%s, %s', $_POST['lastname'], $_POST['firstname']);
-$textid = \str_replace(' ', '_', $club->name . '-' . $_POST['firstname'] . ' ' . $_POST['lastname']);
+if (isset($_POST['textid'])) {
+	$textid = $_POST['textid'];
+} else {
+	$textid = \str_replace(' ', '_', $club->name . '-' . $_POST['firstname'] . ' ' . $_POST['lastname']);
+}
 
 try {
 	$player = Player::create($season->id, $club->id, $textid, $name, $_POST['gender']);
