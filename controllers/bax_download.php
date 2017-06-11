@@ -76,26 +76,26 @@ $FIELDS = [
 $count = 100000;
 
 Model::beginTransaction();
+$pcount = 0;
 foreach (['m', 'f'] as $gender) {
 	foreach ($FIELDS as $online_discipline=>$db_key) {
 		$bax_url = 'http://www.badminton-bax.de/index.php/bax-portal/bax-rang?saisons=' . $season_digits . '&disziplin=' . $online_discipline . '&sex=' . $gender . '&jgang_von=1905&jgang_bis=2028&check_id=on&check_pos=on&check_jahrgang=on&check_verein=on&check_alt=on&check_niveau=on&check_erfolg=on&zeig_rang=&von_pos=1&um_anz=' . $count . '&auswahl=d&auswahl2=s';
 
 		\curl_setopt($ch, \CURLOPT_URL, $bax_url);
-
 		$result = \curl_exec($ch);
 
 		$s = $GLOBALS['db']->prepare('UPDATE player SET ' . $db_key . '=? WHERE season_id=? AND textid=?');
-
 		preg_match_all(
-			'/^\s*<td align=\'right\'>&nbsp;([0-9-]+)&nbsp;<\/td>.*?<td align=\'center\'><b>([0-9]+)<\/b><\/td>/ms',
+			'/^\s*<td align=\'right\'>&nbsp;([0-9]+-[0-9]+)&nbsp;<\/td>.*?<td align=\'center\'><b>([0-9]+)<\/b><\/td>/ms',
 			$result, $matches, \PREG_SET_ORDER);
 		foreach ($matches as $m) {
 			$s->execute([\intval($m[2]), $season->id, $m[1]]);
+			$pcount++;
 		}
 	}
 }
 Model::commit();
 
-echo 'Imported.';
+echo 'Imported ' . $pcount . ' entries.';
 
 \curl_close ($ch);
