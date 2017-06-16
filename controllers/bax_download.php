@@ -37,9 +37,10 @@ $u->require_perm('admin');
 utils\require_get_params(['season_id']);
 $season = Season::by_id($_GET['season_id']);
 
-\assert($season->name === 'Ligen NRW 2015-16');
-$season_digits = '1516';
-
+if (!\preg_match('/^Ligen NRW 20([0-9]{2})(?:-|\/)(?:20)?([0-9]{2})$/', $season->name, $matches)) {
+	throw new \Exception('Cannot extract years from ' . $season->name);
+}
+$season_digits = $matches[1] . $matches[2];
 
 $ch = \curl_init();
 
