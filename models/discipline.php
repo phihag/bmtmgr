@@ -291,6 +291,7 @@ class Discipline extends \bmtmgr\Model {
 			':term_search_textid' => '%' . $term . '%',
 			':term_search' => '%' . $term . '%',
 		];
+		$gender = 'a'; // Always suggest players of both genders
 		if ($gender !== 'a') {
 			$vals[':gender'] = $gender;
 		}
