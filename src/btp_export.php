@@ -50,7 +50,7 @@ function render($data) {
 		} elseif (\preg_match('/^D([DE]) U0?([0-9]+)$/', $dname, $m)) {
 			$dname = 'M' . $m[1] . ' U' . $m[2];
 		} elseif (\preg_match('/^(DD|DE|GD|HD|HE|MX)-?\s*([A-Z])$/', $dname, $m)) {
-			$dname = $m[1] . $m[2];
+			$dname = $m[1] . ' ' . $m[2];
 		}
 
 		$entry_id = 0;
